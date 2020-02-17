@@ -20,9 +20,9 @@
                           description="#{msg['SEDUserDefDesc']}"
                           icon="ui-icon-svg-users"
                           >
-            <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->                
                 <p:dataTable id="TblSedUser" 
-                             var="sp" 
+                             var="sp"
+                             class="settings-page-table"
                              value="#{adminSEDUserView.list}"
                              selectionMode="single"
                              selection="#{adminSEDUserView.selected}"
@@ -31,7 +31,6 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="25,50,100,200" 
                              paginator="true" 
-                             style="padding: 0px; margin: 0px"
                              scrollable="true" 
                              scrollHeight="100%"
                              rows="100"  >
@@ -70,7 +69,6 @@
                         </p:dataList>
                     </p:rowExpansion>
                 </p:dataTable>
-            </p:scrollPanel>           
         </pnl:pnl-settings>
     </composite:implementation>
 

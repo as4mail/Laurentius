@@ -6,7 +6,6 @@ package si.laurentius.msh.web.abst;
 
 import java.util.List;
 import javax.xml.bind.JAXBException;
-import org.primefaces.context.RequestContext;
 import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.xml.XMLUtils;
 import si.laurentius.msh.web.gui.dlg.DialogDelete;
@@ -48,7 +47,7 @@ abstract public class AbstractAdminJSFView<T> extends AbstractJSFView {
         }
       }
     }
-    RequestContext.getCurrentInstance().addCallbackParam("saved", bsuc);
+    addCallbackParam(CB_PARA_SAVED, bsuc);
     LOG.logEnd(l);
   }
 
@@ -120,9 +119,9 @@ abstract public class AbstractAdminJSFView<T> extends AbstractJSFView {
   public void removeSelectedWithWarning(String updateTarget) {
     DialogDelete dlg = getDlgDelete();
     dlg.setCurrentJSFView(this, updateTarget);
-    RequestContext context = RequestContext.getCurrentInstance();
-    context.execute("PF('DlgDelete').show();");
-    context.update("dlgdelete:deleteDialog");
+    
+    executeScript("PF('DlgDelete').show();");
+    update("dlgdelete:deleteDialog");
   };
   
   /**
@@ -131,9 +130,8 @@ abstract public class AbstractAdminJSFView<T> extends AbstractJSFView {
   public void showEditableAsString(String updateTarget) {
     DialogXMLEdit dlg = getDialogXMLEdit();
     dlg.setCurrentJSFView(this, updateTarget);
-    RequestContext context = RequestContext.getCurrentInstance();
-    context.execute("PF('dialogXMLEdit').show();");
-    context.update("dlgEntityEdit:dialogLayout");
+    executeScript("PF('dialogXMLEdit').show();");
+    update("dlgEntityEdit:dialogLayout");
   };
   
  public  Object getBean(final String beanName) {

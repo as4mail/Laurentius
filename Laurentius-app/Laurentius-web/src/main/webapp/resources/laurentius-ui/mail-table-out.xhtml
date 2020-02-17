@@ -20,79 +20,82 @@
                           description="#{msg['OutboxDefDesc']}"
                           icon="ui-icon-svg-outbox"
                           >
+            <script> 
+                $(window).resize(function () {
+                    adjustTableColumns('OutMailTable', 'OutMailTableContainer', true);
+                });
+            </script>
+            <div id="OutMailDataMain" class="p-grid p-dir-col" style="min-width:400px;min-height:400px;height: 100%;width: 100%">
 
-            <p:layout   widgetVar="OutMailDataMain" style="min-width:400px;min-height:400px;height: 100%;width: 100%"  >
-                <p:layoutUnit position="center" style="width:100%;height:100%;padding: 0px; margin: 0px" gutter="0" >
-                    <p:scrollPanel mode="native" style="width:100%;height:100%"> 
-                        <p:dataTable id="OutMailTable" 
-                                     var="outMail"
-                                     value="#{OutMailDataView.mailList}" 
+                <div id="OutMailTableContainer" class="p-col" style="height: calc(100% - 220px);width: 100%">
+                    <p:dataTable id="OutMailTable" widgetVar="OutMailTable" 
+                                 var="outMail"
+                                 value="#{OutMailDataView.mailList}" 
+                                 selection="#{OutMailDataView.selected}" 
+                                 rowKey="#{outMail.id}"
+                                 currentPageReportTemplate="#{msg['Showing']} {startRecord}-{endRecord} #{msg['OutOf']} {totalRecords}"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="25,50,100,200,500,1000" 
+                                 resizableColumns="true"
+                                 paginator="true" 
+                                 rows="50" 
+                                 lazy="true"
+                                 style="padding: 0px; margin: 0px;height: 100%;width: 100%"
+                                 scrollable="true" 
+                                 scrollHeight="100%"
+                                 >
+                        <p:ajax event="rowSelect" 
+                                listener="#{OutMailDataView.onRowSelect}" 
+                                update=":forms:OutMailPanel:OutMailPanelData:OutMailTab" 
+                                onstart="PF('blockMainPanel').show();"
+                                oncomplete="PF('blockMainPanel').hide();"
+                                />
+                        <p:ajax event="page"
+                                onstart="PF('blockMainPanel').show();"
+                                oncomplete="PF('blockMainPanel').hide();"
+                                />  
+                        <f:facet name="header">
+                            <p:commandButton id="toggler" type="button" value="#{msg['Columns']}" 
+                                             style="float:right" icon="ui-icon-calculator" />
+                            <p:columnToggler datasource="OutMailTable" trigger="toggler" />
+                        </f:facet>
 
-                                     selection="#{OutMailDataView.selected}" 
-                                     rowKey="#{outMail.id}"
-                                     currentPageReportTemplate="#{msg['Showing']} {startRecord}-{endRecord} #{msg['OutOf']} {totalRecords}"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="25,50,100,200,500,1000" 
-                                     paginator="true" 
-                                     rows="50" 
-                                     lazy="true"
-                                     style="padding: 0px; margin: 0px"
-                                     scrollable="true" 
-                                     scrollHeight="100%"
-                                     >
-                            <p:ajax event="rowSelect" 
-                                    listener="#{OutMailDataView.onRowSelect}" 
-                                    update=":forms:OutMailPanel:OutMailPanelData:OutMailTab" 
-                                    onstart="PF('blockMainPanel').show();"
-                                    oncomplete="PF('blockMainPanel').hide();"
-                                    />
-                            <p:ajax event="page"
-                                    onstart="PF('blockMainPanel').show();"
-                                    oncomplete="PF('blockMainPanel').hide();"
-                                    />  
-                            <f:facet name="header">
-                                <p:commandButton id="toggler" type="button" value="#{msg['Columns']}" 
-                                                 style="float:right" icon="ui-icon-calculator" />
-                                <p:columnToggler datasource="OutMailTable" trigger="toggler" />
-                            </f:facet>
+                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-
-                            <!-- p:column width="60" headerText=" # { msg['Nu']}">
-                                <h:outputText value=" # { OutMailDataView.rowIndex(outMail) + 1}" />
-                            </p:column -->
+                        <!-- p:column width="60" headerText=" # { msg['Nu']}">
+                            <h:outputText value=" # { OutMailDataView.rowIndex(outMail) + 1}" />
+                        </p:column -->
 
 
-                            <p:column width="70"  headerText="#{msg['Status']}"
-                                      style="background-color:#{OutMailDataView.getStatusColor(outMail.status)}" >
-                                <h:outputText value="#{outMail.status}" />
-                            </p:column>
-                            <p:column width="180" headerText="#{msg['Transaction']}" >
-                                <h:outputText value="#{outMail.conversationId}" />
-                            </p:column>
+                        <p:column width="70"  headerText="#{msg['Status']}"
+                                  style="background-color:#{OutMailDataView.getStatusColor(outMail.status)}" >
+                            <h:outputText value="#{outMail.status}" />
+                        </p:column>
+                        <p:column width="180" headerText="#{msg['Transaction']}" >
+                            <h:outputText value="#{outMail.conversationId}" />
+                        </p:column>
 
-                            <p:column width="120" headerText="#{msg['SubDate']}" >
-                                <h:outputText value="#{outMail.submittedDate}"  ><f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="CET" />
-                                </h:outputText>
-                            </p:column>
+                        <p:column width="120" headerText="#{msg['SubDate']}" >
+                            <h:outputText value="#{outMail.submittedDate}"  ><f:convertDateTime pattern="dd.MM.yyyy HH:mm" timeZone="CET" />
+                            </h:outputText>
+                        </p:column>
 
-                            <p:column headerText="#{msg['Sender']}">      
-                                <h:outputText value="#{outMail.senderName}" />
-                            </p:column>
+                        <p:column headerText="#{msg['Sender']}">      
+                            <h:outputText value="#{outMail.senderName}" />
+                        </p:column>
 
-                            <p:column headerText="#{msg['Receiver']}">
-                                <h:outputText value="#{outMail.receiverName}" />
-                            </p:column>
-                            <p:column width="150"  headerText="#{msg['Service']}">
-                                <h:outputText value="#{outMail.service}" />
-                            </p:column>
-                            <p:column width="150"  headerText="#{msg['Action']}">
-                                <h:outputText value="#{outMail.action}" />
-                            </p:column>
-                        </p:dataTable>
-                    </p:scrollPanel>  
-                </p:layoutUnit>
-                <p:layoutUnit  position="south" resizable="true" closable="true" collapsible="true" size="200" minSize="40" maxSize="400" style="width:100%;height:100%;padding: 0px; margin: 0px" gutter="0">
+                        <p:column headerText="#{msg['Receiver']}">
+                            <h:outputText value="#{outMail.receiverName}" />
+                        </p:column>
+                        <p:column width="150"  headerText="#{msg['Service']}">
+                            <h:outputText value="#{outMail.service}" />
+                        </p:column>
+                        <p:column width="150"  headerText="#{msg['Action']}">
+                            <h:outputText value="#{outMail.action}" />
+                        </p:column>
+                    </p:dataTable>
+                </div>
+                <div class="p-col" style="height:220px">
                     <p:tabView id="OutMailTab" style="height: 100%" activeIndex="#{OutMailDataView.tabActiveIndex}" >
                         <p:ajax event="tabChange" listener="#{OutMailDataView.onTabChange}"/> 
                         <p:tab   id="OutMailDataTab"  title="#{msg['MailData']}">
@@ -261,7 +264,7 @@
 
                             </p:outputPanel>
                         </p:tab>
-                         <p:tab >
+                        <p:tab >
                             <f:facet name="title">
                                 <h:graphicImage value="#{resource['images:/data.svg']}" width="22" height="22" />
                                 <h:outputText value="#{msg['Properties']}" />                                 
@@ -275,7 +278,7 @@
                                     <p:column width="150" headerText="#{msg['Key']}">
                                         <h:outputText value="#{mp.name}" />
                                     </p:column>
-                                    
+
                                     <p:column  headerText="#{msg['Value']}">
                                         <h:outputText value="#{mp.value}"  ></h:outputText>
                                     </p:column>
@@ -285,8 +288,8 @@
                             </p:outputPanel>
                         </p:tab>
                     </p:tabView>
-                </p:layoutUnit>
-            </p:layout>
+                </div>
+            </div>
         </pnl:pnl-settings>
 
     </composite:implementation>

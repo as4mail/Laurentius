@@ -9,7 +9,7 @@
       xmlns:sui="http://java.sun.com/jsf/composite/laurentius-ui"
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
-<h:head>
+    <h:head>
         <title>Laurentius</title>       
     </h:head>
     <composite:interface>
@@ -21,57 +21,54 @@
                           description="#{msg['PModeServiceDefDesc']}"
                           icon="ui-icon-svg-service"
                           >
+            <p:dataTable id="TblPModeServices" 
+                         var="sp"
+                         class="settings-page-table"
+                         value="#{pModeServiceView.list}"
+                         selectionMode="single"
+                         selection="#{pModeServiceView.selected}"
+                         rowKey="#{sp.id}"
 
-            <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->                
-                <p:dataTable id="TblPModeServices" 
-                             var="sp" 
-                             value="#{pModeServiceView.list}"
-                             selectionMode="single"
-                             selection="#{pModeServiceView.selected}"
-                             rowKey="#{sp.id}"
-
-                             currentPageReportTemplate="#{msg['Showing']} {startRecord}-{endRecord} #{msg['OutOf']} {totalRecords}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="25,50,100,200" 
-                             paginator="true" 
-                             style="padding: 0px; margin: 0px"
-                             scrollable="true" 
-                             scrollHeight="100%"
-                             rows="100" 
+                         currentPageReportTemplate="#{msg['Showing']} {startRecord}-{endRecord} #{msg['OutOf']} {totalRecords}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="25,50,100,200" 
+                         paginator="true" 
+                         style="padding: 0px; margin: 0px"
+                         scrollable="true" 
+                         scrollHeight="100%"
+                         rows="100" 
 
 
-                             >
-                    
-                    <p:ajax event="rowDblselect" listener="#{pModeServiceView.startEditSelected()}" 
-                            update=":dlgPModeServiceGraph:pModeServiceGraphDialog:pModeServiceGraphDialogForm"
-                            oncomplete="PF('pModeServiceGraphDialog').show()"/>
+                         >
 
-                    <f:facet name="header">
-                        <pnl:pnl-table-control 
-                            dialogVar="pModeServiceGraphDialog"
-                            updateDialog=":dlgPModeServiceGraph:pModeServiceGraphDialog:pModeServiceGraphDialogForm"
-                            updateTable=":forms:SettingsPModesServices:pmodeServicePanel:TblPModeServices"
-                            addActionListener="#{pModeServiceView.createEditable()}"
-                            editActionListener="#{pModeServiceView.startEditSelected()}"
-                            removeActionListener="#{pModeServiceView.removeSelectedWithWarning(':forms:SettingsPModesServices:pmodeServicePanel:TblPModeServices')}"                            
-                            />       
+                <p:ajax event="rowDblselect" listener="#{pModeServiceView.startEditSelected()}" 
+                        update=":dlgPModeServiceGraph:pModeServiceGraphDialog:pModeServiceGraphDialogForm"
+                        oncomplete="PF('pModeServiceGraphDialog').show()"/>
 
-                    </f:facet>
-                    <p:column  headerText="#{msg['Id']}" width="200">
-                        <h:outputText value="#{sp.id}" />
-                    </p:column>
-                    <p:column  headerText="#{msg['Service']}" >
-                        <h:outputText value="#{sp.serviceName}"></h:outputText>                
-                    </p:column>
-                    <p:column width="160" headerText="#{msg['ServiceType']}">
-                        <h:outputText value="#{sp.serviceType}"></h:outputText>                
-                    </p:column>
-                    <p:column  width="80"  headerText="#{msg['sedProperties']}">
-                        <h:outputText value="#{sp.useSEDProperties}"></h:outputText>                
-                    </p:column>
+                <f:facet name="header">
+                    <pnl:pnl-table-control 
+                        dialogVar="pModeServiceGraphDialog"
+                        updateDialog=":dlgPModeServiceGraph:pModeServiceGraphDialog:pModeServiceGraphDialogForm"
+                        updateTable=":forms:SettingsPModesServices:pmodeServicePanel:TblPModeServices"
+                        addActionListener="#{pModeServiceView.createEditable()}"
+                        editActionListener="#{pModeServiceView.startEditSelected()}"
+                        removeActionListener="#{pModeServiceView.removeSelectedWithWarning(':forms:SettingsPModesServices:pmodeServicePanel:TblPModeServices')}"                            
+                        />       
 
-                </p:dataTable>
-            </p:scrollPanel>
+                </f:facet>
+                <p:column  headerText="#{msg['Id']}" width="200">
+                    <h:outputText value="#{sp.id}" />
+                </p:column>
+                <p:column  headerText="#{msg['Service']}" >
+                    <h:outputText value="#{sp.serviceName}"></h:outputText>                
+                </p:column>
+                <p:column width="160" headerText="#{msg['ServiceType']}">
+                    <h:outputText value="#{sp.serviceType}"></h:outputText>                
+                </p:column>
+                <p:column  width="80"  headerText="#{msg['sedProperties']}">
+                    <h:outputText value="#{sp.useSEDProperties}"></h:outputText>                
+                </p:column>
+            </p:dataTable>
         </pnl:pnl-settings>
     </composite:implementation>
 

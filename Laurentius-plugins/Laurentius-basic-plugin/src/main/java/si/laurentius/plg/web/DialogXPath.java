@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.xml.XMLUtils;
 import si.laurentius.plugin.imp.Namespace;
@@ -78,8 +77,7 @@ public class DialogXPath implements Serializable {
         editable = null;
       }
     }
-    RequestContext.getCurrentInstance().addCallbackParam("saved", true);
-
+    PrimeFaces.current().ajax().addCallbackParam("saved", true);
   }
 
   public void createNamespace() {

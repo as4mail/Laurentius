@@ -1,3 +1,13 @@
+
+
+
+.settings-page-table {
+    padding: 0px; 
+    margin: 0px;
+    height: calc(100% - 35px);
+    width: 100%    
+}
+
 input {
     box-sizing: border-box;    
 }
@@ -24,17 +34,6 @@ h3 {
     padding: 0 !important;
     
     
-}
-
-.ui-datatable-scrollable-body, 
-.ui-accordion-content {
-    background: #cdcfcf;
-    background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
-    background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
-    background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
-
 }
 
 
@@ -74,11 +73,16 @@ h3 {
 
 }
 
-
 .ui-accordion-content {
-    height: 500px;
+    background: #cdcfcf;
+    background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
+    background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
+    background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
     padding: 10px 10px !important;
     margin:  0em 0em !important;
+    height: 100%;
 }
 
 .ui-accordion-button {
@@ -119,58 +123,16 @@ h3 {
     text-decoration: none;
 }
 
-
-
-
-/************************************************************************/
-/* Data table                                                                */
-/************************************************************************/
-
-.ui-datatable .ui-datatable-header,
-.ui-datatable .ui-datatable-footer, 
-.ui-datatable tbody td {
-    text-align: left !important;
-    padding: 1px 1px !important;    
-    margin: 0 !important;
-    font-size: 90% !important;
-}
-
-
-
-
-
-.ui-datatable-odd {
-    background: #ffffff;    
-    padding:1px 1px;  
-
-}
-
-.ui-datatable-even {
-    background: #D2D5F9;
-    padding:1px 1px;  
-
-}
-
-
 .ui-selectonemenu {
     box-sizing: border-box; width: 100%;
     min-width: 50px !important;
 }
 
-.ui-datatable-cell-red {
-    background-color: indianred;
-    background: indianred;
-    color: black;
-}
 .ui-selectonemenu-label-red {
     background-color: indianred;
     color: black;
 }
 
-.ui-datatable-cell-orange {
-    background-color: orange;
-    color: black;
-}
 .ui-selectonemenu-label-orange {
     background-color: orange;
     color: black;

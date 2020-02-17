@@ -10,8 +10,10 @@
       >
     <h:head>
         <title>Laurentius User GUI</title>
-        <h:outputStylesheet name="css/main.css" />
-        <h:outputStylesheet name="css/icons.css" />
+        <h:outputScript library="js" name="datatable-resize.js" />
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="icons.css" />
+        <h:outputStylesheet library="css" name="datatable.css" />
     </h:head>
     <f:view locale="#{localeManager.locale}" >
         <h:body>
@@ -50,7 +52,7 @@
                                 <span class="ui-separator">
                                     <span class="ui-icon ui-icon-grip-dotted-vertical " />
                                 </span>
-                                <p:commandButton value="#{msg['ExportCSV']}" styleClass="toolbar-Button"  
+                                <!-- p:commandButton value="#{msg['ExportCSV']}" styleClass="toolbar-Button"  
                                                  rendered="#{mainWindow.isCurrentPanel('PANEL_OUTBOX')}" 
                                                  icon="ui-icon-size-22 ui-icon-svg-csv"
 
@@ -64,7 +66,7 @@
                                                  update=":dlgExportInData:exportInDataDialogForm"
                                                  oncomplete="PF('exportInDataDialog').show()"
                                                  />
-
+-->
                                 <span class="ui-separator">
                                     <span class="ui-icon ui-icon-grip-dotted-vertical " />
                                 </span>
@@ -532,7 +534,7 @@
             <dlg:dlg-pmode-exchange-party id="dlgPModeExchangeParty" />
             <dlg:dlg-pmode-mep id="dlgPModeMEP" />
             <dlg:dlg-proxy id="dlgProxy" />
-            <dlg:dlg-work-free-days id="dlgWokFreeDays" />
+            <!-- dlg:dlg-work-free-days id="dlgWokFreeDays" / -->
             
             <dlg:dlg-test-address id="dlgTestAddress" />
             <dlg:dlg-plugin id="dlgplugin" />
