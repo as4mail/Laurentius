@@ -31,7 +31,7 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import org.primefaces.PrimeFaces;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 import si.laurentius.cert.SEDCertificate;
 import si.laurentius.commons.SEDJNDI;
 import si.laurentius.commons.enums.CertStatus;
@@ -125,7 +125,7 @@ public class DialogImportCert implements Serializable {
         try {
 
             File f = File.createTempFile("certstore", ".ks");
-            Files.copy(uf.getInputstream(), f.toPath(),
+            Files.copy(uf.getInputStream(), f.toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
             filepath = f.getAbsolutePath();
             ;

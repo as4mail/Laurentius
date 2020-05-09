@@ -23,7 +23,7 @@ import javax.inject.Named;
 import javax.inject.Inject;
 import javax.enterprise.context.SessionScoped;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.file.UploadedFile;
 import si.laurentius.commons.enums.MimeValue;
 import si.laurentius.commons.exception.StorageException;
 import si.laurentius.commons.utils.SEDLogger;
@@ -146,7 +146,7 @@ public class DialogComposePayloadView extends AbstractPModeJSFView<MSHOutPart> {
     try {
       File f = su.storeFile("doc_", fileName.substring(fileName.lastIndexOf(
               '.') + 1),
-              uf.getInputstream());
+              uf.getInputStream());
 
       if (Utils.isEmptyString(mo.getName())){
         mo.setName(name);
