@@ -9,7 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -17,50 +17,62 @@ import org.primefaces.context.RequestContext;
  */
 public class AbstractJSFView implements Serializable {
 
-  public static final String CB_PARA_SAVED = "saved";
-  public static final String CB_PARA_REMOVED = "removed";
-  public static final String CB_PARA_SUCCESS = "success";
-  
-  /**
-   *
-   * @return
-   */
-  protected ExternalContext externalContext() {
-    return facesContext().getExternalContext();
-  }
+    public static final String CB_PARA_SAVED = "saved";
+    public static final String CB_PARA_REMOVED = "removed";
+    public static final String CB_PARA_SUCCESS = "success";
 
-  /**
-   *
-   * @return
-   */
-  protected FacesContext facesContext() {
-    return FacesContext.getCurrentInstance();
-  }
+    /**
+     *
+     * @return
+     */
+    protected ExternalContext externalContext() {
+        return facesContext().getExternalContext();
+    }
 
-  protected void addError(String desc) {
-    facesContext().addMessage(null,
-            new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
-                    desc));
+    /**
+     *
+     * @return
+     */
+    protected FacesContext facesContext() {
+        return FacesContext.getCurrentInstance();
+    }
 
-  }
-
-  /**
-   *
-   * @return
-   */
-  public String getClientIP() {
-    return ((HttpServletRequest) externalContext().getRequest()).
-            getRemoteAddr();
-  }
-
-  public void addCallbackParam(String val, boolean bval) {
-    RequestContext.getCurrentInstance().addCallbackParam(val, bval);
-  }
-
-  public void update(String... ids) {
-    for (String id : ids) {
-      RequestContext.getCurrentInstance().update(id);
+    protected void addError(String desc) {
+        facesContext().addMessage(null,
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error",
+                        desc));
 
     }
-  }
+
+    /**
+     *
+     * @return
+     */
+    public String getClientIP() {
+        return ((HttpServletRequest) externalContext().getRequest()).
+                getRemoteAddr();
+    }
+
+    public void addCallbackParam(String val, boolean bval) {
+        PrimeFaces.current().ajax().addCallbackParam(val, bval);
+    }
+
+    public void update(String... ids) {
+        for (String id : ids) {
+            PrimeFaces.current().ajax().update(id);
+
+        }
+    }
+
+    public void showDialog(String dlgVarName, String panelUpdateId) {
+        executeScript("PF('"+dlgVarName+"').show();");
+        update(panelUpdateId);
+    }
+
+    public void executeScript(String... scripts) {
+        for (String script : scripts) {
+            PrimeFaces.current().executeScript(script);
+
+        }
+    }
 }

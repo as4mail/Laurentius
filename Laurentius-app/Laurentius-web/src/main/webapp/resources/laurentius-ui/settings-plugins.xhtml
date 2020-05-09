@@ -9,7 +9,7 @@
        xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -23,15 +23,14 @@
         <p:layout   widgetVar="adminPluginView" style="min-width:400px;min-height:400px;height: 100%;width: 100%"  >
 
 
-            <p:layoutUnit position="center" style="width:100%;height:100%;padding: 0px; margin: 0px" gutter="0" >
-                <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->                
+            <p:layoutUnit position="center" style="width:100%;height:100%;padding: 0px; margin: 0px" gutter="0" >             
                     <p:dataTable id="TblPlugin" 
                                  var="sp" 
                                  value="#{adminSEDPluginView.list}"
                                  selectionMode="single"
                                  selection="#{adminSEDPluginView.selected}"
                                  rowKey="#{sp.type}"
-                                 style="padding: 0px; margin: 0px"
+                                 class="settings-page-table"
                                  scrollable="true" 
                                  scrollHeight="100%"
                                  >
@@ -69,7 +68,6 @@
                             <h:outputText value="#{sp.description}" ></h:outputText>                
                         </p:column>
                     </p:dataTable>
-                </p:scrollPanel>
             </p:layoutUnit>       
             <p:layoutUnit  header="#{msg['Plugin']}" position="south" size="300" resizable="false"    >
                 <p:tabView id ="PluginDataView" style="width:100%; " >
@@ -121,7 +119,7 @@
 
                                      paginator="false" 
                                      paginatorPosition="none"
-                                     style="padding: 0px; margin: 0px"
+                                     class="settings-page-table"
                                      scrollable="true" 
                                      scrollHeight="240"
                                      rows="100"  >

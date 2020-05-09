@@ -10,8 +10,10 @@
       >
     <h:head>
         <title>Laurentius User GUI</title>
-        <h:outputStylesheet name="css/main.css" />
-        <h:outputStylesheet name="css/icons.css" />
+        <h:outputScript library="js" name="datatable-resize.js" />
+        <h:outputStylesheet library="css" name="main.css" />
+        <h:outputStylesheet library="css" name="icons.css" />
+        <h:outputStylesheet library="css" name="datatable.css" />
     </h:head>
     <f:view locale="#{localeManager.locale}" >
         <h:body>
@@ -44,13 +46,10 @@
                                                  styleClass="toolbar-Button"
                                                  update=":forms:MainPanel"
                                                  ajax="true" />
-
-
-
                                 <span class="ui-separator">
                                     <span class="ui-icon ui-icon-grip-dotted-vertical " />
                                 </span>
-                                <p:commandButton value="#{msg['ExportCSV']}" styleClass="toolbar-Button"  
+                                <!-- p:commandButton value="#{msg['ExportCSV']}" styleClass="toolbar-Button"  
                                                  rendered="#{mainWindow.isCurrentPanel('PANEL_OUTBOX')}" 
                                                  icon="ui-icon-size-22 ui-icon-svg-csv"
 
@@ -64,7 +63,7 @@
                                                  update=":dlgExportInData:exportInDataDialogForm"
                                                  oncomplete="PF('exportInDataDialog').show()"
                                                  />
-
+-->
                                 <span class="ui-separator">
                                     <span class="ui-icon ui-icon-grip-dotted-vertical " />
                                 </span>
@@ -151,9 +150,6 @@
                                     <span class="ui-icon ui-icon-grip-dotted-vertical " />
                                 </span>
                                 <p:outputLabel value="#{msg['Domain']}:  " /> <b>#{ApplicationData.domain}</b>
-
-
-
                             </f:facet>
 
                         </p:toolbar>
@@ -242,9 +238,13 @@
                             </f:facet>
                         </p:toolbar>
                     </p:layoutUnit>
-                    <p:layoutUnit position="west" resizable="false" size="320" minSize="320" maxSize="320">
+                    <p:layoutUnit position="west" 
+                                  resizable="false" 
+                                  collapsible="true"
+                                  closable="true"
+                                  size="320" minSize="320" maxSize="320">
                         <p:scrollPanel mode="native" style="width:100%;height:100%">
-                            <p:accordionPanel id="toolbars" activeIndex="#{mainWindow.activeToolbarTabIndex}" >
+                            <p:accordionPanel id="toolbars"  activeIndex="#{mainWindow.activeToolbarTabIndex}" >
                                 <p:ajax event="tabChange" listener="#{mainWindow.onToolbarTabChange}" update=":forms:MainPanel :forms:toolbar" />
                                 <p:tab id="PANEL_INBOX"  >
                                     <f:facet name="title">
@@ -532,7 +532,7 @@
             <dlg:dlg-pmode-exchange-party id="dlgPModeExchangeParty" />
             <dlg:dlg-pmode-mep id="dlgPModeMEP" />
             <dlg:dlg-proxy id="dlgProxy" />
-            <dlg:dlg-work-free-days id="dlgWokFreeDays" />
+            <dlg:dlg-work-free-days id="dlgWorkFreeDays" />
             
             <dlg:dlg-test-address id="dlgTestAddress" />
             <dlg:dlg-plugin id="dlgplugin" />

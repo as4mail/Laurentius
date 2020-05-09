@@ -9,7 +9,7 @@
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -20,14 +20,13 @@
                           description="#{msg['InMailProcessDesc']}"
                           icon="ui-icon-svg-process"
                           >
-            <p:scrollPanel mode="native" style="width:100%;height:100%"> 
                 <p:dataTable id="TblInMailProcessRule" 
                              var="sp" 
                              value="#{adminSEDInMailProcessView.list}"
                              selectionMode="single"
                              selection="#{adminSEDInMailProcessView.selected}"
                              rowKey="#{sp.id}"
-                             style="padding: 0px; margin: 0px"
+                             class="settings-page-table"
                              scrollable="true" 
                              scrollHeight="100%"
                              >
@@ -60,7 +59,6 @@
                         <h:outputText value="#{adminSEDInMailProcessView.getRuleDesc(sp)}" />
                     </p:column>     
                 </p:dataTable>
-            </p:scrollPanel>
         </pnl:pnl-settings>
     </composite:implementation>
 

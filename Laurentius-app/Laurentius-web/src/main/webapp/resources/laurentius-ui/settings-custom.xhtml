@@ -9,7 +9,7 @@
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -51,8 +51,8 @@
                     <p:commandButton value="#{msg['Edit']}" styleClass="toolbar-Button"
                                                icon="ui-icon-size-22 ui-icon-svg-csv"   
                                                actionListener="#{adminCustomSettings.updateWorkFreeDaysFromSystemProperties()}"
-                                               oncomplete="PF('WorFreeDaysDialog').show()"
-                                               update=":dlgWokFreeDays:WorFreeDaysDialog:WorFreeDaysDialogForm"/>
+                                               oncomplete="PF('WorkFreeDaysDialog').show()"
+                                               update=":dlgWorkFreeDays:WorkFreeDaysDialog:WorkFreeDaysDialogForm"/>
             
 
             </p:panelGrid>

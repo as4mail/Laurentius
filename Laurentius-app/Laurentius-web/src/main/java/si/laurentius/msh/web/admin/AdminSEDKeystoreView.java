@@ -24,7 +24,6 @@ import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.context.RequestContext;
 import si.laurentius.cert.SEDCertificate;
 import si.laurentius.commons.enums.CertStatus;
 import si.laurentius.commons.SEDJNDI;
@@ -43,180 +42,177 @@ import si.laurentius.msh.web.abst.AbstractAdminJSFView;
 @Named("adminSEDKeystoreView")
 public class AdminSEDKeystoreView extends AbstractAdminJSFView<SEDCertificate> {
 
-  private static final SEDLogger LOG = new SEDLogger(AdminSEDKeystoreView.class);
+    private static final SEDLogger LOG = new SEDLogger(AdminSEDKeystoreView.class);
 
-  @EJB(mappedName = SEDJNDI.JNDI_DBCERTSTORE)
-  SEDCertStoreInterface mCertStore;
+    @EJB(mappedName = SEDJNDI.JNDI_DBCERTSTORE)
+    SEDCertStoreInterface mCertStore;
 
-  KeystoreUtils mku = new KeystoreUtils();
-  private String password;
+    KeystoreUtils mku = new KeystoreUtils();
+    private String password;
 
-  X509Certificate editableCert;
+    X509Certificate editableCert;
 
-  SEDCertificate selectedImportCertificate;
+    SEDCertificate selectedImportCertificate;
 
-  /**
-   *
-   */
-  @Override
-  public void createEditable() {
-    ;
-  }
-
-  @Override
-  public boolean validateData() {
-    SEDCertificate ed = getEditable();
-
-    // test alias.
-    if (Utils.isEmptyString(ed.getAlias())) {
-      addError("Cert alias must not be empty!");
-      return false;
+    /**
+     *
+     */
+    @Override
+    public void createEditable() {
+        ;
     }
-    String oldAlias = getSelected().getAlias();
-    String newAlias = ed.getAlias();
-    if (!Objects.equals(newAlias, oldAlias)) {
 
-      List<SEDCertificate> sdcLst = getList();
+    @Override
+    public boolean validateData() {
+        SEDCertificate ed = getEditable();
 
-      for (SEDCertificate c : sdcLst) {
-        if (!mku.isEqualCertificateDesc(c, ed)
-                && Objects.equals(c.getAlias(), newAlias)) {
-          String msg = String.format("Alias: %s already exists in keystore!",
-                  ed.getAlias());
-          LOG.logWarn(msg, null);
-
-          addError(msg);
-          return false;
+        // test alias.
+        if (Utils.isEmptyString(ed.getAlias())) {
+            addError("Cert alias must not be empty!");
+            return false;
         }
-      }
+        String oldAlias = getSelected().getAlias();
+        String newAlias = ed.getAlias();
+        if (!Objects.equals(newAlias, oldAlias)) {
+
+            List<SEDCertificate> sdcLst = getList();
+
+            for (SEDCertificate c : sdcLst) {
+                if (!mku.isEqualCertificateDesc(c, ed)
+                        && Objects.equals(c.getAlias(), newAlias)) {
+                    String msg = String.format("Alias: %s already exists in keystore!",
+                            ed.getAlias());
+                    LOG.logWarn(msg, null);
+
+                    addError(msg);
+                    return false;
+                }
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean removeSelected() {
+        boolean bSuc = false;
+        SEDCertificate sc = getSelected();
+        if (sc != null) {
+            try {
+                LOG.formatedWarning("Remove selected row %s", sc.getAlias());
+                mCertStore.removeCertificateFromStore(sc);
+                bSuc = true;
+            } catch (SEDSecurityException ex) {
+                String strMessage = String.format(
+                        "Error removing cert for alias %s from keystore! Err: %s", sc.
+                                getAlias(), ex.getMessage());
+                LOG.logError(strMessage, ex);
+                addError(strMessage);
+            }
+
+        }
+        return bSuc;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean persistEditable() {
+        return true;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean updateEditable() {
+        boolean bsuc = false;
+        String oldAlias = getSelected().getAlias();
+        String newAlias = getEditable().getAlias();
+        if (!Objects.equals(newAlias, oldAlias)) {
+
+            try {
+                mCertStore.changeAlias(oldAlias, newAlias);
+                bsuc = true;
+            } catch (SEDSecurityException ex) {
+                String msg = String.format(
+                        "Error changing alias for cert '%s' to '%s'. Err %s",
+                        oldAlias, newAlias, ex.getMessage());
+                LOG.logError(msg, ex);
+                addError(msg);
+                return false;
+            }
+        }
+        return bsuc;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public List<SEDCertificate> getList() {
+        List<SEDCertificate> lst = Collections.emptyList();
+        try {
+            lst = mCertStore.getCertificates();
+        } catch (SEDSecurityException ex) {
+            addError(ex.getMessage());
+            LOG.logError("Error occured while retrieving certificate list!" + ex.
+                    getMessage(), ex);
+        }
+        return lst;
+    }
+
+    public String getRowClass(SEDCertificate crt) {
+        String strClass = null;
+        if (crt.getStatus() != null && crt.getStatus() != 0) {
+            if (crt.getStatus().equals(CertStatus.CRL_NOT_CHECKED.getCode())) {
+                strClass = "ui-datatable-cell-orange";
+            } else {
+                strClass = "ui-datatable-cell-red";
+            }
+        }
+
+        return strClass;
 
     }
 
-    return true;
-  }
-
-  /**
-   *
-   */
-  @Override
-  public boolean removeSelected() {
-    boolean bSuc = false;
-    SEDCertificate sc = getSelected();
-    if (sc != null) {
-      try {
-        LOG.formatedWarning("Remove selected row %s", sc.getAlias());
-        mCertStore.removeCertificateFromStore(sc);
-        bSuc = true;
-      } catch (SEDSecurityException ex) {
-        String strMessage = String.format(
-                "Error removing cert for alias %s from keystore! Err: %s", sc.
-                        getAlias(), ex.getMessage());
-        LOG.logError(strMessage, ex);
-        addError(strMessage);
-      }
-
-    }
-    return bSuc;
-  }
-
-  /**
-   *
-   */
-  @Override
-  public boolean persistEditable() {
-    return true;
-  }
-
-  /**
-   *
-   */
-  @Override
-  public boolean updateEditable() {
-    boolean bsuc = false;
-    String oldAlias = getSelected().getAlias();
-    String newAlias = getEditable().getAlias();
-    if (!Objects.equals(newAlias, oldAlias)) {
-
-      try {
-        mCertStore.changeAlias(oldAlias, newAlias);
-        bsuc = true;
-      } catch (SEDSecurityException ex) {
-        String msg = String.format(
-                "Error changing alias for cert '%s' to '%s'. Err %s",
-                oldAlias, newAlias, ex.getMessage());
-        LOG.logError(msg, ex);
-        addError(msg);
-        return false;
-      }
-    }
-    return bsuc;
-  }
-
-  /**
-   *
-   * @return
-   */
-  @Override
-  public List<SEDCertificate> getList() {
-    List<SEDCertificate> lst = Collections.emptyList();
-    try {
-      lst = mCertStore.getCertificates();
-    } catch (SEDSecurityException ex) {
-      addError(ex.getMessage());
-      LOG.logError("Error occured while retrieving certificate list!" + ex.
-              getMessage(), ex);
-    }
-    return lst;
-  }
-
-  public String getRowClass(SEDCertificate crt) {
-    String strClass = null;
-    if (crt.getStatus()!=null && crt.getStatus() !=0){
-        if (crt.getStatus().equals(CertStatus.CRL_NOT_CHECKED.getCode())){
-          strClass = "ui-datatable-cell-orange";
-        } else {
-          strClass = "ui-datatable-cell-red";
-        }          
+    @Override
+    public String getSelectedDesc() {
+        if (getSelected() != null) {
+            return getSelected().getAlias();
+        }
+        return null;
     }
 
-    return strClass;
-
-  }
-
-  
-
-  @Override
-  public String getSelectedDesc() {
-    if (getSelected() != null) {
-      return getSelected().getAlias();
+    public SEDCertificate getSelectedImportCertificate() {
+        return selectedImportCertificate;
     }
-    return null;
-  }
- 
 
-  public SEDCertificate getSelectedImportCertificate() {
-    return selectedImportCertificate;
-  }
+    public void setSelectedImportCertificate(
+            SEDCertificate selectedImportCertificate) {
+        this.selectedImportCertificate = selectedImportCertificate;
+    }
 
-  public void setSelectedImportCertificate(
-          SEDCertificate selectedImportCertificate) {
-    this.selectedImportCertificate = selectedImportCertificate;
-  }
+    public void resetPassword() {
+        LOG.formatedWarning("Reset password %s", password);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, "Password failed", ""));
 
-  public void resetPassword() {
-    LOG.formatedWarning("Reset password %s", password);
-    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-            FacesMessage.SEVERITY_ERROR, "Password failed", ""));
+        addCallbackParam("failed", true);
+    }
 
-    RequestContext.getCurrentInstance().addCallbackParam("failed", true);
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

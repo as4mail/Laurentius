@@ -26,7 +26,6 @@ import javax.faces.application.FacesMessage;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 import si.laurentius.cert.SEDCertificate;
 import si.laurentius.commons.enums.CertStatus;
 import si.laurentius.commons.SEDJNDI;
@@ -198,8 +197,7 @@ public class AdminSEDRootCAView extends AbstractAdminJSFView<SEDCertificate> {
     LOG.formatedWarning("Reset password %s", password);
     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
             FacesMessage.SEVERITY_ERROR, "Password failed", ""));
-
-    RequestContext.getCurrentInstance().addCallbackParam("failed", true);
+    addCallbackParam("failed", true);
   }
 
   public String getPassword() {

@@ -16,6 +16,7 @@ package si.laurentius.msh.web.abst;
 
 import java.util.List;
 import java.util.Map;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 import si.laurentius.commons.interfaces.SEDDaoInterface;
@@ -124,7 +125,7 @@ public abstract class AbstractMailDataModel<T> extends LazyDataModel<T> {
    */
   @Override
   public List<T> load(int startingAt, int maxPerPage, String sortField, SortOrder sortOrder,
-      Map<String, Object> filters) {
+      Map<String, FilterMeta> filters) {
     String strSortOrder = "DESC";
     // validate data
     Object filterObject = externalFilters();

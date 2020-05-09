@@ -9,7 +9,7 @@
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"       
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -20,10 +20,9 @@
                           description="#{msg['SEDBoxDesc']}"
                           icon="ui-icon-svg-box"
                           >
-            <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->                
-
                 <p:dataTable id="TblSedBox" 
-                             var="sp" 
+                             var="sp"
+                             class="settings-page-table"
                              value="#{adminSEDBoxView.list}"
                              selectionMode="single"
                              selection="#{adminSEDBoxView.selected}"
@@ -32,7 +31,6 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="25,50,100,200" 
                              paginator="true" 
-                             style="padding: 0px; margin: 0px"
                              scrollable="true" 
                              scrollHeight="100%"
                              rows="100"  >
@@ -60,7 +58,6 @@
                         <h:outputText value="#{sp.activeToDate}"  ><f:convertDateTime pattern="dd.MM.yyyy" timeZone="CET" /></h:outputText>                
                     </p:column>
                 </p:dataTable>
-            </p:scrollPanel>
         </pnl:pnl-settings>
     </composite:implementation>
 </html>

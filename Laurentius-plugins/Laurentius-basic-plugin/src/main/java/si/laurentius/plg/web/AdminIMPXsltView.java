@@ -21,8 +21,8 @@ import java.util.Objects;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.primefaces.PrimeFaces;
 
-import org.primefaces.context.RequestContext;
 import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.Utils;
 import si.laurentius.plg.db.IMPDBInterface;
@@ -36,87 +36,87 @@ import si.laurentius.plugin.imp.XSLTRule;
  */
 @SessionScoped
 @Named("adminIMPXsltView")
-public class AdminIMPXsltView extends AbstractAdminJSFView<IMPXslt>   
+public class AdminIMPXsltView extends AbstractAdminJSFView<IMPXslt>
         implements Serializable {
 
-  private static final SEDLogger LOG = new SEDLogger(AdminIMPXsltView.class);
+    private static final SEDLogger LOG = new SEDLogger(AdminIMPXsltView.class);
 
-  @EJB
-  private IMPDBInterface mDB;
-  Namespace selectedNamespace = null;
-  XSLTRule selectedXSLTRule = null;
-  File transformationFolder = null;
-  File schemaFolder = null;
+    @EJB
+    private IMPDBInterface mDB;
+    Namespace selectedNamespace = null;
+    XSLTRule selectedXSLTRule = null;
+    File transformationFolder = null;
+    File schemaFolder = null;
 
-  @Override
-  public void createEditable() {
-    IMPXslt imp = new IMPXslt();
-    int i = 1;
-    String base = "xslt_%03d";
-    while (mDB.getXSLT(String.format(base, i)) != null) {
-      i++;
+    @Override
+    public void createEditable() {
+        IMPXslt imp = new IMPXslt();
+        int i = 1;
+        String base = "xslt_%03d";
+        while (mDB.getXSLT(String.format(base, i)) != null) {
+            i++;
+        }
+        imp.setInstance(String.format(base, i));
+
+        setNew(imp);
     }
-    imp.setInstance(String.format(base, i));
 
-    setNew(imp);
-  }
+    public void createNamespace() {
 
-  public void createNamespace() {
+        if (getEditable() != null) {
 
-    if (getEditable() != null) {
-
-      String sbname = "ns%d";
-      int i = 1;
-      while (namespacePrefixExists(String.format(sbname, i))) {
-        i++;
-      }
-      Namespace ns = new Namespace();
-      ns.setPrefix(String.format(sbname, i));
-      //getEditable().getNamespaces().add(ns);
+            String sbname = "ns%d";
+            int i = 1;
+            while (namespacePrefixExists(String.format(sbname, i))) {
+                i++;
+            }
+            Namespace ns = new Namespace();
+            ns.setPrefix(String.format(sbname, i));
+            //getEditable().getNamespaces().add(ns);
+        }
     }
-  }
 
-  @Override
-  public List<IMPXslt> getList() {
-    return mDB.getXSLTs();
-  }
+    @Override
+    public List<IMPXslt> getList() {
+        return mDB.getXSLTs();
+    }
 
-  public Namespace getSelectedNamespace() {
-    return selectedNamespace;
-  }
+    public Namespace getSelectedNamespace() {
+        return selectedNamespace;
+    }
 
-  public XSLTRule getSelectedXSLTRule() {
-    return selectedXSLTRule;
-  }
+    public XSLTRule getSelectedXSLTRule() {
+        return selectedXSLTRule;
+    }
 
-  public boolean namespacePrefixExists(String val) {
-    boolean bExists = false;
-    if (getEditable() != null) {
-      /*
+    public boolean namespacePrefixExists(String val) {
+        boolean bExists = false;
+        if (getEditable() != null) {
+            /*
       for (Namespace ns : getEditable().getNamespaces()) {
         if (Objects.equals(ns.getPrefix(), val)) {
           bExists = true;
           break;
         }
       }*/
+        }
+        return bExists;
+
     }
-    return bExists;
 
-  }
+    @Override
+    public boolean persistEditable() {
+        return mDB.addXSLT(getEditable());
+    }
 
-  @Override
-  public boolean persistEditable() {
-    return mDB.addXSLT(getEditable());
-  }
+    @Override
+    public void removeSelected() {
+        mDB.removeXSLT(getEditable());
+    }
 
-  @Override
-  public void removeSelected() {
-    mDB.removeXSLT(getEditable());
-  }
-
-  public void removeSelectedNamespace() {
-    if (getSelectedNamespace() != null && getEditable() != null) {
-      /*
+    public void removeSelectedNamespace() {
+        if (getSelectedNamespace() != null && getEditable() != null) {
+            /*
       List<Namespace> lst = getEditable().getNamespaces();
       for (Namespace ns : lst) {
         if (Objects.equals(ns, getSelectedNamespace())) {
@@ -125,94 +125,94 @@ public class AdminIMPXsltView extends AbstractAdminJSFView<IMPXslt>
         }
       }*/
 
-    }
-  }
-
-  public void removeSelectedXSLTRule() {
-    if (getSelectedXSLTRule() != null && getEditable() != null) {
-      List<XSLTRule> lst = getEditable().getXSLTRules();
-      for (XSLTRule xp : lst) {
-        if (Objects.equals(xp, getSelectedXSLTRule())) {
-          lst.remove(xp);
-          break;
         }
-      }
-
-    }
-  }
-
-  public void setSelectedNamespace(Namespace selectedNamespace) {
-    this.selectedNamespace = selectedNamespace;
-  }
-
-  public void setSelectedXSLTRule(XSLTRule selectedXSLTRule) {
-    this.selectedXSLTRule = selectedXSLTRule;
-  }
-
-  @Override
-  public boolean updateEditable() {
-    return mDB.updateXSLT(getEditable());
-  }
-
-  @Override
-  public boolean validateData() {
-    if (Utils.isEmptyString(getEditable().getInstance())) {
-      addError("Instance parametere must not be null!");
-      return false;
     }
 
-    if (isEditableNew() && mDB.getXSLT(getEditable().getInstance()) != null) {
-      addError("Instance parametere must not be unique!");
-      return false;
-    }
-    return true;
-  }
+    public void removeSelectedXSLTRule() {
+        if (getSelectedXSLTRule() != null && getEditable() != null) {
+            List<XSLTRule> lst = getEditable().getXSLTRules();
+            for (XSLTRule xp : lst) {
+                if (Objects.equals(xp, getSelectedXSLTRule())) {
+                    lst.remove(xp);
+                    break;
+                }
+            }
 
-  public void createXSLTRule() {
-    IMPXslt ed = getEditable();
-    if (ed != null) {
-      DialogXPath dp = (DialogXPath) getBean("dialogXPath");
-      dp.createNewXPath(ed.getXSLTRules());
-      dp.setUpdateTableId(":dlgXslt:xsltDialogForm:TblTransformation");
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.execute("PF('xPathDialog').show();");
-      context.update(":dlgXPath:xPathDialog");
+        }
     }
 
-  }
-
-  public void editXSLTRule() {
-    IMPXslt ed = getEditable();
-    if (ed != null) {
-      DialogXPath dp = (DialogXPath) getBean("dialogXPath");
-
-      dp.setEditable(getSelectedXSLTRule(), ed.getXSLTRules());
-      dp.setUpdateTableId(":dlgXslt:xsltDialogForm:TblTransformation");
-      RequestContext context = RequestContext.getCurrentInstance();
-      context.execute("PF('xPathDialog').show();");
-      context.update(":dlgXPath:xPathDialog");
+    public void setSelectedNamespace(Namespace selectedNamespace) {
+        this.selectedNamespace = selectedNamespace;
     }
-  }
 
-  public Object getBean(final String beanName) {
-    final Object returnObject = facesContext().getELContext().getELResolver().
-            getValue(facesContext().getELContext(), null, beanName);
-    if (returnObject == null) {
-      LOG.formatedWarning("Bean with name %s was not found!", beanName);
+    public void setSelectedXSLTRule(XSLTRule selectedXSLTRule) {
+        this.selectedXSLTRule = selectedXSLTRule;
     }
-    return returnObject;
-  }
 
-  public File[] getTransformationFiles() {
-    return PlgSystemProperties.getXSLTFolder().listFiles(
-            (File dir, String name) -> name.toLowerCase().endsWith(".xslt") || name.
-            toLowerCase().endsWith(".xsl"));
+    @Override
+    public boolean updateEditable() {
+        return mDB.updateXSLT(getEditable());
+    }
 
-  }
+    @Override
+    public boolean validateData() {
+        if (Utils.isEmptyString(getEditable().getInstance())) {
+            addError("Instance parametere must not be null!");
+            return false;
+        }
 
-  public File[] getSchemaFiles() {
-    return PlgSystemProperties.getSchemaFolder().listFiles(
-            (File dir, String name) -> name.toLowerCase().endsWith(".xsd"));
-  }
+        if (isEditableNew() && mDB.getXSLT(getEditable().getInstance()) != null) {
+            addError("Instance parametere must not be unique!");
+            return false;
+        }
+        return true;
+    }
+
+    public void createXSLTRule() {
+        IMPXslt ed = getEditable();
+        if (ed != null) {
+            DialogXPath dp = (DialogXPath) getBean("dialogXPath");
+            dp.createNewXPath(ed.getXSLTRules());
+            dp.setUpdateTableId(":dlgXslt:xsltDialogForm:TblTransformation");
+            PrimeFaces context = PrimeFaces.current();
+            context.executeScript("PF('xPathDialog').show();");
+            context.ajax().update(":dlgXPath:xPathDialog");
+        }
+
+    }
+
+    public void editXSLTRule() {
+        IMPXslt ed = getEditable();
+        if (ed != null) {
+            DialogXPath dp = (DialogXPath) getBean("dialogXPath");
+
+            dp.setEditable(getSelectedXSLTRule(), ed.getXSLTRules());
+            dp.setUpdateTableId(":dlgXslt:xsltDialogForm:TblTransformation");
+            PrimeFaces context = PrimeFaces.current();
+            context.executeScript("PF('xPathDialog').show();");
+            context.ajax().update(":dlgXPath:xPathDialog");
+        }
+    }
+
+    public Object getBean(final String beanName) {
+        final Object returnObject = facesContext().getELContext().getELResolver().
+                getValue(facesContext().getELContext(), null, beanName);
+        if (returnObject == null) {
+            LOG.formatedWarning("Bean with name %s was not found!", beanName);
+        }
+        return returnObject;
+    }
+
+    public File[] getTransformationFiles() {
+        return PlgSystemProperties.getXSLTFolder().listFiles(
+                (File dir, String name) -> name.toLowerCase().endsWith(".xslt") || name.
+                toLowerCase().endsWith(".xsl"));
+
+    }
+
+    public File[] getSchemaFiles() {
+        return PlgSystemProperties.getSchemaFolder().listFiles(
+                (File dir, String name) -> name.toLowerCase().endsWith(".xsd"));
+    }
 
 }

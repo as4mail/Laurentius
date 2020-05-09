@@ -5,8 +5,7 @@ package si.jrc.msh.plugin.tc.web.dlg;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
-
+import org.primefaces.PrimeFaces;
 import si.laurentius.commons.utils.SEDLogger;
 
 
@@ -67,7 +66,7 @@ public class DialogProgress implements Serializable{
 
  
   public void addCallbackParam(String val, boolean bval) {
-    RequestContext.getCurrentInstance().addCallbackParam(val, bval);
+      PrimeFaces.current().ajax().addCallbackParam(val, bval);
   }
   
 

@@ -4,12 +4,13 @@
 
     <groupId>si.vsrs.cif.sed</groupId>
     <artifactId>Laurentius</artifactId>
+    <name>AS4Mail</name>
     <version>2.0</version>
     <packaging>pom</packaging>
 
     <organization>
-        <name>Supreme Court Republic of Slovenia</name>
-        <url>http://www.sodisce.si/</url>
+        <name>WarpSource SPRLS</name>
+        <url>https://www.warpsource.com/</url>
     </organization>
     <licenses>
         <license>
@@ -20,12 +21,11 @@
         </license>
     </licenses>
     <repositories>
-        <repository>
-  <id>cefdigital</id>
-  <name>cefdigital</name>
-  <url>https://ec.europa.eu/cefdigital/artifact/content/repositories/esignaturedss/</url>
-</repository>
-        
+        <!-- repository>
+            <id>cefdigital</id>
+            <name>cefdigital</name>
+            <url>https://ec.europa.eu/cefdigital/artifact/content/repositories/esignaturedss/</url>
+        </repository-->        
     </repositories>
 
     <developers>
@@ -33,8 +33,8 @@
             <id>jrc</id>
             <name>Jože Rihtaršič</name>
             <email>joze.rihtarsic@sodisce.si</email>
-            <organization>Supreme Court Republic of Slovenia</organization>
-            <organizationUrl>http://www.sodisce.si/</organizationUrl>
+            <organization>WarpSource SPRLS</organization>
+            <organizationUrl>https://www.warpsource.com/</organizationUrl>
             <roles>
                 <role>architect</role>
                 <role>developer</role>
@@ -111,8 +111,8 @@
          
         
         <!-- GUI latest primeface 6.1 -> dialog problem  -->
-        <org.primefaces.version>6.1</org.primefaces.version>
-        <org.primefaces.extensions.version>6.1.1</org.primefaces.extensions.version>        
+        <org.primefaces.version>8.0</org.primefaces.version>
+        <org.primefaces.extensions.version>8.0.2</org.primefaces.extensions.version>        
         <!-- unit testing
         -->      
         <org.apache.derby.version>10.14.1.0</org.apache.derby.version>
