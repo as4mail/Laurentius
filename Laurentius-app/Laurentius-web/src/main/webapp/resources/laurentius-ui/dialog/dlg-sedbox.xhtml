@@ -9,7 +9,7 @@
       xmlns:dlg="http://java.sun.com/jsf/composite/laurentius-ui/dialog"
       >
      <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -46,10 +46,11 @@
                 <p:layoutUnit position="east" rendered="#{not empty adminSEDBoxView.editable}"  size="400" maxSize="400" minSize="400" >
                     <p:panelGrid style="width: 100%; height: 100%" columns="2">
                         <p:dataTable var="usr" value="#{adminSEDBoxView.editableUsers}"
-                                     style="padding: 0px; margin: 0px"
+                                     style="padding: 0px; margin: 0px;height: 190px"
                                      scrollable="true" 
                                      scrollHeight="100%"
-                                     rows="100">
+                                    
+                                     >
                             <f:facet name="header"><p:outputLabel value="#{msg['Users']}" /></f:facet>
                             <p:column headerText="#{msg['Username']}" width="100">
                                 <h:outputText value="#{usr.userId}" />
@@ -59,10 +60,9 @@
 
 
                         <p:dataTable var="usr" value="#{adminSEDBoxView.editableApplications}"
-                                     style="padding: 0px; margin: 0px"
+                                     style="padding: 0px; margin: 0px;height: 190px"
                                      scrollable="true" 
-                                     scrollHeight="100%"
-                                     rows="100">
+                                     scrollHeight="100%">
                             <f:facet name="header"><p:outputLabel value="#{msg['Applications']}" /></f:facet>
                             <p:column headerText="#{msg['ApplicationId']}" width="100">
                                 <h:outputText value="#{usr.applicationId}" />

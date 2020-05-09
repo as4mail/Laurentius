@@ -9,7 +9,7 @@
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -18,8 +18,7 @@
                             title="#{msg['Interceptors']}" 
                             description="#{msg['InterceptorDefDesc']}"
                             icon="ui-icon-svg-interceptor"
-                            >
-            <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->                
+                            >             
                 <p:dataTable id="TblInterceptor" 
                              var="sp" 
                              value="#{adminSEDInterceptorView.list}"
@@ -30,7 +29,7 @@
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="25,50,100,200" 
                              paginator="true" 
-                             style="padding: 0px; margin: 0px"
+                             class="settings-page-table"
                              scrollable="true" 
                              scrollHeight="100%"
                              rows="100"  >
@@ -69,10 +68,7 @@
                     <p:column headerText="#{msg['Rules']}" >
                         <h:outputText value="#{adminSEDInterceptorView.getRuleDesc(sp)}" ></h:outputText>                
                     </p:column>
-
-                  
                 </p:dataTable>
-            </p:scrollPanel>
         </pnl:pnl-settings>
     </composite:implementation>
 </html>

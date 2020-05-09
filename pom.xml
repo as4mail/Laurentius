@@ -4,6 +4,7 @@
 
     <groupId>si.vsrs.cif.sed</groupId>
     <artifactId>Laurentius</artifactId>
+    <name>AS4Mail</name>
     <version>2.0</version>
     <packaging>pom</packaging>
 

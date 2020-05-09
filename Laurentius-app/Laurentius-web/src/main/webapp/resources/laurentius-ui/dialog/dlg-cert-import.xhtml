@@ -9,7 +9,7 @@
       xmlns:dlg="http://java.sun.com/jsf/composite/laurentius-ui/dialog"
       >
     <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -95,11 +95,12 @@
 
                 </p:layoutUnit>
 
-                <p:layoutUnit  id="CertList" header="Seznam ključev" position="west" size="180" minSize="300" maxSize="300"
+                <p:layoutUnit  id="CertList" header="Keystore content" position="west" size="300" minSize="300" maxSize="300"
                                rendered="#{dialogImportCert.keystoreType != 'CERT'}"
                                >
 
                     <p:dataTable id="TblCertficates" 
+                                 style="width:295px; height: 100%"
                                  value="#{dialogImportCert.certificates}" 
                                  var="crt" 
                                  scrollable="true" 

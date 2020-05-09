@@ -5,13 +5,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:dlg="http://java.sun.com/jsf/composite/laurentius-ui/dialog"
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
       >
      <h:head>
-        <title>Laurentius</title>       
+        <title>AS4Mail</title>       
     </h:head>
     <composite:interface>
     </composite:interface>
@@ -64,9 +63,10 @@
                 </p:layoutUnit>
                 <p:layoutUnit header="#{msg['Action']}" position="east" 
                               size="500" minSize="500" maxSize="500"  >
-                    <p:scrollPanel mode="native" style="width:100%;height:100%"> <!-- p:dataTable scrollable does not resize when toogled south panel -->   
+             
                         <p:dataTable id="TblServiceAction" 
                                      var="sp" 
+                                     style="width:495px;height:100%"
                                      value="#{pModeServiceGraphView.list}"                                     
                                      rowKey="#{sp}"   
                                      rowIndexVar="rowIndex"
@@ -137,7 +137,6 @@
                             </p:rowExpansion>
 
                         </p:dataTable> 
-                    </p:scrollPanel>
                 </p:layoutUnit>  
             </p:layout>
         </dlg:dlg-abstract>

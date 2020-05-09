@@ -219,7 +219,7 @@ public class PModeSecurityView extends AbstractPModeJSFView<Security> {
     }
 
     public void startEditSelectedSignXPath() {
-
+        LOG.formatedlog("Start edit selected xpath", selectedSignXPath);
         if (selectedSignXPath != null) {
             editXPath(selectedSignXPath,
                     ":dlgPModeSecurity:pModeSecurityDialog:pModeSecurityDialogForm:TblSignElements",

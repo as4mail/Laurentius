@@ -5,7 +5,6 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions"
       xmlns:composite="http://java.sun.com/jsf/composite"
       xmlns:dlg="http://java.sun.com/jsf/composite/laurentius-ui/dialog"
       xmlns:pnl="http://java.sun.com/jsf/composite/laurentius-ui/panel"
@@ -109,17 +108,16 @@
                                                  disabled="#{not pModeSecurityView.signatureToEditable}"/>
 
                     </p:panelGrid>
-
+                    
                     <p:dataTable id="TblSignElements" 
-                                 var="sp" 
+                                 var="sp"                               
                                  value="#{pModeSecurityView.editableSignatureXPaths}"
                                  selectionMode="single"
                                  selection="#{pModeSecurityView.selectedSignXPath}"
                                  rowKey="#{sp.xpath}"
-                                 style="padding: 0px; margin: 0px"
+                                 style="padding: 0px; margin: 0px;height: 100%;width: 395px"
                                  scrollable="true" 
-                                 scrollHeight="120"
-
+                                 scrollHeight="100%"
                                  >
                         <p:ajax event="rowDblselect" 
                                 listener="#{pModeSecurityView.startEditSelectedSignXPath()}" 
@@ -239,9 +237,9 @@
                                  selection="#{pModeSecurityView.selectedEncryptXPath}"
                                  rowKey="#{sp}"
 
-                                 style="padding: 0px; margin: 0px"
+                                 style="padding: 0px; margin: 0px;height: 100%;width: 395px"
                                  scrollable="true" 
-                                 scrollHeight="120"
+                                 scrollHeight="100%"
                                  >
                         <p:ajax event="rowDblselect" listener="#{pModeSecurityView.startEditSelectedEncXPath()}" 
                                 update=":dlgPModeXPath:pModeXPathDialog:pModeXPathDialogForm"
