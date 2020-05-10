@@ -123,19 +123,15 @@ public class DialogImportCert implements Serializable {
         filename = uf.getFileName();
 
         try {
-
-            File f = File.createTempFile("certstore", ".ks");
+            File f = File.createTempFile("certstore", ".jks");
             Files.copy(uf.getInputStream(), f.toPath(),
                     StandardCopyOption.REPLACE_EXISTING);
             filepath = f.getAbsolutePath();
-            ;
 
         } catch (IOException ex) {
             String errMsg = "Error loading certificate" + filename;
             LOG.logError(errMsg, ex);
-
         }
-
     }
 
     public void setDialogType(String strVal) {
