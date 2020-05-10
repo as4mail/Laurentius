@@ -155,12 +155,12 @@ public class SEDSystemProperties {
     S_DEF_VALUES.put(SYS_PROP_PLUGINS_DIR, "${laurentius.home}/plugins");
 
     S_DEF_VALUES.put(SYS_PROP_PMODE_FILE, "pmode-conf.xml");
-    S_DEF_VALUES.put(SYS_PROP_KEYSTORE_FILE, "laurentius.jks");
-    S_DEF_VALUES.put(SYS_PROP_KEYSTORE_TYPE, "JKS");   
+    S_DEF_VALUES.put(SYS_PROP_KEYSTORE_FILE, "keystore.p12");
+    S_DEF_VALUES.put(SYS_PROP_KEYSTORE_TYPE, "PKCS12");   
     S_DEF_VALUES.put(SYS_PROP_ROOT_CA_FILE, "root-ca.jks");
     S_DEF_VALUES.put(SYS_PROP_ROOT_CA_TYPE, "JKS");   
 
-    S_DEF_VALUES.put(SYS_PROP_LAU_DOMAIN, "test-laurentius.org");
+    S_DEF_VALUES.put(SYS_PROP_LAU_DOMAIN, "test-as4mail.com");
 
     if (getProperty(SYS_PROP_QUEUE_SENDER_WORKERS) == null) {
       setProperty(SYS_PROP_QUEUE_SENDER_WORKERS, "5");

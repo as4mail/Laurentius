@@ -226,7 +226,7 @@ public class JMSManager implements JMSManagerInterface {
     QueueRequestor requestor = new QueueRequestor(session, managementQueue);
 
     connection.start();
-    String queName = ResourceNames.JMS_QUEUE + jndiQue.
+    String queName = ResourceNames.QUEUE + jndiQue.
             substring(jndiQue.indexOf('/') + 1);
 
     Message m = session.createMessage();
@@ -331,7 +331,7 @@ public class JMSManager implements JMSManagerInterface {
 
       Message m = session.createMessage();
       JMSManagementHelper.putOperationInvocation(m,
-              ResourceNames.JMS_QUEUE + jndiQue.
+              ResourceNames.QUEUE + jndiQue.
                       substring(jndiQue.indexOf('/') + 1), operation);
       Message response = requestor.request(m);
       suc = JMSManagementHelper.hasOperationSucceeded(response);

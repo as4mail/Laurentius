@@ -90,7 +90,7 @@
         </Service>     
     </Services>
     <Parties>
-        <PartyIdentitySet id="test-laurentius" isLocalIdentity="true">
+        <PartyIdentitySet id="test-as4mail" isLocalIdentity="true">
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:name" valueSource="name"/>
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:sed-box" valueSource="address"/>
             <TransportProtocol id="defalut" isTwoWayProtocol="true">
@@ -98,8 +98,8 @@
                 <TLS serverTrustCertAlias="test-tls" disableCNAndHostnameCheck="true"/>
                 <SOAPVersion>1.2</SOAPVersion>
             </TransportProtocol>
-            <LocalPartySecurity signatureKeyAlias="test-laurentius" decryptionKeyAlias="test-laurentius"/>
-            <ExchangePartySecurity signatureCertAlias="test-laurentius" encryptionCertAlias="test-laurentius"/>
+            <LocalPartySecurity signatureKeyAlias="test-as4mail" decryptionKeyAlias="test-as4mail"/>
+            <ExchangePartySecurity signatureCertAlias="test-as4mail" encryptionCertAlias="test-as4mail"/>
         </PartyIdentitySet>
         <PartyIdentitySet id="court-laurentius" domain="court-laurentius.si" isLocalIdentity="false" active="true">
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:name" valueSource="name"/>
@@ -137,12 +137,12 @@
     </ReceptionAwarenessPatterns>
     <PMode id="DeliveryWithReceipt" isTest="false" priority="4">
         <ServiceIdRef>DeliveryWithReceipt</ServiceIdRef>
-        <LocalPartyInfo partyIdentitySetIdRef="test-laurentius">
+        <LocalPartyInfo partyIdentitySetIdRef="test-as4mail">
             <Role>Sender</Role>
             <Role>Receiver</Role>
         </LocalPartyInfo>
         <ExchangeParties>
-            <PartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+            <PartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
                 <Role>Sender</Role>
                 <Role>Receiver</Role>
             </PartyInfo>
@@ -168,12 +168,12 @@
     </PMode>
     <PMode id="ZPP-legal" isTest="false" priority="5">
         <ServiceIdRef>LegalDelivery_ZPP</ServiceIdRef>
-        <LocalPartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+        <LocalPartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
             <Role>Sender</Role>
             <Role>Receiver</Role>
         </LocalPartyInfo>
         <ExchangeParties>
-            <PartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+            <PartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
                 <Role>Sender</Role>
                 <Role>Receiver</Role>
             </PartyInfo>
@@ -226,12 +226,12 @@
     </PMode>
  <PMode id="ZPPB-legal"  isTest="false" priority="5">
         <ServiceIdRef>LegalDelivery_ZPPB</ServiceIdRef>
-        <LocalPartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+        <LocalPartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
             <Role>Sender</Role>
             <Role>Receiver</Role>
         </LocalPartyInfo>
         <ExchangeParties>
-            <PartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+            <PartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
                 <Role>Sender</Role>
                 <Role>Receiver</Role>
             </PartyInfo>
@@ -271,14 +271,14 @@
     </PMode>
     <PMode id="TestService" isTest="true" priority="4">
         <ServiceIdRef>TestService</ServiceIdRef>
-        <LocalPartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+        <LocalPartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
             <Role>Sender</Role>
             <Role>Receiver</Role>
             <Role>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/initiator</Role>
             <Role>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/responder</Role>
         </LocalPartyInfo>
         <ExchangeParties>
-            <PartyInfo partyIdentitySetIdRef="test-laurentius" partyDefTransportIdRef="defalut">
+            <PartyInfo partyIdentitySetIdRef="test-as4mail" partyDefTransportIdRef="defalut">
                 <Role>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/initiator</Role>
                 <Role>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/responder</Role>
             </PartyInfo>

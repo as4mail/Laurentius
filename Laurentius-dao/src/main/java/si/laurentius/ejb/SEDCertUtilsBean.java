@@ -494,13 +494,13 @@ public class SEDCertUtilsBean implements SEDCertUtilsInterface {
         f = null;
       }
     }
-
+   
     if (f == null) {
       try {
         f = File.createTempFile("x509_", ".jks");
         f.deleteOnExit();
         KeyStore ks = S_KEYSTORE_UTILS.
-                createNewKeyStore(mCacheKeySecret, f.getAbsolutePath());
+                createNewKeyStore(mCacheKeySecret,"JKS", f.getAbsolutePath());
 
         S_KEYSTORE_UTILS.addCertificateToStore(ks, cert, alias, true);
         try (FileOutputStream keyStoreOutputStream = new FileOutputStream(f)) {

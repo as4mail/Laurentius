@@ -175,12 +175,12 @@ public class KeystoreUtils {
 
   }
 
-  public KeyStore createNewKeyStore(String initPasswd, String initFilePath) throws SEDSecurityException {
+  public KeyStore createNewKeyStore(String initPasswd, String storetype, String initFilePath) throws SEDSecurityException {
     KeyStore ks = null;
     try (FileOutputStream fos = new FileOutputStream(StringFormater.
             replaceProperties(initFilePath))) {
 
-      ks = KeyStore.getInstance(KeyStore.getDefaultType());
+      ks = KeyStore.getInstance(storetype);
       ks.load(null, initPasswd.toCharArray());
       ks.store(fos, initPasswd.toCharArray());
     } catch (KeyStoreException | NoSuchAlgorithmException | CertificateException ex) {

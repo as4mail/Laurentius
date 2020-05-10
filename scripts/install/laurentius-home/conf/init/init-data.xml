@@ -15,11 +15,11 @@
         </ns2:SEDCronJob>
         <ns2:SEDCronJob id="2" name="ZPPFiction" active="true" second="0" minute="0" hour="1" dayOfMonth="*" month="*" dayOfWeek="*">
             <ns2:SEDTask plugin="LegalZPP" type="zpp-fiction-plugin" pluginVersion="1.0.0" id="3" name="ZPPCreateFiction" active="true">
-                <ns2:SEDTaskProperty id="7" key="zpp.sign.key.alias">test-laurentius</ns2:SEDTaskProperty>
+                <ns2:SEDTaskProperty id="7" key="zpp.sign.key.alias">test-as4mail</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="8" key="zpp.max.mail.count">100</ns2:SEDTaskProperty>
             </ns2:SEDTask>
             <ns2:SEDTask plugin="LegalZPP" type="zpp-fiction-by-last-delivery" pluginVersion="1.0.0" id="4" name="ZPPFictionByLastDelivery" active="true">
-                <ns2:SEDTaskProperty id="9" key="zpp.sign.key.alias">test-laurentius</ns2:SEDTaskProperty>
+                <ns2:SEDTaskProperty id="9" key="zpp.sign.key.alias">test-as4mail</ns2:SEDTaskProperty>
             </ns2:SEDTask>
         </ns2:SEDCronJob>
         <ns2:SEDCronJob id="3" name="Archive" active="true" second="0" minute="10" hour="01" dayOfMonth="*" month="*" dayOfWeek="6">
@@ -101,7 +101,7 @@
                 <ns2:SEDTaskProperty id="56" key="email.skipOnNoData">true</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="57" key="email.to">receiver.one@not.exists.com,receiver.two@not.exists.com</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="58" key="email.from">change.me@not.exists.com</ns2:SEDTaskProperty>
-                <ns2:SEDTaskProperty id="59" key="email.subject">[Laurentius] FailedOutMail</ns2:SEDTaskProperty>
+                <ns2:SEDTaskProperty id="59" key="email.subject">[AS4Mail] FailedOutMail</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="60" key="report.status.sedboxes">a.department,b.department</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="61" key="report.status.service-list">DeliveryWithReceipt,LegalDelivery_ZPP</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="62" key="report.status.in-list"></ns2:SEDTaskProperty>
@@ -120,7 +120,7 @@
                 <ns2:SEDTaskProperty id="71" key="email.skipOnNoData">true</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="72" key="email.to">receiver.one@not.exists.com,receiver.two@not.exists.com</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="73" key="email.from">change.me@not.exists.com</ns2:SEDTaskProperty>
-                <ns2:SEDTaskProperty id="74" key="email.subject">[Laurentius] Stucked InMail</ns2:SEDTaskProperty>
+                <ns2:SEDTaskProperty id="74" key="email.subject">[AS4Mail] Stucked InMail</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="75" key="report.status.sedboxes">a.department,b.department</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="76" key="report.status.service-list">DeliveryWithReceipt,LegalDelivery_ZPP</ns2:SEDTaskProperty>
                 <ns2:SEDTaskProperty id="77" key="report.status.in-list">PROCESS,PREADY,LOCKED,PLOCKED,ERROR</ns2:SEDTaskProperty>
@@ -207,9 +207,9 @@
     <SEDCertPassword>
         <ns9:SEDCertPassword alias="keystore" password="passwd1234" keyPassword="false"/>
         <ns9:SEDCertPassword alias="rootCA" password="passwd1234" keyPassword="false"/>
-        <ns9:SEDCertPassword alias="test-laurentius" password="key1234" keyPassword="false"/>
-        <ns9:SEDCertPassword alias="test-zpp-sign" password="key1234" keyPassword="false"/>
-        <ns9:SEDCertPassword alias="test-tls" password="key1234" keyPassword="false"/>
+        <ns9:SEDCertPassword alias="test-as4mail" password="key1234" keyPassword="true"/>
+        <ns9:SEDCertPassword alias="test-zpp-sign" password="key1234" keyPassword="true"/>
+        <ns9:SEDCertPassword alias="test-tls" password="key1234" keyPassword="true"/>
     </SEDCertPassword>
     <SEDCertCRLs/>
 </SedLookups>

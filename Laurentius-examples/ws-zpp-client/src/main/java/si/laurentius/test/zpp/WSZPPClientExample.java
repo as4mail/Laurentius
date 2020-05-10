@@ -74,7 +74,7 @@ public class WSZPPClientExample {
   public static final String S_KEY_ALIAS = "test-zpp-sign";
   public static final String S_KEY_NOT_REGISTRED_ALIAS = "test-zpp-sign-not-registred";
 
-  public static final String S_KEYSTORE = "/laurentius.jks";
+  public static final String S_KEYSTORE = "/keystore.p12";
   public static final String S_KEYSTORE_PASSWD = "passwd1234";
   public static final String S_KEY_PASSWD = "key1234";
 

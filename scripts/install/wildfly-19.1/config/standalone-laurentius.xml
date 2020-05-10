@@ -60,7 +60,7 @@
 		    <security-realm name="LaurentiusTLSRealm">
                 <server-identities>
                     <ssl>
-                        <keystore path="test-tls-keystore.jks" relative-to="jboss.server.config.dir" keystore-password="test1234" alias="test-tls" key-password="key1234"/>
+                        <keystore path="test-tls-keystore.p12" relative-to="jboss.server.config.dir" keystore-password="passwd1234" alias="test-tls" key-password="key1234"/>
                     </ssl>
                 </server-identities>
             </security-realm>

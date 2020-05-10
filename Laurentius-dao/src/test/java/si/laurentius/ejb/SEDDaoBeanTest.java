@@ -25,6 +25,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,6 +36,7 @@ import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.BeforeClass;
 import si.laurentius.commons.SEDSystemProperties;
@@ -66,7 +68,14 @@ import si.laurentius.msh.pmode.PMode;
  * @author sluzba
  */
 public class SEDDaoBeanTest extends TestUtils {
-
+    
+    @Test
+    public void test() {
+    }
+/*
+    @PersistenceContext(unitName = "ebMS_LAU_PU", name = "ebMS_LAU_PU")
+    public EntityManager memEManager;
+    
   static SEDDaoBean mTestInstance = new SEDDaoBean();
 
   @BeforeClass
@@ -80,10 +89,7 @@ public class SEDDaoBeanTest extends TestUtils {
     System.setProperty(Context.INITIAL_CONTEXT_FACTORY,
             InitialContextFactoryForTest.class.getName());
 
-    mTestInstance.memEManager = TestUtils.createEntityManager();
-    mTestInstance.mutUTransaction
-            = new MockUserTransaction(mTestInstance.memEManager.getTransaction());
-
+   
     System.setProperty(SEDSystemProperties.SYS_PROP_LAU_DOMAIN, LAU_TEST_DOMAIN);
 
     setUpStorage("target/storage/SEDDaoBeanTest");
@@ -92,6 +98,13 @@ public class SEDDaoBeanTest extends TestUtils {
             singletonList(S_JMS_QUEUE));
 
   }
+  
+    @Before
+    public void beforeTEst() throws IOException, NamingException, JMSException {
+
+     
+        mTestInstance.memEManager = memEManager;
+    }
 
   @Test
   public void test_A_01_SerializeOutMail_fillData() throws Exception {
@@ -585,12 +598,12 @@ public class SEDDaoBeanTest extends TestUtils {
     
      List<MSHOutMail> lst2 = mTestInstance.
             getDataList(MSHOutMail.class, hql2, prms);
-     */
+     * /
      
      
 
     
 
-  }
+  }*/
 
 }

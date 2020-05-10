@@ -738,7 +738,7 @@ public class SEDCertStoreBean implements SEDCertStoreInterface {
 
   }
 
-  private KeyStore openKeystore(String storetype, File fStore, String alias,
+  private KeyStore openKeystore(String storetype,File fStore, String alias,
           char[] psswd) throws SEDSecurityException {
     KeyStore ks = null;
     if (!fStore.exists()) {
@@ -746,7 +746,7 @@ public class SEDCertStoreBean implements SEDCertStoreInterface {
               "Keystore %s not exists! Keystore with 'def password' will be created!",
               fStore.getAbsolutePath());
       try {
-        ks = mku.createNewKeyStore(KS_INIT_KEYSTORE_PASSWD, fStore.
+        ks = mku.createNewKeyStore(KS_INIT_KEYSTORE_PASSWD, storetype, fStore.
                 getAbsolutePath());
         addPassword(alias, KS_INIT_KEYSTORE_PASSWD);
 
@@ -765,7 +765,7 @@ public class SEDCertStoreBean implements SEDCertStoreInterface {
           // create backup -file
           FileUtils.backupFile(fStore);
           // create new keystore
-          ks = mku.createNewKeyStore(KS_INIT_KEYSTORE_PASSWD, fStore.
+          ks = mku.createNewKeyStore(KS_INIT_KEYSTORE_PASSWD, storetype, fStore.
                   getAbsolutePath());
           addPassword(alias, KS_INIT_KEYSTORE_PASSWD);
 
