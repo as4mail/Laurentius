@@ -1,51 +1,29 @@
-![Build Status](https://api.travis-ci.org/VsrsCif/Laurentius.svg?branch=master)
-[Travis build](https://travis-ci.org/VsrsCif/Laurentius)
+# AS4Mail
 
-[![Coverage Status](https://coveralls.io/repos/github/VsrsCif/Laurentius/badge.svg?branch=master)](https://coveralls.io/github/VsrsCif/Laurentius?branch=master)
+##  Purpose 
 
+AS4Mail is multipuropose ebMS 3.0 solution. Code is forked from VsrsCif/Laruentius which is profile conformant Access Point Implementation maintained by the IT of Supreme Court of Republic of Slovenia. 
 
+The purpose of this fork is to develope new features, security upgrades and also to explore new possibilities of using ebMS 3.0 standards for B2B integrations. 
 
-Aplikacija Laurentius je demo aplikacije za varno elektronsko izmenjavo sporočil po standardu ebMS 3.0 (AS4 profil). 
-Aplikacija služi kot primer implementacije protokola SVEV 2.0  za elektronsko vročanje sodnih pošiljk, 
-kot to določa Pravilnik o elektronskem poslovanju v civilnih sodnih
-postopkih (Ur.l. RS, št. 64/10 in 23/11, v nadaljevanju PEPCSP). Namen aplikacije je 
-zmanjšati tehnične in stroškovne ovire izvajalcem logističnih storitev (vročanje izhodne 
-pošte, kuvertiranje, skeniranje dohodne pošte) in uporabnikom storitev sodišča 
-za prehod na elektronsko poslovanje.
+## Why use of ebMS 3.0 standard
 
-Cilj aplikacije je izdelati delujoči primer izvorne kode aplikacije za izmenjavo dokumentov po 
-ebMS 3.0 standardu. Aplikacija omogoča zagotavljanje varnosti (podpisovanje in šifriranje),
-zanesljivost prenosa, preverjanje vsebin na standardni način. Ravno tako omogoča nastavljivo 
-koreografijo izmenjavo sporočil (primer SVEV 2.0).
+Business interactions are dynamic, so should be the B2B software. Eventhough that B2B interactions are various they all share common messaging aspetcs as: security, reliablility, addressing, message description... These B2B aspects does not have business values which are usually process in backend systems. The backend business data is usually in the message payload(s). The ebMS 3.0 standard is payload agnostics and focus on message transfer aspects. In other words it leaves backend system to focus in bussies data, but leaves message transfer aspects as: security reliability, to so called MSH (message service handler) component.   
 
-Sestava embs-sed projekta:
-- Laurentius: osnovni projekt določa vse plugin-e in verzije odvisnih knjižnic;
-	- Laurentius-libs: skupne knjižnice, ki jih uporabljajo posamezni moduli;
-		- Laurentius-msh-xsd: modul generira java objekte iz ebMS 3.0 shem. SOAP_1.1.xsd (http://schemas.xmlsoap.org/soap/envelope/)
-			,SOAP_1.2.xsd (http://www.w3.org/2003/05/soap-envelope/), xml.xsd (http://www.w3.org/2001/03/xml.xsd)
-			, ebms-header-3_0-200704.xsd (http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/core/ebms-header-3_0-200704.xsd)
-			, ebbp-signals-2.0.xsd  (http://docs.oasis-open.org/ebxml-bp/2.0.4/ebbp-signals-2.0.4.xsd)
-			, xenc-schema.xsd  (http://www.w3.org/TR/xmlenc-core/xenc-schema.xsd)
-			, xmldsig-core-schema.xsd (http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd)
-			, xlink.xsd (http://www.w3.org/TR/xml-i18n-bp/xmlspec/xlink.xsd);
-		- Laurentius-wsdl: modul generira java klienta in WS-API iz spletnega opisa (wsdl) SED-WS modula;
-		- Laurentius-commons: skupna orodja in šifiranti;
-        - Laurentius-dao: skupne storitve za shranjevanje in branje entitet v relacijsko bazo in datotečni sistem. 
-	- Laurentius-app: implementacija Laurentius spletnih in FS storitev za prevzemanje in pošiljanje pošte ter
-			   implementacija  spletnega vmesnika;
-	- Laurentius-msh: implementacija ebMS 3.0 (AS 4). modula
+When having multiple backend system and many clients this approach is cost saving on maintenance tasks for clients endpoints, certificates, and also when applying latest security recommondation into transfer protocols. 
+
+Another strong reason for using the ebMS 3.0 standard is its potential widespread use of the standards. Nowadays many other equally efficient standards and solutions handles message transfer aspects. For a quick and costless start of B2B communication with partners also the partners software must "speak" the same tehnical language. Else we or the partners must implement new standards or by new solutions. The ebMS 3.0 standard was poroposed by European commission and also used by many of it's projects for reaching the goal of common B2B marked. 
+
+At the project eDelivery (https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery) develope example of ebMS 3.0 (AS4 eDelivery profile) called Domibus and aslo providing conformaces tests and also a list of softwares complient with that profile for message exchange.  
 
 
 
-Glavne Uporabljene tehnologije
-- maven 3+, jdk 1.8+:  za izgradnjo in zagon aplikacije
-- wildfly aplikacijski strežnik. (Aplikacija uporablja jee vmesnike: JPA 2.0, EJB 3.0, JMS, tako da se lahko z manjšimi napori namesti tudi na drugi "aplikacijski strežnik")
-- apacheFOP vizalizacijo  izmenjave sporočil,
-- apache-cxf za implementacijo spletnih storitev ws-security, in WS-ReliableMessaging.
-- spletni vmesnik je zgrajen s JSF in primefaces knjižnicami: 
-Podrobnejši spisek vseh odvisnih tehnologij se nahaja v Laurentius/pom.xml (dependecies)
 
-Podrobnejša dokumentacija o aplikaciji (opis, arhitektura, namestitev in uporabniška navodila) se nahajajo na spletni strani:
-http://vsrscif.github.io/Laurentius/
+
+
+
+
+
+
 
 
