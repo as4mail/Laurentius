@@ -1,29 +1,21 @@
 # AS4Mail
 
-##  Purpose 
+## Purpose
 
-AS4Mail is multipuropose ebMS 3.0 solution. Code is forked from VsrsCif/Laruentius which is profile conformant Access Point Implementation maintained by the IT of Supreme Court of Republic of Slovenia. 
+WarpSource/AS4Mail is a multipurpose ebMS 3.0 software solution. Its code is forked from VsrsCif/Laurentius, the eDelivery AS4 conformant Access Point implementation maintained by the IT department of the Supreme Court of the Republic of Slovenia (VSRS).
+The VsrsCif/Laurentius is a production-ready solution and is developed/ upgraded according to owners needs and requests.  
+This fork is maintained by original authors/developers of VsrsCif/Laurentius with purpose to independently develop new features, to provide up-to dates security upgrades, and also to explore new possibilities of using ebMS 3.0 standards for B2B integrations. 
 
-The purpose of this fork is to develope new features, security upgrades and also to explore new possibilities of using ebMS 3.0 standards for B2B integrations. 
+## Why use of ebMS 3.0 standard for B2B
 
-## Why use of ebMS 3.0 standard
+Business interactions are dynamic. Not only from the service content viewpoint, but also from the business partner aspect where partner changes its interaction capabilities as: changing URL, certificates, technologies, HTTPS ciphers, etc..  Also adding new (and removing) partners on existing services is producing workload and costs on tasks as negotiation, configuring and testing.
 
-Business interactions are dynamic, so should be the B2B software. Eventhough that B2B interactions are various they all share common messaging aspetcs as: security, reliablility, addressing, message description... These B2B aspects does not have business values which are usually process in backend systems. The backend business data is usually in the message payload(s). The ebMS 3.0 standard is payload agnostics and focus on message transfer aspects. In other words it leaves backend system to focus in bussies data, but leaves message transfer aspects as: security reliability, to so called MSH (message service handler) component.   
+Even though that B2B interactions are various,  most of them share common messaging aspects as: security, reliability, addressing,  message non-repudiation validation ... These B2B message transfer aspects usually do not have business values which are processed in backend systems. 
 
-When having multiple backend system and many clients this approach is cost saving on maintenance tasks for clients endpoints, certificates, and also when applying latest security recommondation into transfer protocols. 
+The backend business data are usually in the message payload(s). 
+The ebMS 3.0 standard is payload agnostics and focuses on message transfer aspects. In other words it leaves the backend system to focus on business data, but leaves message transfer aspects as: security reliability, to so-called MSH (message service handler) component.
 
-Another strong reason for using the ebMS 3.0 standard is its potential widespread use of the standards. Nowadays many other equally efficient standards and solutions handles message transfer aspects. For a quick and costless start of B2B communication with partners also the partners software must "speak" the same tehnical language. Else we or the partners must implement new standards or by new solutions. The ebMS 3.0 standard was poroposed by European commission and also used by many of it's projects for reaching the goal of common B2B marked. 
+When having multiple backend systems and many clients this approach is cost saving on task as maintenance of clients interaction capabilities as endpoints, certificates, and also when applying the latest security recommendation in electronics transfer protocols.
 
-At the project eDelivery (https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery) develope example of ebMS 3.0 (AS4 eDelivery profile) called Domibus and aslo providing conformaces tests and also a list of softwares complient with that profile for message exchange.  
-
-
-
-
-
-
-
-
-
-
-
-
+Another strong reason for using the ebMS 3.0 standard is its potential widespread use of the standards. Nowadays many other equally efficient standards and solutions handle message transfer aspects. For a quick and costless start of B2B communication also the partner software must "speak" the same technical language. Else we or the partners must implement new standards or buy new software solutions. The ebMS 3.0 standard was proposed by the European Commission and also used by many of its projects for reaching the goal of common B2B marked.
+At the project eDelivery (https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery) developed example of ebMS 3.0 (AS4 eDelivery profile) called Domibus and also providing conformance tests and also a list of software compliant with that profile for message exchange.
