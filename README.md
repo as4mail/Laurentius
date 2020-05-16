@@ -13,9 +13,12 @@ Business interactions are dynamic. Not only from the service content viewpoint, 
 Even though that B2B interactions are various,  most of them share common messaging aspects as: security, reliability, addressing,  message non-repudiation validation ... These B2B message transfer aspects usually do not have business values which are processed in backend systems. 
 
 The backend business data are usually in the message payload(s). 
-The ebMS 3.0 standard is payload agnostics and focuses on message transfer aspects. In other words it leaves the backend system to focus on business data, but leaves message transfer aspects as: security reliability, to so-called MSH (message service handler) component.
+The ebMS 3.0 standard is payload agnostics and focuses on message transfer aspects. In other words it leaves the backend system to focus on business data, but leaves message transfer aspects as: security, reliability, non-repudiation, transfer protocols, to so-called MSH (message service handler) component.
 
-When having multiple backend systems and many clients this approach is cost saving on task as maintenance of clients interaction capabilities as endpoints, certificates, and also when applying the latest security recommendation in electronics transfer protocols.
+When having multiple backend systems and many clients this approach is cost saving on tasks as maintenance of clients interaction capabilities like URL endpoints, certificates, and also when applying the latest security recommendation in electronics transfer protocols.
 
 Another strong reason for using the ebMS 3.0 standard is its potential widespread use of the standards. Nowadays many other equally efficient standards and solutions handle message transfer aspects. For a quick and costless start of B2B communication also the partner software must "speak" the same technical language. Else we or the partners must implement new standards or buy new software solutions. The ebMS 3.0 standard was proposed by the European Commission and also used by many of its projects for reaching the goal of common B2B marked.
 At the project eDelivery (https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery) developed example of ebMS 3.0 (AS4 eDelivery profile) called Domibus and also providing conformance tests and also a list of software compliant with that profile for message exchange.
+
+
+
