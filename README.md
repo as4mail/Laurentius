@@ -6,7 +6,7 @@ WarpSource/AS4Mail is a multipurpose ebMS 3.0 software solution. Its code is for
 The VsrsCif/Laurentius is a production-ready solution and is developed/ upgraded according to owners needs and requests.  
 This fork is maintained by original authors/developers of VsrsCif/Laurentius with purpose to independently develop new features, to provide up-to dates security upgrades, and also to explore new possibilities of using ebMS 3.0 standards for B2B integrations. 
 
-## Why use of ebMS 3.0 standard for B2B
+## Why to use ebMS 3.0 standard for B2B
 
 Business interactions are dynamic. Not only from the service content viewpoint, but also from the business partner aspect where partner changes its interaction capabilities as: changing URL, certificates, technologies, HTTPS ciphers, etc..  Also adding new (and removing) partners on existing services is producing workload and costs on tasks as negotiation, configuring and testing.
 
