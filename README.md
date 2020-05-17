@@ -30,5 +30,5 @@ The ebMS 3.0 defines a component MSH (Messaging Service Handler). The purpose of
  
 ![AS4Mail logo](./documentation/images/ebms/ebms-model_en.png)
  
-The ebMS 3.0 standard also defines a set of parameters for the determination of the security level, the reliability mechanisms, addressing types, message payload type, underlying transport. When two implementations of the MSH synchronize P-MODE parameters they should be able to exchange messages, regardless of MSH vendors, program language, or operation system users are using. 
+The ebMS 3.0 standard also defines a set of parameters for the determination of the security level, the reliability mechanisms, addressing types, message payload type, underlying transport and bussines context. When two implementations of the MSH synchronize P-MODE parameters they should be able to exchange messages, regardless of MSH vendors, program language, or operation system users are using. 
 
