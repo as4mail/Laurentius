@@ -1,4 +1,5 @@
-# AS4Mail
+
+![AS4Mail logo](./documentation/images/logos/logo-title-horizontal.png)
 
 ## Purpose
 
@@ -21,4 +22,13 @@ Another strong reason for using the ebMS 3.0 standard is its potential widesprea
 At the project eDelivery (https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eDelivery) developed example of ebMS 3.0 (AS4 eDelivery profile) called Domibus and also providing conformance tests and also a list of software compliant with that profile for message exchange.
 
 
+## Arhitecture
+
+The ebMS 3.0 (ebXML Messaging Service) standard is part of the OASIS ebXML (Electronic Business using eXtensible Markup Language) standard family for providing modern, XML-based,  open infrastructures to promote global e-commerce in an interoperable, secure and consistent manner. 
+The ebMS 3.0 defines a component MSH (Messaging Service Handler). The purpose of MSH is when sending mail to format and update messages with transfer specific data, and when receiving mail to verify and accept incoming messages. 
+
+ 
+![AS4Mail logo](./documentation/images/ebms/ebms-model_en.png)
+ 
+The ebMS 3.0 standard also defines a set of parameters for the determination of the security level, the reliability mechanisms, addressing types, message payload type, underlying transport. When two implementations of the MSH synchronize P-MODE parameters they should be able to exchange messages, regardless of MSH vendors, program language, or operation system users are using. 
 
