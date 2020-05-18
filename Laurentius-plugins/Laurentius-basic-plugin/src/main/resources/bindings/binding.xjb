@@ -1,5 +1,5 @@
 <jxb:bindings 
-    version="2.0"
+    version="2.1"
     xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
     xmlns:xjc= "http://java.sun.com/xml/ns/jaxb/xjc"
     jxb:extensionBindingPrefixes="xjc"
@@ -7,9 +7,13 @@
     
 >
     <jxb:bindings>
+
+        
         <jxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
                             xmlns:xs="http://www.w3.org/2001/XMLSchema"
                             enableFailFastCheck="true"
+                            enableJavaNamingConventions="false"
+                            generateIsSetMethod="false"
         >
                            
                                 
@@ -24,6 +28,7 @@
             
             
             <jxb:javaType name="java.lang.Integer" xmlType="xs:int" />
+            
             
 
             <xjc:simple/> <!-- add root element to generated object -->

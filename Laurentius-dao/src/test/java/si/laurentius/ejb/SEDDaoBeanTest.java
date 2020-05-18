@@ -221,11 +221,11 @@ public class SEDDaoBeanTest extends TestUtils {
       File f = StorageUtils.getFile(part.getFilepath());
 
       assertEquals(initPart.getIsReceived(), part.getIsReceived());
-      assertEquals(initPart.getIsSent(), part.getIsSent());
+      assertEquals(initPart.isIsSent(), part.isIsSent());
       assertEquals(initPart.getGeneratedFromPartId(), part.
               getGeneratedFromPartId());
       assertEquals(initPart.getMimeType(), part.getMimeType());
-      assertEquals(initPart.getIsEncrypted(), part.getIsEncrypted());
+      assertEquals(initPart.isIsEncrypted(), part.isIsEncrypted());
       assertEquals(initPart.getEncoding(), part.getEncoding());
       assertEquals(initPart.getEbmsId(), part.getEbmsId());
       assertEquals(initPart.getFilename(), part.getFilename());
@@ -306,11 +306,11 @@ public class SEDDaoBeanTest extends TestUtils {
 
       File f = StorageUtils.getFile(part.getFilepath());
       assertEquals(initPart.getIsReceived(), part.getIsReceived());
-      assertEquals(initPart.getIsSent(), part.getIsSent());
+      assertEquals(initPart.isIsSent(), part.isIsSent());
       assertEquals(initPart.getGeneratedFromPartId(), part.
               getGeneratedFromPartId());
       assertEquals(initPart.getMimeType(), part.getMimeType());
-      assertEquals(initPart.getIsEncrypted(), part.getIsEncrypted());
+      assertEquals(initPart.isIsEncrypted(), part.isIsEncrypted());
       assertEquals(initPart.getEncoding(), part.getEncoding());
       assertEquals(initPart.getEbmsId(), part.getEbmsId());
       assertEquals(initPart.getFilename(), part.getFilename());

@@ -748,7 +748,7 @@ public class ZPPInInterceptor implements SoapInterceptorInterface {
 
         for (MSHInPart mip : mi.getMSHInPayload().getMSHInParts()) {
           String oldFileName = mip.getFilename();
-          if (mip.getIsEncrypted()) {
+          if (mip.isIsEncrypted()) {
 
             String newFileName
                     = oldFileName.substring(0, oldFileName.lastIndexOf(
@@ -828,8 +828,8 @@ public class ZPPInInterceptor implements SoapInterceptorInterface {
                   ex);
         }
         /*
-        if (sb.getExport() != null && sb.getExport().getActive() != null &&
-            sb.getExport().getActive()) {
+        if (sb.getExport() != null && sb.getExport().isActive() != null &&
+            sb.getExport().isActive()) {
           try {
             mJMS.exportInMail(mi.getId().longValue());
           } catch (NamingException | JMSException ex) {

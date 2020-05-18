@@ -192,7 +192,7 @@ public class EBMSBuilder {
             String address, String name, boolean use4cm) {
         List<PartyId> pilst = new ArrayList<>();
         if (use4cm) {
-            String domain = pis.getIsLocalIdentity()?SEDSystemProperties.getLocalDomain(): pis.getDomain();
+            String domain = pis.isIsLocalIdentity()?SEDSystemProperties.getLocalDomain(): pis.getDomain();
             PartyId pi = new PartyId();
             pi.setType(EBMSConstants.EBMS_ECORE_PARTY_TYPE_UNREGISTERED);
             pi.setValue(domain);
@@ -258,7 +258,7 @@ public class EBMSBuilder {
         // sender ids
         usgMsg.getPartyInfo().getFrom().setRole(ctx.getSendingRole()); // get from p-mode
         List<PartyId> plstSender = createPartyIdList(pisSender, mo.getSenderEBox(),
-                mo.getSenderName(), pisSender.getUseFourCornerModel()!=null && pisSender.getUseFourCornerModel());
+                mo.getSenderName(), pisSender.isUseFourCornerModel()!=null && pisSender.isUseFourCornerModel());
         usgMsg.getPartyInfo().getFrom().getPartyIds().addAll(plstSender);
 
         // generate to
@@ -266,7 +266,7 @@ public class EBMSBuilder {
         usgMsg.getPartyInfo().getTo().setRole(ctx.getReceivingRole());
         List<PartyId> plstReceiver = createPartyIdList(pisReceiver, mo.
                 getReceiverEBox(),
-                mo.getReceiverName(), pisReceiver.getUseFourCornerModel() != null && pisReceiver.getUseFourCornerModel());
+                mo.getReceiverName(), pisReceiver.isUseFourCornerModel() != null && pisReceiver.isUseFourCornerModel());
         usgMsg.getPartyInfo().getTo().getPartyIds().addAll(plstReceiver);
 
         // set colloboration info
@@ -293,8 +293,8 @@ public class EBMSBuilder {
 
         List<Property> lstProperties = new ArrayList<>();
         // add four corner properties
-        if (pisReceiver.getUseFourCornerModel() != null && pisReceiver.getUseFourCornerModel() ||
-                pisSender.getUseFourCornerModel() != null && pisSender.getUseFourCornerModel()){
+        if (pisReceiver.isUseFourCornerModel() != null && pisReceiver.isUseFourCornerModel() ||
+                pisSender.isUseFourCornerModel() != null && pisSender.isUseFourCornerModel()){
             
             Property pRec = new Property();
             pRec.setName(EBMSConstants.EBMS_PROP_4CM_ORIGINAL_SENDER);
@@ -307,8 +307,8 @@ public class EBMSBuilder {
             lstProperties.add(pSnd);
         }
         
-        if (ctx.getService().getUseSEDProperties() == null || ctx.getService().
-                getUseSEDProperties()) {
+        if (ctx.getService().isUseSEDProperties() == null || ctx.getService().
+                isUseSEDProperties()) {
 
             if (!Utils.isEmptyString(mo.getSubject())) {
                 Property p = new Property();
@@ -385,8 +385,8 @@ public class EBMSBuilder {
                     fileProp.add(fp);
                 }
 
-                if (ctx.getTransportProtocol().getGzipCompress() != null && ctx.
-                        getTransportProtocol().getGzipCompress()) {
+                if (ctx.getTransportProtocol().isGzipCompress() != null && ctx.
+                        getTransportProtocol().isGzipCompress()) {
                     Property fp = new Property();
                     fp.setName(EBMSConstants.EBMS_PAYLOAD_COMPRESSION_TYPE);
                     fp.setValue(MimeValue.MIME_GZIP.getMimeType());
@@ -407,8 +407,8 @@ public class EBMSBuilder {
                     fp.setValue(mp.getMimeType());
                     fileProp.add(fp);
                 }
-                if (ctx.getService().getUseSEDProperties() == null || ctx.getService().
-                        getUseSEDProperties()) {
+                if (ctx.getService().isUseSEDProperties() == null || ctx.getService().
+                        isUseSEDProperties()) {
                     if (!Utils.isEmptyString(mp.getName())) {
                         Property fp = new Property();
                         fp.setName(EBMSConstants.EBMS_PAYLOAD_PROPERTY_NAME);
@@ -430,7 +430,7 @@ public class EBMSBuilder {
                     }
                     Property fp = new Property();
                     fp.setName(EBMSConstants.EBMS_PAYLOAD_PROPERTY_IS_ENCRYPTED);
-                    fp.setValue(mp.getIsEncrypted() ? "true" : "false");
+                    fp.setValue(mp.isIsEncrypted() ? "true" : "false");
                     fileProp.add(fp);
                 }
 

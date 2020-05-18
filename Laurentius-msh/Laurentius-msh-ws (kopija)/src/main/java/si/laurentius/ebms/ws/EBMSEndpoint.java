@@ -137,7 +137,7 @@ public class EBMSEndpoint implements Provider<SOAPMessage> {
 
     // serialize to file
     Export e = sb.getExport();
-    if (e != null && e.getActive()) {
+    if (e != null && e.isActive()) {
 
       String val = msfFormat.format(e.getFileMask(), mail);
       int i = 1;

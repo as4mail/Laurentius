@@ -378,7 +378,7 @@ public class AdminSEDPluginView extends AbstractAdminJSFView<Plugin> {
 
             List<PartyIdentitySet> pisLst = mPModeManager.getPartyIdentitySets();
             for (PartyIdentitySet pis : pisLst) {
-                if (pis.getIsLocalIdentity()) {
+                if (pis.isIsLocalIdentity()) {
                     PModePartyInfo pmdLParty = new PModePartyInfo();
 
                     pmdLParty.setPartyIdentitySetIdRef(pis.getId());

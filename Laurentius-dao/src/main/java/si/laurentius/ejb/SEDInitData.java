@@ -227,7 +227,7 @@ public class SEDInitData implements SEDInitDataInterface {
                   }
                 );
                 mdbLookups.addSEDCronJob(cb);
-                if (cb.getActive() != null && cb.getActive()) {
+                if (cb.isActive() != null && cb.isActive()) {
                   mshScheduler.activateCronJob(cb);
                 }
               });
