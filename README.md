@@ -1,3 +1,5 @@
+![Java CI](https://github.com/WarpSource/as4-mail/workflows/Java%20CI/badge.svg)
+
 
 ![AS4Mail logo](./documentation/images/logos/logo-title-horizontal.png)
 
