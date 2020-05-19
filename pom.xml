@@ -73,7 +73,7 @@
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.jxr.plugin>2.5</maven.jxr.plugin><!-- code inspection report -->     
         <maven.pmd.plugin.version>3.13.0</maven.pmd.plugin.version>
-        <maven.project-info.plugin.version>2.9</maven.project-info.plugin.version>
+        <maven.project-info.plugin.version>3.0.0</maven.project-info.plugin.version>
         <maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
         <sonar.maven.version>3.2</sonar.maven.version>
         <!-- DEPENDENCIES -->
