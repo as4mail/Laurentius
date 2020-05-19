@@ -63,7 +63,7 @@
         <codehaus.jaxws.plugin.version>2.4.1</codehaus.jaxws.plugin.version>
         <codehaus.jdepend.plugin.version>2.0</codehaus.jdepend.plugin.version>
         <codehaus.findbugs.plugin.version>3.0.3</codehaus.findbugs.plugin.version>        
-        <maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>        
+        <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>        
         <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>                       
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>        
         <maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
