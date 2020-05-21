@@ -40,6 +40,7 @@ import si.laurentius.commons.exception.SEDSecurityException;
 import si.laurentius.commons.utils.SEDLogger;
 import static java.lang.System.getProperty;
 import javax.xml.crypto.dsig.DigestMethod;
+import si.laurentius.commons.utils.xml.XMLUtils;
 
 /**
  *
@@ -116,9 +117,8 @@ public class SiTsaTimeStamp implements XMLTimeStamp {
       tReceive = LOG.getTime() - tCall;
       LOG.log("SvevSignatureUtils.callTimestampService: receive response in (" + tReceive + "ms)");
       InputStream httpIS = conn.getInputStream();
-      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-      dbf.setNamespaceAware(true);
-      respDoc = dbf.newDocumentBuilder().parse(httpIS);
+
+      respDoc = XMLUtils.getSafeDocumentBuilderFactory().newDocumentBuilder().parse(httpIS);
     } catch (SAXException | ParserConfigurationException ex) {
       LOG.logError( t,  ex.getMessage(), ex);
       throw new SEDSecurityException(

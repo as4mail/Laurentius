@@ -36,6 +36,7 @@ import si.laurentius.commons.enums.SEDOutboxMailStatus;
 import si.laurentius.commons.exception.StorageException;
 import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.StorageUtils;
+import si.laurentius.commons.utils.xml.XMLUtils;
 import si.laurentius.msh.inbox.mail.MSHInMail;
 import si.laurentius.msh.inbox.payload.MSHInPart;
 import si.laurentius.msh.outbox.mail.MSHOutMail;
@@ -114,19 +115,7 @@ public class EBMSOutPartPersisterInterceptor extends AbstractEBMSInterceptor {
     }
     
     private File storeSoapPart(SOAPPart sp, MimeValue mv, String prefix) throws StorageException {
-
-        File f = StorageUtils.getNewStorageFile(mv.getSuffix(), prefix);
-
-        try {
-            TransformerFactory.newInstance().newTransformer().transform(
-                    new DOMSource(sp.getEnvelope()),
-                    new StreamResult(f));
-        } catch (TransformerException | SOAPException e) {
-            throw new StorageException("Error occured while storing ebms header", e);
-        }
-
-        return f;
-
+        return XMLUtils.serializeSoapPart(sp, prefix, mv);
     }
 
 }

@@ -18,6 +18,7 @@ import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,6 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 import si.laurentius.commons.exception.SEDSecurityException;
+import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.xml.XMLUtils;
 
 /**
@@ -366,12 +368,9 @@ public class SEDCrypto {
   public String encryptKeyWithReceiverPublicKey(Key key, X509Certificate rsaCert, String recipient,
       String keyId) throws SEDSecurityException {
 
-    // create document factory
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
     DocumentBuilder db;
     try {
-      db = dbf.newDocumentBuilder();
+      db = XMLUtils.getSafeDocumentBuilderFactory().newDocumentBuilder();
     } catch (ParserConfigurationException ex) {
       throw new SEDSecurityException(
           SEDSecurityException.SEDSecurityExceptionCode.EncryptionException, ex, ex.getMessage());
@@ -451,12 +450,9 @@ public class SEDCrypto {
   public Element encryptedKeyWithReceiverPublicKey(Key key, X509Certificate rsaCert,
       String recipient, String keyId) throws SEDSecurityException {
 
-    // create document factory
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
     DocumentBuilder db;
     try {
-      db = dbf.newDocumentBuilder();
+        db = XMLUtils.getSafeDocumentBuilderFactory().newDocumentBuilder();
     } catch (ParserConfigurationException ex) {
       throw new SEDSecurityException(
           SEDSecurityException.SEDSecurityExceptionCode.EncryptionException, ex, ex.getMessage());

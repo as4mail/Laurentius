@@ -84,6 +84,7 @@ import si.laurentius.commons.utils.GZIPUtil;
 import si.laurentius.commons.utils.SEDLogger;
 import si.laurentius.commons.utils.StorageUtils;
 import si.laurentius.commons.utils.Utils;
+import si.laurentius.commons.utils.xml.XMLUtils;
 import si.laurentius.lce.DigestUtils;
 import si.laurentius.msh.inbox.payload.IMPartProperty;
 import si.laurentius.msh.inbox.payload.MSHInPayload;
@@ -611,21 +612,11 @@ public class EBMSInInterceptor extends AbstractEBMSInterceptor {
 
         return mMail;
     }
+    
+    
 
     private File storeSoapPart(SOAPPart sp, MimeValue mv) throws StorageException {
-
-        File f = StorageUtils.getNewStorageFile(mv.getSuffix(), EBMSConstants.SOAP_PART_REQUEST_PREFIX);
-
-        try {
-            TransformerFactory.newInstance().newTransformer().transform(
-                    new DOMSource(sp.getEnvelope()),
-                    new StreamResult(f));
-        } catch (TransformerException | SOAPException e) {
-            throw new StorageException("Error occured while storing ebms header", e);
-        }
-
-        return f;
-
+        return XMLUtils.serializeSoapPart(sp, EBMSConstants.SOAP_PART_REQUEST_PREFIX, mv);
     }
 
     private SEDBox getSedBoxByName(String sbox) {
