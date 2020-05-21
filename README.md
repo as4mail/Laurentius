@@ -1,4 +1,5 @@
 ![Java CI](https://github.com/WarpSource/as4-mail/workflows/Java%20CI/badge.svg)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=alert_status)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
 
 
 ![AS4Mail logo](./documentation/images/logos/logo-title-horizontal.png)
