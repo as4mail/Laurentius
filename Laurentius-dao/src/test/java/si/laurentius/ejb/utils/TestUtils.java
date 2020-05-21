@@ -22,11 +22,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.activemq.junit.EmbeddedActiveMQBroker;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.fail;
 import si.laurentius.commons.SEDSystemProperties;
 import si.laurentius.commons.utils.StorageUtils;
@@ -79,7 +76,7 @@ public class TestUtils {
   /**
    *
    * @param fileName
-   */
+   * 
   public static void setLogger(String fileName) {
     // set logger
     ConsoleAppender console = new ConsoleAppender(); // create appender
@@ -100,7 +97,7 @@ public class TestUtils {
     // add appender to any Logger (here is root)
     Logger.getRootLogger().addAppender(fa);
   }
-
+*/
   public static void setUpStorage(String folder)
           throws IOException {
     System.setProperty(SEDSystemProperties.SYS_PROP_HOME_DIR, folder);

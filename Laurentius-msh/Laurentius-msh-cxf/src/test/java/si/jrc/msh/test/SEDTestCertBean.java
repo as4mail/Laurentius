@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.Properties;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import si.jrc.msh.interceptor.EBMSInInterceptorTest;
 import si.laurentius.commons.exception.SEDSecurityException;
 import si.laurentius.lce.KeystoreUtils;
@@ -25,7 +27,7 @@ public class SEDTestCertBean implements SEDCertUtilsInterface {
 
 
   KeystoreUtils mku = new KeystoreUtils();
-  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(
+  public static final Logger LOG = LogManager.getLogger(
       EBMSInInterceptorTest.class);
 
   public SEDTestCertBean() {

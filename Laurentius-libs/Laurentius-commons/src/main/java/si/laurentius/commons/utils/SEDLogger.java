@@ -17,8 +17,9 @@ package si.laurentius.commons.utils;
 import java.io.StringWriter;
 import static java.lang.Thread.currentThread;
 import static java.util.Calendar.getInstance;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Common method logger.
@@ -58,7 +59,7 @@ public class SEDLogger {
    * @param clzz
    */
   public SEDLogger(Class clzz) {
-    mlgLogger = Logger.getLogger(
+    mlgLogger = LogManager.getLogger(
             clzz != null ? clzz.getName() : this.getClass().getName());
   }
 
@@ -68,7 +69,7 @@ public class SEDLogger {
    * @param iLogStackMethodLevel
    */
   public SEDLogger(Class clzz, int iLogStackMethodLevel) {
-    mlgLogger = Logger.getLogger(
+    mlgLogger = LogManager.getLogger(
             clzz != null ? clzz.getName() : this.getClass().getName());
     miMethodStack = iLogStackMethodLevel;
   }

@@ -22,8 +22,8 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import org.apache.log4j.Logger;
-import static org.apache.log4j.Logger.getLogger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
@@ -91,7 +91,7 @@ class SchemaInput implements LSInput {
   final private String baseURI;
 
   private final BufferedInputStream inputStream;
-  Logger mlog = getLogger(SchemaInput.class);
+  Logger mlog = LogManager.getLogger(SchemaInput.class);
   private String publicId;
   private String systemId;
 

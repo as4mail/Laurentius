@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import si.laurentius.msh.outbox.mail.MSHOutMail;
 import si.laurentius.msh.outbox.payload.MSHOutPart;
 import si.crea._2004.eppr.message.AddressType;
@@ -211,7 +212,7 @@ public class DocumentEVemBuilder extends DocumentBuilder {
       try {
         mstrMimeTypes.load(DocumentEVemBuilder.class.getResourceAsStream("/mimetypes.properties"));
       } catch (IOException ex) {
-        Logger.getLogger(DocumentEVemBuilder.class.getName()).error(
+          LogManager.getLogger(DocumentEVemBuilder.class.getName()).error(
             "DocumentCreaBuilder.getFilePrefixForMimeType: Error reading resource /mimetypes.properties"
                 + ex);
       }

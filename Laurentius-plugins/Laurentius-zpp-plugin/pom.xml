@@ -105,8 +105,8 @@
         </dependency>
       
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>		
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>		
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -167,7 +167,7 @@
                             <implementation-version>${project.version}</implementation-version>             
                             <Implementation-Build>${buildNumber}</Implementation-Build>                            
                             <Dependencies>org.apache.cxf,org.apache.cxf.impl,org.apache.commons.io, org.apache.ws.security, 
-                                org.apache.pdfbox,  org.apache.santuario.xmlsec,si.laurentius, org.primefaces</Dependencies>
+                                org.apache.pdfbox, org.apache.santuario.xmlsec,si.laurentius, org.primefaces</Dependencies>
                         </manifestEntries>
                     </archive>                                 
                 </configuration>                 

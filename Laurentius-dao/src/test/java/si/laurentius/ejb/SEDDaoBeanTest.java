@@ -53,7 +53,7 @@ import si.laurentius.ejb.utils.InitialContextFactoryForTest;
 import si.laurentius.ejb.utils.TestLookupUtils;
 import si.laurentius.ejb.utils.TestUtils;
 import static si.laurentius.ejb.utils.TestUtils.LAU_TEST_DOMAIN;
-import static si.laurentius.ejb.utils.TestUtils.setLogger;
+
 import si.laurentius.lce.DigestUtils;
 import si.laurentius.msh.inbox.event.MSHInEvent;
 import si.laurentius.msh.inbox.mail.MSHInMail;

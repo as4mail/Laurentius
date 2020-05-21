@@ -261,7 +261,7 @@ public class TestLoad {
                 SedMailbox msb = new SedMailbox(new URL(MAILBOX_ADDRESS));
                 mTestInstance = msb.getSEDMailBoxWSPort();
             } catch (MalformedURLException ex) {
-                Logger.getLogger(TestLoad.class.getName()).log(Level.SEVERE,
+                LogManager.getLogger(TestLoad.class.getName()).log(Level.SEVERE,
                         null, ex);
             }
         }
@@ -274,7 +274,7 @@ public class TestLoad {
         try {
             tl.testLoad_a(50);
         } catch (SEDException_Exception ex) {
-            Logger.getLogger(TestLoad.class.getName()).log(Level.SEVERE, null, ex);
+            LogManager.getLogger(TestLoad.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -373,7 +373,7 @@ public class TestLoad {
                 op.setMimeType(MimeValues.MIME_PDF.getMimeType());
                 om.getOutPayload().getOutParts().add(op);
             } catch (IOException ex) {
-                Logger.getLogger(TestLoad.class.getName()).log(Level.SEVERE,
+                LogManager.getLogger(TestLoad.class.getName()).log(Level.SEVERE,
                         null, ex);
             }
         }

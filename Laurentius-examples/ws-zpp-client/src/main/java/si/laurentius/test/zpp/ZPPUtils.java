@@ -20,7 +20,8 @@ import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.UUID;
 import java.util.logging.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.xmlgraphics.util.MimeConstants;
 import si.laurentius.inbox.mail.InMail;
 import si.laurentius.outbox.mail.OutMail;
@@ -44,7 +45,7 @@ public class ZPPUtils {
   
   
    FOPUtils mfpFop = null;
-  public static final Logger LOG = Logger.getLogger(ZPPUtils.class);
+  public static final Logger LOG = LogManager.getLogger(ZPPUtils.class);
   
   public OutMail createZppAdviceOfDelivery(InMail mInMail, String keystore, String keystorepassword,  String signAlias, String keypassword)
           throws FOPException,
