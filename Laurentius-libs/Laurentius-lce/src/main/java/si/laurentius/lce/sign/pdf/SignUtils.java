@@ -48,6 +48,7 @@ import javax.imageio.ImageIO;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 
+
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureInterface;
 import org.bouncycastle.asn1.ASN1Primitive;
 import org.bouncycastle.cert.X509CertificateHolder;
@@ -162,7 +163,7 @@ public class SignUtils implements SignatureInterface {
         name = (String)ldName.getRdn(ldName.size()-1).getValue();
         issuer = (String)ldIssuer.getRdn(ldIssuer.size()-1).getValue();
       } catch (InvalidNameException ex) {
-        Logger.getLogger(SignUtils.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(SignUtils.class.getName()).log(Level.SEVERE, null, ex);
       }
 
       

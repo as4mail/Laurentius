@@ -17,7 +17,8 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
@@ -84,7 +85,7 @@ public class SEDMailBoxTest extends TestUtils {
   /**
    *
    */
-  public static final Logger LOG = Logger.getLogger(SEDMailBoxTest.class);
+  public static final Logger LOG = LogManager.getLogger(SEDMailBoxTest.class);
 
   static SEDMailBox mTestInstance = new SEDMailBox();
   static EntityManagerFactory memfFactory = null;
@@ -98,9 +99,6 @@ public class SEDMailBoxTest extends TestUtils {
   public static void startClass() throws Exception {
 
     try {
-      // ---------------------------------
-      // set logger
-      setLogger(SEDMailBoxTest.class.getSimpleName());
 
       // ---------------------------------
       // set system variables

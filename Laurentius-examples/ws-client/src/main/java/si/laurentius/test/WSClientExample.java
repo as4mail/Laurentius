@@ -31,8 +31,9 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
+import org.apache.logging.log4j.Logger;
 import si.laurentius.GetInMailRequest;
 import si.laurentius.GetInMailResponse;
 import si.laurentius.InMailEventListRequest;
@@ -85,7 +86,7 @@ public class WSClientExample {
   public static final String ACTION = "Delivery";
   public static final String LOG_SECTION_SEPARATOR = "*****************************";
 
-  public static final Logger LOG = Logger.getLogger(WSClientExample.class);
+  public static final Logger LOG = LogManager.getLogger(WSClientExample.class);
 
   File[] testFiles;
   SEDMailBoxWS mTestInstance = null;
@@ -136,7 +137,6 @@ public class WSClientExample {
 
   public static void main(String... args) throws InterruptedException {
 
-    BasicConfigurator.configure();
 
     WSClientExample wc = new WSClientExample();
 

@@ -15,7 +15,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -26,7 +27,7 @@ public class JEELogInterceptor {
   private final String logFormat = "%s %s %s %s time: %d ms.";
 
   private final String logFormatBegin = "%s %s %s %s";
-  private final Logger mlgLogger = Logger.getLogger(JEELogInterceptor.class);
+  private final Logger mlgLogger = LogManager.getLogger(JEELogInterceptor.class);
   @Resource
   WebServiceContext mwsCtxt;
 
