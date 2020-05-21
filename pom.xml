@@ -75,7 +75,7 @@
         <maven.pmd.plugin.version>3.13.0</maven.pmd.plugin.version>
         <maven.project-info.plugin.version>3.0.0</maven.project-info.plugin.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-        <sonar.maven.version>3.2</sonar.maven.version>
+   
         <!-- DEPENDENCIES -->
         <!-- 
         Saxon9-HE no longer offers XPath 1.0 compatibility mode, so it won't run a stylesheet labelled with version="1.0".
@@ -418,11 +418,6 @@
                          
                     </configuration>
                 </plugin>        
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar.maven.version}</version>                    
-                </plugin>
                 <plugin><!-- for testing purposes generates certicate-->
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>keytool-maven-plugin</artifactId>
