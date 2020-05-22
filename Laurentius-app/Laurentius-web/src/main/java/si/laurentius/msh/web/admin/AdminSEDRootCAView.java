@@ -156,9 +156,7 @@ public class AdminSEDRootCAView extends AbstractAdminJSFView<SEDCertificate> {
     String strClass = null;
     if (isCertInvalid(crt)) {
       strClass = "ui-datatable-cell-red";
-    } else if (crt.isKeyEntry() && (CertStatus.MISSING_PASSWD.hasCode(crt.
-            getStatus())
-            || CertStatus.MISSING_PASSWD.hasCode(crt.getStatus()))) {
+    } else if (crt.isKeyEntry() && CertStatus.MISSING_PASSWD.hasCode(crt.getStatus())) {
       strClass = "ui-datatable-cell-orange";
     }
 

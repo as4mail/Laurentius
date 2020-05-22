@@ -120,7 +120,7 @@ h1 {
 
     background:  url("../images/first-page.svg")  no-repeat right top ;
     background-position: 0 0;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     color:black;
     font-size: 35px;
     line-height: 50px;
