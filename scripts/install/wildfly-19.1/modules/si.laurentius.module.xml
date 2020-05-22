@@ -26,6 +26,8 @@
         <module name="org.hibernate"/>
         <module name="org.javassist"/>
         <module name="org.bouncycastle"/>
+
+        <module name="org.apache.logging.log4j"/>
     </dependencies>
 </module>
 

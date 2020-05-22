@@ -160,7 +160,7 @@
                     <archive>
                         <manifestEntries>                            
  
-                            <Dependencies>org.apache.cxf, org.apache.cxf.impl, si.laurentius, org.apache.activemq.artemis, org.apache.ws.security, org.apache.pdfbox</Dependencies>
+                            <Dependencies>org.apache.logging.log4j, org.apache.cxf, org.apache.cxf.impl, si.laurentius, org.apache.activemq.artemis, org.apache.ws.security, org.apache.pdfbox</Dependencies>
                         </manifestEntries>
                 
                     </archive>

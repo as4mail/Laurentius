@@ -67,7 +67,6 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
-import si.laurentius.commons.cxf.EBMSConstants;
 import si.laurentius.commons.enums.MimeValue;
 import si.laurentius.commons.exception.StorageException;
 import si.laurentius.commons.utils.SEDLogger;
@@ -84,10 +83,19 @@ public class XMLUtils {
     private static final String PARSER_DISALLOW_DTD_PARSING_FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
 
     private static final ThreadLocal<DocumentBuilderFactory> DOC_BUILDER_FACTORY = ThreadLocal.withInitial(() -> {
+
+        DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
         try {
-            DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();
             df.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // compliant
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_DTD + " property not supported by " + df.getClass().getCanonicalName(), null);
+        }
+        try {
+            df.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_SCHEMA + " property not supported by " + df.getClass().getCanonicalName(), null);
+        }
+        try {
             df.setNamespaceAware(true);
             df.setFeature(PARSER_DISALLOW_DTD_PARSING_FEATURE, true);
             return df;
@@ -106,7 +114,7 @@ public class XMLUtils {
         } catch (IllegalArgumentException e) {
             LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_DTD + " property not supported by " + transformerFactory.getClass().getCanonicalName(), null);
         }
-        
+
         try {
             transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
         } catch (IllegalArgumentException e) {
@@ -116,15 +124,19 @@ public class XMLUtils {
     });
 
     private static final ThreadLocal<SchemaFactory> DOC_SCHEMA_FACTORY = ThreadLocal.withInitial(() -> {
-        try {
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            //schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-            return schemaFactory;
-        } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
+
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        /*try {
+            schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        } catch (SAXNotRecognizedException | SAXNotSupportedException | IllegalArgumentException ex) {
             LOG.logError("Error occurred while initializing SchemaFactory. Cause message:", ex);
         }
-        return null;
+        try {
+            schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        } catch (SAXNotRecognizedException | SAXNotSupportedException | IllegalArgumentException ex) {
+            LOG.logError("Error occurred while initializing SchemaFactory. Cause message:", ex);
+        }*/
+        return schemaFactory;
     });
 
     public static DocumentBuilderFactory getSafeDocumentBuilderFactory() {
@@ -140,7 +152,7 @@ public class XMLUtils {
         DOC_TRANSFORMER_FACTORY.remove();
         DOC_SCHEMA_FACTORY.remove();
     }
-    
+
     /**
      *
      * @param xml
@@ -544,18 +556,18 @@ public class XMLUtils {
     }
 
     public static boolean serializeDOMSource(DOMSource doc, File f)
-            throws  StorageException {
+            throws StorageException {
 
         try {
             DOC_TRANSFORMER_FACTORY.get().newTransformer().transform(
                     doc,
                     new StreamResult(f));
-        } catch ( TransformerException e) {
+        } catch (TransformerException e) {
             throw new StorageException("Error occured while storing ebms header", e);
         }
         return true;
     }
-    
+
     public static File serializeSoapPart(SOAPPart sp, String prefix, MimeValue mv) throws StorageException {
 
         File f = StorageUtils.getNewStorageFile(mv.getSuffix(), prefix);
@@ -653,8 +665,8 @@ public class XMLUtils {
 
             Schema schema = schemaFactory.newSchema(xsdFile);
             Validator validator = schema.newValidator();
-            validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            //validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            //validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             validator.setErrorHandler(se);
             validator.validate(xml);

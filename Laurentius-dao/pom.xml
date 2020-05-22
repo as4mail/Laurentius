@@ -145,7 +145,7 @@
                         <manifestEntries>                            
                             <!-- implementation-version>${project.version}</implementation-version>             
                             <Implementation-Build>${buildNumber}</Implementation-Build -->
-                            <Dependencies>si.laurentius, org.apache.activemq.artemis, org.apache.ws.security</Dependencies>
+                            <Dependencies>org.apache.logging.log4j,  si.laurentius, org.apache.activemq.artemis, org.apache.ws.security</Dependencies>
                         </manifestEntries>
                 
                     </archive>

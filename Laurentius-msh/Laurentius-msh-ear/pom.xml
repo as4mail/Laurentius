@@ -43,7 +43,7 @@
                             <addClasspath>false</addClasspath>
                         </manifest>
                         <manifestEntries>                            
-                            <Dependencies>org.apache.cxf,org.apache.cxf.impl,org.apache.commons.io, org.apache.ws.security, 
+                            <Dependencies>org.apache.logging.log4j, org.apache.cxf,org.apache.cxf.impl,org.apache.commons.io, org.apache.ws.security, 
                                 org.apache.santuario.xmlsec,  si.laurentius</Dependencies>
                         </manifestEntries>
                     </archive>
