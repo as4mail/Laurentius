@@ -113,14 +113,13 @@ public class SEDCertUtilsBean implements SEDCertUtilsInterface {
   public Properties getCXFKeystoreProperties(String alias) throws SEDSecurityException {
     long l = LOG.logStart();
     SEDCertificate aliasCrt = mdbCertStore.getSEDCertificatForAlias(alias);
-    validateCertificate(aliasCrt);
-
     if (aliasCrt == null) {
       String msg = "Key for alias '" + alias + "' do not exists!";
       throw new SEDSecurityException(
               SEDSecurityException.SEDSecurityExceptionCode.CertificateException,
               msg);
     }
+    validateCertificate(aliasCrt);
 
     SEDCertPassword cp = mdbCertStore.getKeyPassword(
             SEDCertStoreInterface.KEYSTORE_NAME);

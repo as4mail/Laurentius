@@ -14,12 +14,12 @@ import java.util.HashMap;
  */
 public class SimpleObjectCache {
 
-  private long mlUpdateTimeout = 10 * 60 * 1000; // 10 minutes
+  private long mlUpdateTimeout; 
   private final HashMap<Object, Object> mlstCacheObject = new HashMap<>();
   private final HashMap<Object, Long> mlstCachedObjectTime = new HashMap<>();
 
   public SimpleObjectCache() {
-    mlUpdateTimeout = 10 * 60 * 1000;
+    mlUpdateTimeout = 10L * 60 * 1000; // 10 minutes
   }
   
   public SimpleObjectCache(long timeout) {

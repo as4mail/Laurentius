@@ -141,7 +141,7 @@ public class JEELogInterceptor {
       StringWriter sw = new StringWriter();
       int i = 0;
       for (Object o : param) {
-        if (i != 0) {
+        if (i++ != 0) {
           sw.append(",");
         }
         sw.append(requestToString(o));

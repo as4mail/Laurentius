@@ -63,7 +63,7 @@ public class SEDLookups implements SEDLookupsInterface {
   /**
    * lookup update time .
    */
-  public static final long S_UPDATE_TIMEOUT = 10 * 60 * 1000; // 10 minutes
+  public static final long S_UPDATE_TIMEOUT = 10L * 60 * 1000; // 10 minutes
 
   /**
    *

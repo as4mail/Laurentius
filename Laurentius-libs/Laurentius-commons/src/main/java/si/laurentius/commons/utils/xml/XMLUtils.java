@@ -135,6 +135,12 @@ public class XMLUtils {
         return DOC_TRANSFORMER_FACTORY.get();
     }
 
+    public static void clean() {
+        DOC_BUILDER_FACTORY.remove();
+        DOC_TRANSFORMER_FACTORY.remove();
+        DOC_SCHEMA_FACTORY.remove();
+    }
+    
     /**
      *
      * @param xml

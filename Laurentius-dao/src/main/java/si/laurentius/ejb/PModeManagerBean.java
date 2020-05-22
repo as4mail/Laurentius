@@ -43,7 +43,7 @@ public class PModeManagerBean implements PModeInterface {
   protected final static SEDLogger LOG = new SEDLogger(PModeManagerBean.class);
   FilePModeManager mPModeManager = new FilePModeManager();
   protected long m_iLastRefreshTime = 0;
-  protected long m_iRefreshInterval = 1800 * 1000; // 30 min
+  protected long m_iRefreshInterval = 1800L * 1000; // 30 min
 
   @Override
   public void addPMode(PMode val) {

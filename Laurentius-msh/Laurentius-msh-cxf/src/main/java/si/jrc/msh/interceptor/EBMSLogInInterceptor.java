@@ -59,9 +59,6 @@ public class EBMSLogInInterceptor extends AbstractSoapInterceptor {
       uri = (String) message.get(Message.REQUEST_URI);
       if (uri != null && uri.startsWith("/")) {
         if (address != null && !address.startsWith(uri)) {
-          if (address.endsWith("/") && address.length() > 1) {
-            address = address.substring(0, address.length());
-          }
           uri = address + uri;
         }
       } else {
@@ -180,9 +177,7 @@ public class EBMSLogInInterceptor extends AbstractSoapInterceptor {
       uri = (String) message.get(Message.REQUEST_URI);
       if (uri != null && uri.startsWith("/")) {
         if (address != null && !address.startsWith(uri)) {
-          if (address.endsWith("/") && address.length() > 1) {
-            address = address.substring(0, address.length());
-          }
+          
           uri = address + uri;
         }
       } else {

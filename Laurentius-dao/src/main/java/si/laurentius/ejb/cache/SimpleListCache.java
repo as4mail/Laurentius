@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class SimpleListCache {
 
-  public static final long S_UPDATE_TIMEOUT = 10 * 60 * 1000; // 10 minutes
+  public static final long S_UPDATE_TIMEOUT = 10L * 60 * 1000; // 10 minutes
   private final HashMap<Object, List<?>> mlstCacheList = new HashMap<>();
   private final HashMap<Object, Long> mlstCachedListTime = new HashMap<>();
 

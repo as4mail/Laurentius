@@ -15,30 +15,18 @@
 package si.jrc.msh.interceptor;
 
 import java.util.Calendar;
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.soap.MessageFactory;
-import javax.xml.soap.SOAPBody;
-import javax.xml.soap.SOAPConstants;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPFault;
-import javax.xml.soap.SOAPHeader;
-import javax.xml.soap.SOAPMessage;
 import org.apache.cxf.binding.soap.SoapFault;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.SoapVersion;
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.phase.Phase;
-import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.Messaging;
 import org.oasis_open.docs.ebxml_msg.ebms.v3_0.ns.core._200704.SignalMessage;
-import org.w3c.dom.Node;
 import si.laurentius.commons.ebms.EBMSError;
 import si.jrc.msh.utils.EBMSBuilder;
 import si.laurentius.commons.SEDSystemProperties;
@@ -109,22 +97,32 @@ public class EBMSOutFaultInterceptor extends AbstractEBMSInterceptor {
     private void handleSecurityForOutFaultMessage(SoapMessage message,
             EBMSMessageContext ectx) {
         try {
+            if (ectx != null) {
+                WSS4JOutInterceptor sc
+                        = configureOutSecurityInterceptors(ectx.getSecurity(), ectx.
+                                getSenderPartyIdentitySet().getLocalPartySecurity(),
+                                ectx.getReceiverPartyIdentitySet().
+                                        getExchangePartySecurity(), "",
+                                SoapFault.FAULT_CODE_CLIENT);
 
-            WSS4JOutInterceptor sc
-                    = ectx != null ? configureOutSecurityInterceptors(ectx.getSecurity(), ectx.
-                                    getSenderPartyIdentitySet().getLocalPartySecurity(),
-                                    ectx.getReceiverPartyIdentitySet().
-                                            getExchangePartySecurity(), "",
-                                    SoapFault.FAULT_CODE_CLIENT)
-                            : null;
-            LOG.formatedlog(
-                    "Security for soapfault setted! Security: '%s', Sender '%s', receiver: '%s'.",
-                    ectx.getSecurity().getId(), ectx.getSenderPartyIdentitySet().
-                    getId(),
-                    ectx.getReceiverPartyIdentitySet().getId());
-            if (sc != null) {
-             
-                sc.handleMessage(message);
+                
+                if (sc != null) {
+                    LOG.formatedlog(
+                            "Security for soapfault setted! Security: '%s', Sender '%s', receiver: '%s'.",
+                            ectx.getSecurity().getId(), ectx.getSenderPartyIdentitySet().
+                            getId(),
+                            ectx.getReceiverPartyIdentitySet().getId());
+                    sc.handleMessage(message);
+                } else {
+                    LOG.formatedlog(
+                            "Could not create WSS4JOutInterceptor for: Security: '%s', Sender '%s', receiver: '%s'.",
+                            ectx.getSecurity().getId(), ectx.getSenderPartyIdentitySet().
+                            getId(),
+                            ectx.getReceiverPartyIdentitySet().getId());
+                }
+            } else {
+                String msg = "Missing context while creating WSS4JOutInterceptor for out Fault! No security will be created for outFault!";
+                LOG.logError(msg, null);
             }
         } catch (EBMSError err) {
             String msg = "Error occured while creating WSS4JOutInterceptor for out Fault! No security will be created for outFault!: Error: " + err.
@@ -137,14 +135,13 @@ public class EBMSOutFaultInterceptor extends AbstractEBMSInterceptor {
         return handleMessageCalled;
     }
 
-    
     private Messaging generateMessaging(Exception exc, SoapVersion sv) {
         Messaging msgHeader = null;
         if (exc instanceof EBMSError) {
 
             EBMSError sf = (EBMSError) exc;
-           msgHeader = EBMSBuilder.createMessaging(sv);
-        SignalMessage sm
+            msgHeader = EBMSBuilder.createMessaging(sv);
+            SignalMessage sm
                     = EBMSBuilder.createErrorSignal(sf, Calendar.getInstance()
                             .getTime());
             msgHeader.getSignalMessages().add(sm);
