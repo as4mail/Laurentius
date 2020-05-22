@@ -43,6 +43,11 @@ public class XSLTExtensions {
       return new SimpleDateFormat("dd.MM.yyyy HH:mm");
     }
   };
+  
+    public static void clean() {
+        S_DATE_TIME_FORMAT.remove();
+        S_DATE_FORMAT.remove();
+    }
 
   /**
    * Method returs current date string representation 
