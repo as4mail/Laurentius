@@ -28,9 +28,8 @@
     background: #cdcfcf;
     background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
     background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
     background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:         linear-gradient(45deg,#cdcfcf, #bdbfcf);
 }
 
 

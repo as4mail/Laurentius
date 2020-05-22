@@ -3,9 +3,8 @@
     background: #cdcfcf;
     background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
     background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
     background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:         linear-gradient(45deg,#cdcfcf, #bdbfcf);
 
 }
 
@@ -58,7 +57,7 @@
 /************************************************************************/
 /*Toolbar                                                               */
 /************************************************************************/
-.ui-toolbar, ui-accordion-header {
+.ui-toolbar, .ui-accordion-header {
     padding: 0em 0em !important; 
     border: 0px none !important;
     margin:  0em 0em !important;

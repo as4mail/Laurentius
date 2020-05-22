@@ -77,9 +77,8 @@ h3 {
     background: #cdcfcf;
     background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
     background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
     background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:         linear-gradient(45deg,#cdcfcf, #bdbfcf);
     padding: 10px 10px !important;
     margin:  0em 0em !important;
     height: 100%;
@@ -109,7 +108,7 @@ h3 {
 /************************************************************************/
 /*Toolbar                                                               */
 /************************************************************************/
-.ui-toolbar, ui-accordion-header {
+.ui-toolbar, .ui-accordion-header {
     padding: 0em 0em !important; 
     border: 0px none !important;
     margin:  0em 0em !important;
@@ -359,7 +358,7 @@ td.ui-panelgrid-cell.label {
     
 }
 .arrow-right {   
-    height: 2Opx !important;
+    height: 20px !important;
     width: 20px !important;
     background: url("#{resource['images:/right-arrow.svg']}")  no-repeat !important;     
     

@@ -225,7 +225,7 @@ public class ZPPUtils {
     ptNew.setFilepath(StorageUtils.getRelativePath(fdek));
     ptNew.setFilename(String.format("%s-%d.%s",
             ZPPPartType.LocalEncryptionKey.getPartName(),
-            mail.getId() != null ? mail.getId() : 0,
+            mail.getId() != null ? mail.getId().intValue() : 0,
             ZPPPartType.LocalEncryptionKey.getFileSuffix()));
     ptNew.setIsEncrypted(Boolean.FALSE);
 

@@ -2,9 +2,8 @@
     background: #cdcfcf;
     background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
     background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:     -ms-linear-gradient(left topt,#cdcfcf, #bdbfcf);
     background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(left top,#cdcfcf, #bdbfcf);
+    background:         linear-gradient(45deg,#cdcfcf, #bdbfcf);
 }
 
 .ui-datatable .ui-datatable-header,
@@ -34,7 +33,6 @@
 
 
 .ui-datatable-cell-red {
-    background-color: indianred;
     background: indianred;
     color: black;
 }
@@ -150,11 +148,11 @@
 .ui-datatable .ui-paginator,.ui-datatable .ui-paginator{
     padding:2px;
 }
-.ui-column-dnd-top, ui-column-dnd-bottom{
+.ui-column-dnd-top, .ui-column-dnd-bottom {
     display:none;
     position:absolute;
 }
-.ui-column-dnd-top .ui-icon, ui-column-dnd-bottom .ui-icon{
+.ui-column-dnd-top .ui-icon, .ui-column-dnd-bottom .ui-icon {
     position:absolute;
     top:-4px;
 }
