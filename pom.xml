@@ -60,33 +60,33 @@
         <codehaus.buildnumber.plugin.version>1.4</codehaus.buildnumber.plugin.version>
         <codehaus.cobertura.plugin.version>2.6</codehaus.cobertura.plugin.version>
         <codehaus.jaxb2.plugin.version>1.3.1</codehaus.jaxb2.plugin.version>        
-        <codehaus.jaxws.plugin.version>2.4.1</codehaus.jaxws.plugin.version>
+        <codehaus.jaxws.plugin.version>2.6</codehaus.jaxws.plugin.version>
         <codehaus.jdepend.plugin.version>2.0</codehaus.jdepend.plugin.version>
-        <codehaus.findbugs.plugin.version>3.0.3</codehaus.findbugs.plugin.version>        
-        <maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>        
-        <maven.clean.plugin.version>2.6.1</maven.clean.plugin.version>                       
-        <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>        
+        <codehaus.findbugs.plugin.version>3.0.5</codehaus.findbugs.plugin.version>        
+        <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>        
+        <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>                       
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>        
         <maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
-        <maven.ear.plugin.version>2.10.1</maven.ear.plugin.version>
-        <maven.ejb.plugin.version>2.5.1</maven.ejb.plugin.version>
+        <maven.ear.plugin.version>3.0.2</maven.ear.plugin.version>
+        <maven.ejb.plugin.version>3.0.1</maven.ejb.plugin.version>
         <maven.war.plugin.version>3.2.3</maven.war.plugin.version>     
-        <maven.jar.plugin.version>2.6</maven.jar.plugin.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.jxr.plugin>2.5</maven.jxr.plugin><!-- code inspection report -->     
         <maven.pmd.plugin.version>3.13.0</maven.pmd.plugin.version>
-        <maven.project-info.plugin.version>2.9</maven.project-info.plugin.version>
-        <maven.surefire.plugin.version>2.16</maven.surefire.plugin.version>
-        <sonar.maven.version>3.2</sonar.maven.version>
+        <maven.project-info.plugin.version>3.0.0</maven.project-info.plugin.version>
+        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
+   
         <!-- DEPENDENCIES -->
         <!-- 
         Saxon9-HE no longer offers XPath 1.0 compatibility mode, so it won't run a stylesheet labelled with version="1.0".
              The last open source Saxon release to offer this feature is Saxon 9.7, which of course is still available
              Latest: 9.7.0-14 9.8.0-5
         -->     
-        <net.sf.saxon.version>10.0</net.sf.saxon.version>
+        <net.sf.saxon.version>10.1</net.sf.saxon.version>
         <javax.javaee-api.version>8.0.1</javax.javaee-api.version>
         <javax.annotation.version>1.3.2 </javax.annotation.version>
-        <log4j.version>1.2.17</log4j.version>
-        <org.apache.xmlgraphics.fop.version>2.4</org.apache.xmlgraphics.fop.version>
+        <log4j.version>2.13.3</log4j.version>
+        <org.apache.xmlgraphics.fop.version>2.5</org.apache.xmlgraphics.fop.version>
         <org.apache.pdfbox.version>2.0.19</org.apache.pdfbox.version>
        
         <!-- wildfly 10.1 dependecies / latest  21.10.2017
@@ -113,7 +113,7 @@
         -->      
         <org.apache.derby.version>10.14.1.0</org.apache.derby.version>
         <!--org.hibernate.version>4.2.6.Final</org.hibernate.version -->
-        <org.hibernate.version>5.3.15.Final</org.hibernate.version>
+        <org.hibernate.version>5.4.16.Final</org.hibernate.version>
         <junit.version>4.13</junit.version>
         <org.apache.activemq.junit.version>5.15.12</org.apache.activemq.junit.version>      
         <org.apache.activemq.core.version>5.7.0</org.apache.activemq.core.version> 
@@ -136,8 +136,8 @@
                 <version>${javax.annotation.version}</version>                
             </dependency>     
             <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>                
             </dependency>
             <dependency>
@@ -418,11 +418,6 @@
                          
                     </configuration>
                 </plugin>        
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>${sonar.maven.version}</version>                    
-                </plugin>
                 <plugin><!-- for testing purposes generates certicate-->
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>keytool-maven-plugin</artifactId>
@@ -449,6 +444,32 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>owasp-dvaliationk</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <version>5.3.2</version>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <skipProvidedScope>true</skipProvidedScope>
+                            <skipRuntimeScope>true</skipRuntimeScope>
+                            <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>aggregate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>CI-BuildWithReports</id>
             <build>
@@ -522,57 +543,6 @@
             </reporting>            
         </profile>
         
-        <profile>
-            <id>CI-FormatCode</id>
-            <build>
-                <defaultGoal>tidy:pom initialize</defaultGoal>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>            
-                        <configuration>
-                            <skipTests>false</skipTests>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>tidy-maven-plugin</artifactId>
-                        <version>1.0-beta-1</version>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
-                        <artifactId>maven-java-formatter-plugin</artifactId>
-                        <version>0.4</version>
-                        <configuration>
-                            <configFile>${session.executionRootDirectory}/eclipse-java-google-style.xml</configFile>
-                            <overrideConfigCompilerVersion>true</overrideConfigCompilerVersion>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.eclipse.text</groupId>
-                                <artifactId>org.eclipse.text</artifactId>
-                                <version>3.5.101</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>org.eclipse.tycho</groupId>
-                                <artifactId>org.eclipse.jdt.core</artifactId>
-                                <version>3.10.0.v20140604-1726</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>format</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    
-                </plugins>
-            </build>
-            
-            
-        </profile>
+       
     </profiles>
 </project>

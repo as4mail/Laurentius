@@ -26,8 +26,9 @@ import javax.mail.internet.MimeMultipart;
 import static javax.mail.internet.MimeUtility.encodeText;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.apache.log4j.Logger;
-import static org.apache.log4j.Logger.getLogger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 /**
  *
@@ -40,7 +41,7 @@ public class EmailUtils {
   static CharsetEncoder asciiEncoder = forName("US-ASCII").newEncoder();
   // private static final String S_OUTMAIL_ADDRESS = "nobody@sodisce.si";
   // do no use DCLogger -> cyclic dependecy..
-  private static final Logger mlgLogger = getLogger(EmailUtils.class.getName());
+  private static final Logger mlgLogger = LogManager.getLogger(EmailUtils.class.getName());
 
   private Address[] getAddresses(String strAddrString) throws AddressException,
       UnsupportedEncodingException {

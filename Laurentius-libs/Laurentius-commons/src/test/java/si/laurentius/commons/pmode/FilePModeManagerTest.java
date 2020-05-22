@@ -15,12 +15,8 @@
 package si.laurentius.commons.pmode;
 
 import static java.lang.System.setProperty;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.FileAppender;
-import static org.apache.log4j.Level.DEBUG;
-import static org.apache.log4j.Level.FATAL;
-import static org.apache.log4j.Logger.getRootLogger;
-import org.apache.log4j.PatternLayout;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.appender.ConsoleAppender;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -51,7 +47,7 @@ public class FilePModeManagerTest {
 
     setProperty(SEDSystemProperties.SYS_PROP_HOME_DIR, ".");
     setProperty(SEDSystemProperties.SYS_PROP_PMODE_FILE, TEST_PMODE_FILE);
-
+/*
     ConsoleAppender console = new ConsoleAppender(); // create appender
     // configure the appender
     String PATTERN = "%d [%p|%c|%C{1}] %m%n";
@@ -59,7 +55,7 @@ public class FilePModeManagerTest {
     console.setThreshold(FATAL);
     console.activateOptions();
     // add appender to any Logger (here is root)
-    getRootLogger().addAppender(console);
+      LogManager.getRootLogger().addAppender(console);
 
     FileAppender fa = new FileAppender();
     fa.setName("FileLogger");
@@ -70,6 +66,7 @@ public class FilePModeManagerTest {
     fa.activateOptions();
     // add appender to any Logger (here is root)
     getRootLogger().addAppender(fa);
+    */
   }
 
 

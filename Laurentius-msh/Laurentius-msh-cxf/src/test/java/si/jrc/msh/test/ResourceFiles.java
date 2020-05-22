@@ -27,7 +27,8 @@ import org.apache.cxf.binding.soap.Soap12;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.message.ExchangeImpl;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import si.laurentius.commons.enums.MimeValue;
 
@@ -37,7 +38,7 @@ import si.laurentius.commons.enums.MimeValue;
  */
 public class ResourceFiles {
 
-  public static final Logger LOG = Logger.getLogger(ResourceFiles.class);
+  public static final Logger LOG = LogManager.getLogger(ResourceFiles.class);
   private static final String ROOT_FOLDER = "/soap-test-requests/";
 
   public static final String S_REQUEST_SOAP11_HEADER = "messaging_soap11.xml";

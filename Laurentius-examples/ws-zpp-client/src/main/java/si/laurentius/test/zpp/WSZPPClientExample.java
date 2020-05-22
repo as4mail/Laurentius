@@ -30,8 +30,8 @@ import java.util.UUID;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import si.laurentius.GetInMailRequest;
 import si.laurentius.GetInMailResponse;
 import si.laurentius.InMailEventListRequest;
@@ -88,7 +88,7 @@ public class WSZPPClientExample {
   public static final String SENDER_BOX = "a.department@" + DOMAIN;
   public static final String RECEIVER_BOX = "b.department@" + DOMAIN;
 
-  public static final Logger LOG = Logger.getLogger(WSZPPClientExample.class);
+  public static final Logger LOG = LogManager.getLogger(WSZPPClientExample.class);
   
   public static final String LOG_SECTION_SEPARATOR = "*****************************";
 
@@ -146,7 +146,7 @@ public class WSZPPClientExample {
   }
 
   private static void testAdviceOfDelivery(String singatureKey) throws SEDException_Exception, JAXBException, InterruptedException, FOPException, ZPPException {
-    BasicConfigurator.configure();
+
 
     WSZPPClientExample wc = new WSZPPClientExample();
 

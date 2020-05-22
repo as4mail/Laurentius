@@ -13,16 +13,17 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import si.laurentius.msh.outbox.mail.MSHOutMail;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import si.laurentius.commons.exception.SEDSecurityException;
 import si.laurentius.commons.utils.StorageUtils;
+import si.laurentius.commons.utils.xml.XMLUtils;
 import si.laurentius.lce.DigestMethodCode;
 import si.laurentius.lce.sign.xml.XMLSignatureUtils;
 import si.laurentius.msh.inbox.mail.MSHInMail;
@@ -100,7 +101,7 @@ public abstract class DocumentBuilder {
     }
   }
 
-  Logger mlgLogger = Logger.getLogger(DocumentBuilder.class.getName());
+  Logger mlgLogger = LogManager.getLogger(DocumentBuilder.class.getName());
 
   // private static ESignDocImpl medSigJDK = null;
   private XMLSignatureUtils mssuSignUtils;
@@ -117,8 +118,9 @@ public abstract class DocumentBuilder {
       throws SEDSecurityException {
     Document xDoc = null;
     try {
+        
       javax.xml.parsers.DocumentBuilderFactory dbf =
-          javax.xml.parsers.DocumentBuilderFactory.newInstance();
+          XMLUtils.getSafeDocumentBuilderFactory();
       javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
       xDoc = db.newDocument();
 
@@ -206,11 +208,9 @@ public abstract class DocumentBuilder {
     getSignUtils().createXAdESEnvelopedSignature(key, eltSignature, strIds, DigestMethodCode.SHA256,
         SignatureMethod.RSA_SHA1, SIGNATURE_REASON);
 
-    // write it to output..            
-    TransformerFactory tf = TransformerFactory.newInstance();
     Transformer trans;
     try {
-      trans = tf.newTransformer();
+      trans = XMLUtils.getSafeTransformerFactory().newTransformer();
 
       trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
       trans.transform(new DOMSource(xDoc), new StreamResult(fos));
