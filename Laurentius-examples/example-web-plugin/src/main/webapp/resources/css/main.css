@@ -143,9 +143,8 @@ h1 {
     background: #cdcfff;
     background: -webkit-linear-gradient(bottom right,  #FaFaFF, #cdcfff);
     background:    -moz-linear-gradient(left top,#FaFaFF, #cdcfff);
-    background:     -ms-linear-gradient(left topt,#FaFaFF, #cdcfff);
     background:      -o-linear-gradient(left top,#FaFaFF, #cdcfff);
-    background:         linear-gradient(left top,#FaFaFF, #cdcfff);
+    background:         linear-gradient(45deg,#FaFaFF, #cdcfff);
 }
 
 .toolbar-Button {
