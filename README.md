@@ -2,8 +2,7 @@
 
 [![Sonar Maintability Rating](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
 [![Sonar Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
-[![Sonar Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=security_rating)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
-
+[![Sonar Security Rating](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=security_rating)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail) 
 [![Sonar Bugs Count](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=bugs)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
 [![Sonar Vulnerabilities Count](https://sonarcloud.io/api/project_badges/measure?project=WarpSource_as4-mail&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=WarpSource_as4-mail)
 
