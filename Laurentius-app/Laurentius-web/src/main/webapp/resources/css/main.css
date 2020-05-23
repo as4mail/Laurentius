@@ -86,7 +86,8 @@ h3 {
 
 .ui-accordion-button {
     width:  100%;
-    padding: 0px 0px !important;
+    height: 16px;
+    padding: 3px 3px !important;
     background-color: darkgray  !important;
     border: 1px solid gray;
     color: black!important;

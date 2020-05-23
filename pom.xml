@@ -125,6 +125,7 @@
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.language>java</sonar.language>
         <sonar.exclusions>target/generated-sources/**</sonar.exclusions>
+        <sonar.java.libraries>target</sonar.java.libraries>
         <surefire.argLine>-Xmx1G</surefire.argLine>
     </properties>
 
