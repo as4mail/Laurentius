@@ -28,6 +28,8 @@ if [ ! -d "$LAU_RELEASE_FOLDER" ]; then
 	mkdir $LAU_RELEASE_FOLDER
 fi
 
+rm -rf $LAU_RELEASE_FOLDER/*.*
+
 # clear target folders 
 rm -rf $LAU_RELEASE_FOLDER/$ZIP_FILENAME
 rm -rf $FOLDER_DEPLOY

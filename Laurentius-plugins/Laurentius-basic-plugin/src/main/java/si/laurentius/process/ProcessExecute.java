@@ -201,6 +201,7 @@ public class ProcessExecute extends AbstractMailProcessor {
       String errMsg = String.format(
               "Execution process failed %s!",
               ex.getMessage());
+      Thread.currentThread().interrupt();
       throw new InMailProcessException(
               InMailProcessException.ProcessExceptionCode.ProcessException,
               errMsg, ex, false, true);

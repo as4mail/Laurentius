@@ -159,6 +159,7 @@ public class TaskExecuteProcess implements TaskExecutionInterface {
       String errMsg = String.format(
               "Execution process failed %s!",
               ex.getMessage());
+      Thread.currentThread().interrupt();
       throw new TaskException(
               TaskException.TaskExceptionCode.ProcessException,
               errMsg, ex, false, true);
