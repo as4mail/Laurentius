@@ -217,8 +217,9 @@ public class ProcessExecute extends AbstractMailProcessor {
    * @param toProcess the command line to process.
    * @return the command line broken into strings. An empty or null toProcess
    * parameter results in a zero sized array.
+     * @throws si.laurentius.plugin.interfaces.exception.InMailProcessException
    */
-  public static List<String> translateCommandline(String toProcess) throws InMailProcessException {
+  public  List<String> translateCommandline(String toProcess) throws InMailProcessException {
     if (toProcess == null || toProcess.length() == 0) {
       //no command? no string
       return Collections.emptyList();

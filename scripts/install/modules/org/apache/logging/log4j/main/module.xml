@@ -6,4 +6,5 @@
  	    <resource-root path="log4j-core-2.13.3.jar"/>
         <resource-root path="log4j-api-2.13.3.jar"/>
     </resources>
+    
 </module>

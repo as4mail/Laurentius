@@ -883,10 +883,10 @@ public class SEDDaoBean implements SEDDaoInterface {
             }
 
             memEManager.persist(me);
-            // deadlocks  TODO
-            //sender.send(message);
-
             sender.setPriority(iPriority);
+            // avoiding XA transaction (slow and not well supported by some DB)
+            // just delay delivery for 2 seconds.
+            sender.setDeliveryDelay(2L*1000);
             sender.send(message);
             session.commit();
 

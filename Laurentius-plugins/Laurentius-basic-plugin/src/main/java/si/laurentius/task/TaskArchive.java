@@ -107,7 +107,7 @@ public class TaskArchive implements TaskExecutionInterface {
    * @param path
    * @throws IOException
    */
-  public static void removeRecursive(Path path) throws IOException {
+  public void removeRecursive(Path path) throws IOException {
     Files.walkFileTree(path,
             new SimpleFileVisitor<Path>() {
       @Override

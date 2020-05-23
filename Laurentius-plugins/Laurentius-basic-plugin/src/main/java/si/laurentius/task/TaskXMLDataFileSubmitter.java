@@ -465,7 +465,7 @@ public class TaskXMLDataFileSubmitter implements TaskExecutionInterface {
     return res;
   }
 
-  public static List<String> validateMailForMissingData(MSHOutMail mail) throws FSException {
+  public List<String> validateMailForMissingData(MSHOutMail mail) throws FSException {
     List<String> errLst = new ArrayList<>();
     List<String> warnLst = new ArrayList<>();
 

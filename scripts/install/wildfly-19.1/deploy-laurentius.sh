@@ -137,6 +137,7 @@ if [ "$INIT" = "TRUE" ]; then
 	cp "$LAU_BUNDLE/$APPL_SERVER/config/laurentius-users.properties" "$SERVER_HOME/standalone/configuration/"
 	cp "$LAU_BUNDLE/$APPL_SERVER/config/standalone-laurentius.xml" "$SERVER_HOME/standalone/configuration/"
 	cp "$LAU_BUNDLE/$APPL_SERVER/config/test-tls-keystore.p12" "$SERVER_HOME/standalone/configuration/"
+	cp "$LAU_BUNDLE/$APPL_SERVER/config/log4j2.xml" "$SERVER_HOME/standalone/configuration/"
 
 fi
 

@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class LocaleManager implements Serializable{
 
-  private Locale locale;
+  private Locale locale = Locale.ROOT;
 
   /**
    *

@@ -70,7 +70,7 @@ if [ "x$LAU_HOME" = "x" ]; then
 	LAU_HOME="$WILDFLY_HOME/standalone/data/laurentius-home";
 fi
 
-LAU_OPTS=" -c standalone-laurentius.xml -Dlaurentius.home=$LAU_HOME/";
+LAU_OPTS=" -c standalone-laurentius.xml -Dlaurentius.home=$LAU_HOME/ -Dlog4j2.configurationFile=$WILDFLY_HOME/standalone/configuration/log4j2.xml";
 
 
 echo "*********************************************************************************************************************************"
