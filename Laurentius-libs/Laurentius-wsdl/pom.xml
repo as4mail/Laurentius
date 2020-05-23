@@ -44,22 +44,7 @@
     </developers>
 
     <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${basedir}/src/main/java/</directory>
-                            <includes>
-                                <include>org/**</include>
-                                <include>si/**</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+        <plugins>      
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
@@ -76,11 +61,6 @@
                     <wsdlFiles>
                         <wsdlFile>mailbox.wsdl</wsdlFile>
                     </wsdlFiles>                    
-                    <sourceDestDir>${basedir}/src/main/java/</sourceDestDir>
-                    <vmArgs>
-                        <vmArg>-Djavax.xml.accessExternalDTD=all</vmArg>
-                        <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-                    </vmArgs>
                 </configuration>
             </plugin>
             <plugin>
