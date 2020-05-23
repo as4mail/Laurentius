@@ -578,7 +578,9 @@ public class ZPPUtils {
     // create nofitication
     File fDNViz = StorageUtils.getFile(outPart.getFilepath());
     // delete old file
-    fDNViz.delete();
+    if (!fDNViz.delete()){
+        LOG.formatedWarning("Can not delete temp file:  %s", fDNViz.getAbsoluteFile());
+    }
     // create new vizualization
     getFOP().generateVisualization(outMail, fDNViz,
             ft,

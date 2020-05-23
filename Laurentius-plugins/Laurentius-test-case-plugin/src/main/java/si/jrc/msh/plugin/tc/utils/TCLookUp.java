@@ -21,7 +21,7 @@ package si.jrc.msh.plugin.tc.utils;
  * @author Jože Rihtaršič
  */
 public class TCLookUp {
-  public static String[] SENDER_NAMES = new String[]{
+  protected static String[] SENDER_NAMES = new String[]{
         "Vrhovno sodišče - Informacijski sistem eIzvršba Okrajno sodišče v Trebnjem",
         "Vrhovno sodišče - Informacijski sistem eIzvršba Okrajno sodišče v Mariboru",
         "Vrhovno sodišče - Informacijski sistem eIzvršba Okrajno sodišče v Krškem",
@@ -148,7 +148,7 @@ public class TCLookUp {
         "Okrajno sodišče v Grosupljem, Izvršilni oddelek ",
         "Vrhovno sodišče - Informacijski sistem eIzvršba Okrajno sodišče v Ilirski Bistrici",
         "Vrhovno sodišče - Informacijski sistem eIzvršba Okrajno sodišče v Tolminu"};
-    public static String[] SUBJECTS = new String[]{
+    protected static String[] SUBJECTS = new String[]{
         "dopis z dne 29.3.2016, PRAVN. SKLEP O ZVRŠBI",
         "sklep 23.03.2016,dgp.odg.na ug.s pril.z dne 21.12.2015",
         "P60_23, sklep št.III D 459/13 (priloga C8)",

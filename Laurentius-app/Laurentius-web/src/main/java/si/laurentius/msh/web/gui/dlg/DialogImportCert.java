@@ -149,8 +149,8 @@ public class DialogImportCert implements Serializable {
     public void clearImportStore() {
         if (!Utils.isEmptyString(filepath)) {
             File f = new File(filepath);
-            if (f.exists()) {
-                f.delete();
+            if (f.exists() && !f.delete()) {
+                LOG.logWarn("Can not delete file when cleaning import keystores: " +f.getAbsolutePath()+ "!", null);
             }
         }
         filepath = null;

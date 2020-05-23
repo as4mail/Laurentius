@@ -17,7 +17,7 @@ import si.laurentius.commons.utils.SEDLogger;
 public class DisableServiceUtils {
   public static final SEDLogger LOG = new SEDLogger(DisableServiceUtils.class);
 
-  public static List<DisableService> STDisableList = new ArrayList<>();
+  protected static List<DisableService> STDisableList = new ArrayList<>();
 
   public static synchronized void addNewDisableService(String service, String senderBox, String receiverBox) {
 

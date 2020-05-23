@@ -32,7 +32,7 @@ public class SMTPTransportFactory extends AbstractTransportFactory
 
   //public static final String TRANSPORT_ID = "http://cxf.apache.org/transports/smtp";
   public static final String TRANSPORT_ID = "http://schemas.xmlsoap.org/soap/http";
-  public static final List<String> DEFAULT_NAMESPACES =
+  protected static final List<String> DEFAULT_NAMESPACES =
       Arrays.asList(TRANSPORT_ID);
 
   private static final Logger LOG = LogUtils.getL7dLogger(SMTPTransportFactory.class);

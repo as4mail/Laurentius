@@ -53,7 +53,7 @@ public class TestUtils {
 
   public static String GENERIC_METADATA = GENERIC_FOLDER + "/testcases.xml";
 
-  public static File[] mTstFiles = null;
+  protected static File[] mTstFiles = null;
   static long testCasesReloaded = 0;
   static  MailTestCases mtc = null;
   

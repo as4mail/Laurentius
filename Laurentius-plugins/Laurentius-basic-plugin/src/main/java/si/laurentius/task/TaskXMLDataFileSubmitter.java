@@ -358,7 +358,10 @@ public class TaskXMLDataFileSubmitter implements TaskExecutionInterface {
   public File changeExtension(File file, String extension) {
     File fNewFile = new File(file.getParentFile(), changeExtension(file.
             getName(), extension));
-    file.renameTo(fNewFile);
+    if (!file.renameTo(fNewFile)){
+        LOG.formatedWarning("Can not rename file %s to %s.",file.getName(),
+                fNewFile.getName());
+    };
     return fNewFile;
   }
 

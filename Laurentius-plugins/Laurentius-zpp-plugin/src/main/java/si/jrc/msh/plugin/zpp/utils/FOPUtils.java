@@ -176,8 +176,9 @@ public class FOPUtils {
              */
             try (FileOutputStream fos = new FileOutputStream(fout)) {
                 Fop fop = mfopFactory.newFop(MimeValue.MIME_PDF.getMimeType(), fos);
-
-                fout.delete();
+                if (!fout.delete()){
+                    LOG.formatedWarning("Can not delete file:  %s", fout.getAbsoluteFile());
+                }
             } catch (org.apache.fop.apps.FOPException | IOException ex) {
                 LOG.formatedWarning("Error occured while initializing  FOP:  %s", ex.getMessage());
             }

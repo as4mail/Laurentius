@@ -197,7 +197,9 @@ public class ProcessExport extends AbstractMailProcessor {
         String errMsg = String.format(
                 "Failed to concatenate PDF files! Error %s",
                 ex.getMessage());
-        outFile.delete();
+        if (!outFile.delete()){
+            LOG.formatedWarning("Could not clean temp file: %s!", outFile.getAbsolutePath());
+        }
         throw new InMailProcessException(
                 InMailProcessException.ProcessExceptionCode.ProcessException,
                 errMsg);
@@ -247,7 +249,9 @@ public class ProcessExport extends AbstractMailProcessor {
       String mdfFilename = StringFormater.format(metaDataFileName, cpMail);
       File fn = new File(exportFolder, mdfFilename);
       if (fn.exists() && overwriteFiles) {
-        fn.delete();
+          if (!fn.delete()) {
+              LOG.formatedWarning("Could not clean file: %s before export!", outFile.getAbsolutePath());
+          }
       }
 
       try {

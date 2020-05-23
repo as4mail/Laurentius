@@ -108,6 +108,7 @@
 
                             <p:outputPanel id="OutMailData" >
                                 <table style=" width: 100%" >
+                                    <caption>Mail metadata</caption>
                                     <tr>
                                         <td style="text-align:right;width:100px;">#{msg['Id']}:</td> 
                                         <td style="text-align:left;"><h:inputText value="#{OutMailDataView.currentMail.id}"  style="width:100%;"  readonly='true' /></td>
@@ -237,6 +238,7 @@
                                              value="#{OutMailDataView.mailEvents}"
                                              scrollable="true"
                                              scrollHeight="140">
+                                    
                                     <p:column width="60" headerText="#{msg['Id']}">
                                         <h:outputText value="#{mailEvents.id}" />
                                     </p:column>
