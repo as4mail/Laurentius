@@ -24,6 +24,7 @@ import si.laurentius.cron.SEDCronJob;
 import si.laurentius.cron.SEDTask;
 import si.laurentius.cron.SEDTaskProperty;
 import si.laurentius.ebox.SEDBox;
+import static si.laurentius.ejb.SEDCertStoreBeanTest.mTestInstance;
 import si.laurentius.ejb.db.MockUserTransaction;
 import si.laurentius.interceptor.SEDInterceptorProperty;
 import si.laurentius.interceptor.SEDInterceptor;
@@ -41,22 +42,16 @@ import si.laurentius.user.SEDUser;
 public class SEDLookupsTest extends TestUtils {
 
   static SEDLookups mTestInstance = new SEDLookups();
-  
-    @Test
-    public void test() {
-    }
-/*
+
   @BeforeClass
   public static void setUpClass() throws IOException {
 
-    // ---------------------------------
-    // set logger
-    setLogger(SEDLookupsTest.class.getSimpleName());
-
+    
     
     mTestInstance.memEManager = TestUtils.createEntityManager();
-    mTestInstance.mutUTransaction
-            = new MockUserTransaction(mTestInstance.memEManager.getTransaction());
+      mTestInstance.mutUTransaction
+              = new MockUserTransaction(mTestInstance.memEManager.getTransaction());
+
     System.setProperty(SEDSystemProperties.SYS_PROP_LAU_DOMAIN, LAU_TEST_DOMAIN);
 
   }
@@ -1121,5 +1116,5 @@ public class SEDLookupsTest extends TestUtils {
     assertEquals(init.getSEDBoxes().size(), res3.getSEDBoxes().size());
 
   }
-*/
+
 }

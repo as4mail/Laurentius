@@ -8,7 +8,7 @@
       xmlns:composite="http://java.sun.com/jsf/composite"
       lang="#{localeManager.language}"
       >
-     <h:head>
+    <h:head>
         <title>Test cases lauretnius plugin</title>
     </h:head>
     <composite:interface>
@@ -27,15 +27,15 @@
                     <p:layout id="pnlProgress" style="min-width:300px;height:100px;">
                         <p:layoutUnit position="center"  >
                             <p:outputLabel value="#{dialogProgress.title}" />
-                            
+
                             <p:progressBar widgetVar="dlgPrgBar" 
                                            ajax="true" 
                                            value="#{dialogProgress.testProgress}" 
                                            labelTemplate="{value}%" styleClass="animated" 
                                            global="true"  > 
                                 <p:ajax event="complete" oncomplete="PF('dialogProgress').hide()"                  
-                                      />
-                               
+                                        />
+
                             </p:progressBar>
                         </p:layoutUnit>
 

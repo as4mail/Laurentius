@@ -851,11 +851,16 @@ public class SEDDaoBean implements SEDDaoInterface {
                     id.longValue());
             // problem for duplicate detection on resending 
             //message.setStringProperty(SEDValues.EBMS_QUEUE_DUPLICATE_DETECTION_ID_Artemis,  mail.getId().toString());
+            
+            // avoiding XA transaction (slow and not well supported by some DB)
+            // just delay delivery for 2 seconds.
+            long offsetDelay=2L * 1000;
+            
             message.setIntProperty(SEDValues.EBMS_QUEUE_PARAM_RETRY, retry);
             message.setLongProperty(SEDValues.EBMS_QUEUE_PARAM_DELAY, delay);
-            message.setLongProperty(SEDValues.EBMS_QUEUE_DELAY_AMQ, delay);
+            message.setLongProperty(SEDValues.EBMS_QUEUE_DELAY_AMQ, delay + offsetDelay);
             message.setLongProperty(SEDValues.EBMS_QUEUE_DELAY_Artemis,
-                    delay + System.currentTimeMillis());
+                    delay + System.currentTimeMillis() +offsetDelay);
 
             Query updq = memEManager.createNamedQuery(SEDNamedQueries.UPDATE_OUTMAIL);
             updq.setParameter("id", id);
@@ -884,9 +889,6 @@ public class SEDDaoBean implements SEDDaoInterface {
 
             memEManager.persist(me);
             sender.setPriority(iPriority);
-            // avoiding XA transaction (slow and not well supported by some DB)
-            // just delay delivery for 2 seconds.
-            sender.setDeliveryDelay(2L*1000);
             sender.send(message);
             session.commit();
 

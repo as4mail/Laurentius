@@ -10,11 +10,11 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       lang="#{localeManager.language}"
       >
-    
+
     <h:head>
         <title>Test cases lauretnius plugin</title>
     </h:head>
-    
+
     <composite:interface>
     </composite:interface>
 
@@ -46,7 +46,7 @@
                             <f:selectItem itemLabel="Random payload mail" itemValue="randomMail"/>
                             <f:selectItems value="#{customTestCases.testCases}" var="ctc" itemValue="#{ctc.name}" 
                                            itemLabel="#{ctc.name}" itemDescription="#{ctc.description}"  />
-                                        </p:selectCheckboxMenu></p:column>
+                        </p:selectCheckboxMenu></p:column>
                 </p:row>    
                 <p:row>
                     <p:column  styleClass="ui-gp-label">#{msg['NumberOfMail']}</p:column>

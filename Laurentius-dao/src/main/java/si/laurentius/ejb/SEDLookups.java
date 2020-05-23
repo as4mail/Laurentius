@@ -72,8 +72,7 @@ public class SEDLookups implements SEDLookupsInterface {
   public EntityManager memEManager;
   
   SimpleListCache mscache = new SimpleListCache();
-  //private final HashMap<Class, List<?>> mlstCacheLookup = new HashMap<>();
-  //private final HashMap<Class, Long> mlstTimeOut = new HashMap<>();
+
 
   /**
    *

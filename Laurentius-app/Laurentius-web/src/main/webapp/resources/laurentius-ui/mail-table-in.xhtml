@@ -11,7 +11,7 @@
       >
     <h:head>
         <title>AS4Mail</title>   
-     
+
     </h:head>
 
     <composite:interface>
@@ -25,7 +25,8 @@
                           icon="ui-icon-svg-inbox"
                           >
             <script>//<![CDATA[// update table size - primeface missing functionality 
-                $(window).resize(function(){ adjustTableColumns('InMailTable', 'InMailTableContainer', false);
+                $(window).resize(function () {
+                    adjustTableColumns('InMailTable', 'InMailTableContainer', false);
                 }); //]]>
             </script>
             <div id="InMailDataMain" class="p-grid p-dir-col" style="min-width:400px;min-height:400px;height: 100%;width: 100%">
@@ -108,55 +109,57 @@
                             <p:outputPanel id="InMailData" >
                                 <table style=" width: 100%; padding: 1px; margin: 0;" >
                                     <caption>Mail metadata</caption>
-                                    <tr>
-                                        <td style="text-align:right; width:100px;" >#{msg['Id']}:</td> 
-                                        <td style="text-align:left;" ><h:inputText value="#{InMailDataView.currentMail.id}"  style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;" rowspan="2">#{msg['Sender']}:</td> 
-                                        <td style="text-align:left;" rowspan="2"><h:inputTextarea cols="2" value="#{InMailDataView.currentMail.senderName}"  style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;" rowspan="2" >#{msg['Receiver']}:</td> 
-                                        <td style="text-align:left;" rowspan="2"><h:inputTextarea cols="2" value="#{InMailDataView.currentMail.receiverName}"  style="width:100%;"  readonly='true' /></td>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align:right; width:100px;" >#{msg['Id']}:</td> 
+                                            <td style="text-align:left;" ><h:inputText value="#{InMailDataView.currentMail.id}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;" rowspan="2">#{msg['Sender']}:</td> 
+                                            <td style="text-align:left;" rowspan="2"><h:inputTextarea cols="2" value="#{InMailDataView.currentMail.senderName}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;" rowspan="2" >#{msg['Receiver']}:</td> 
+                                            <td style="text-align:left;" rowspan="2"><h:inputTextarea cols="2" value="#{InMailDataView.currentMail.receiverName}"  style="width:100%;"  readonly='true' /></td>
 
-                                        <td style="text-align:right;width:100px;" >#{msg['SubmitDate']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.submittedDate}"  style="width:100%;"  readonly='true' /></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:right;width:100px;">#{msg['SenderMailId']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.senderMessageId}"  style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;">#{msg['SentDate']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.sentDate}"  style="width:100%;"  readonly='true' /></td>
-                                    </tr>
+                                            <td style="text-align:right;width:100px;" >#{msg['SubmitDate']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.submittedDate}"  style="width:100%;"  readonly='true' /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;width:100px;">#{msg['SenderMailId']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.senderMessageId}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['SentDate']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.sentDate}"  style="width:100%;"  readonly='true' /></td>
+                                        </tr>
 
-                                    <tr>
+                                        <tr>
 
-                                        <td style="text-align:right;width:100px;">#{msg['MessageId']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.messageId}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['MessageId']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.messageId}"  style="width:100%;"  readonly='true' /></td>
 
-                                        <td style="text-align:right;width:100px;">#{msg['Sender-Box']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.senderEBox}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['Sender-Box']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.senderEBox}"  style="width:100%;"  readonly='true' /></td>
 
-                                        <td style="text-align:right;width:100px;">#{msg['Receiver-Box']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.receiverEBox}"  style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;">#{msg['ReceivedDate']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.receivedDate}"  style="width:100%;"  readonly='true' /></td>
-                                    </tr>
+                                            <td style="text-align:right;width:100px;">#{msg['Receiver-Box']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.receiverEBox}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['ReceivedDate']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.receivedDate}"  style="width:100%;"  readonly='true' /></td>
+                                        </tr>
 
-                                    <tr>
-                                        <td style="text-align:right;width:100px;">#{msg['RefMessageId']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.refToMessageId}" style="width:100%;"  readonly='true' /></td>
+                                        <tr>
+                                            <td style="text-align:right;width:100px;">#{msg['RefMessageId']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.refToMessageId}" style="width:100%;"  readonly='true' /></td>
 
-                                        <td style="text-align:right;width:100px;">#{msg['Service']}:</td> 
-                                        <td style="text-align:left;" ><h:inputText value="#{InMailDataView.currentMail.service}" style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;">#{msg['Action']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.action}"  style="width:100%;"  readonly='true' /></td>                                    
-                                        <td style="text-align:right;width:100px;">#{msg['DeliveredDate']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.deliveredDate}"  style="width:100%;"  readonly='true' /></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align:right;width:100px;">#{msg['Transaction']}:</td> 
-                                        <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.conversationId}"  style="width:100%;"  readonly='true' /></td>
-                                        <td style="text-align:right;width:100px;">#{msg['Subject']}:</td> 
-                                        <td style="text-align:left;" colspan="5"><h:inputText value="#{InMailDataView.currentMail.subject}"  style="width:100%;"  readonly='true' /></td>                                    
-                                    </tr>
+                                            <td style="text-align:right;width:100px;">#{msg['Service']}:</td> 
+                                            <td style="text-align:left;" ><h:inputText value="#{InMailDataView.currentMail.service}" style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['Action']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.action}"  style="width:100%;"  readonly='true' /></td>                                    
+                                            <td style="text-align:right;width:100px;">#{msg['DeliveredDate']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.deliveredDate}"  style="width:100%;"  readonly='true' /></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:right;width:100px;">#{msg['Transaction']}:</td> 
+                                            <td style="text-align:left;"><h:inputText value="#{InMailDataView.currentMail.conversationId}"  style="width:100%;"  readonly='true' /></td>
+                                            <td style="text-align:right;width:100px;">#{msg['Subject']}:</td> 
+                                            <td style="text-align:left;" colspan="5"><h:inputText value="#{InMailDataView.currentMail.subject}"  style="width:100%;"  readonly='true' /></td>                                    
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </p:outputPanel>
                         </p:tab>

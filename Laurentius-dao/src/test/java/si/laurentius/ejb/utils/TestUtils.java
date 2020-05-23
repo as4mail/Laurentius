@@ -4,7 +4,6 @@
  */
 package si.laurentius.ejb.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -22,8 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.apache.activemq.junit.EmbeddedActiveMQBroker;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import static org.junit.Assert.fail;
 import si.laurentius.commons.SEDSystemProperties;
 import si.laurentius.commons.utils.StorageUtils;
