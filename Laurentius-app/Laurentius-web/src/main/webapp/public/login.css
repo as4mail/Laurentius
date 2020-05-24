@@ -6,7 +6,6 @@
 }
 
 .LoginTitle {
-    
     background:  url("first-page.svg")  no-repeat right top ;
     background-position: 0 0;
     margin: auto;
@@ -15,7 +14,11 @@
 }
 
 .LoginPage {
-
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap; /* Optional. only if you want the items to wrap */
+    justify-content: center; /* For horizontal alignment */
+    
     padding: 20px 20px;
     color: black;
     text-shadow: 0 4px 4px rgba(0, 0, 0, .3);
