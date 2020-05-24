@@ -15,15 +15,14 @@
     </h:head>
     <f:view locale="#{localeManager.locale}" transient="true">
         <h:body class="LoginPage">
-
+            <center>  
 
             <div  class="LoginTitle"></div> 
             
-                <h:form id="loginForm">     
-                    <p:panel id="loginPanel" header="#{msg['Login']}" style="width:600px;margin: auto;">
+            <h:form id="loginForm" >     
+                <p:panel id="loginPanel" header="#{msg['Login']}" style="width:600px;margin: auto;background-color: #E5E4E2;">
                         <p:fragment p:autoUpdate="true">
-
-                            <p:panelGrid   styleClass="panelGridNoBorder">
+                            <p:panelGrid   styleClass="panelGridNoBorder" style="background-color: transparent;">
                                 <p:row>
                                     <p:column><p:outputLabel for="username" value="#{msg['Username']}"/></p:column>
                                     <p:column><p:inputText id="username" value="#{loginManager.username}" 
@@ -70,9 +69,7 @@
                         </div>
                     </p:panel> 
                 </h:form>
-
-
-
+            </center>
         </h:body>
     </f:view>
 </html>

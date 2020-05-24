@@ -247,11 +247,8 @@
                             <p:accordionPanel id="toolbars"  activeIndex="#{mainWindow.activeToolbarTabIndex}" >
                                 <p:ajax event="tabChange" listener="#{mainWindow.onToolbarTabChange}" update=":forms:MainPanel :forms:toolbar" />
                                 <p:tab id="PANEL_INBOX"  >
-                                    <f:facet name="title">
-
-                                        <span class="ui-iconui-icon-size-32 ui-icon-svg-status-green"  />
-                                        <h:graphicImage value="#{resource['images:/inbox.svg']}" width="22" height="22" />
-                                        <h:outputText value="#{msg['Inbox']}" />                                 
+                                    <f:facet name="title" >
+                                        <pnl:pnl-image-label title="#{msg['Inbox']}" icon="#{resource['images:/inbox.svg']}" />
                                     </f:facet>
                                     <p:panelGrid class="filter-params" columns="2" columnClasses="label,value"  style="width: 100%">
                                         <f:facet name="header">
@@ -339,8 +336,7 @@
                                 </p:tab>
                                 <p:tab id="PANEL_OUTBOX">
                                     <f:facet name="title">
-                                        <h:graphicImage value="#{resource['images:/outbox.svg']}" width="22" height="22" />
-                                        <h:outputText value="#{msg['Outbox']}" />                                 
+                                        <pnl:pnl-image-label title="#{msg['Outbox']}" icon="#{resource['images:/outbox.svg']}" />
                                     </f:facet>
                                     <p:panelGrid columns="2" columnClasses="label,value"  style="width: 100%">
                                         <f:facet name="header">
@@ -425,12 +421,9 @@
                                     </p:panelGrid>
                                 </p:tab>
 
-
-
                                 <p:tab id="PANEL_PLUGIN" >
                                     <f:facet name="title">
-                                        <h:graphicImage value="#{resource['images:/plugin.svg']}" width="22" height="22" />
-                                        <h:outputText value="#{msg['Plugins']}" />                                 
+                                        <pnl:pnl-image-label title="#{msg['Plugins']}" icon="#{resource['images:/plugin.svg']}" />                            
                                     </f:facet>
                                     <p:tree id="PluginMenu" value="#{pluginMenuView.root}" var="mnitem" selectionMode="single"
                                             selection="#{pluginMenuView.selectedNode}" 
@@ -446,10 +439,8 @@
 
                                 </p:tab>
                                 <p:tab id="PANEL_SETT_CUSTOM" rendered="#{userSessionData.user.adminRole}">
-
                                     <f:facet name="title">
-                                        <h:graphicImage value="#{resource['images:/settings.svg']}" width="22" height="22" />
-                                        <h:outputText value="#{msg['SettingsCustom']}" />                                 
+                                        <pnl:pnl-image-label title="#{msg['SettingsCustom']}" icon="#{resource['images:/settings.svg']}" />                       
                                     </f:facet>
                                     <p:tree id="SettPanel" value="#{settingsMenuView.root}" var="mnitem" selectionMode="single"
                                             selection="#{settingsMenuView.selectedNode}" 
@@ -460,16 +451,12 @@
                                         <p:treeNode icon="#{mnitem.icon}" >
                                             <h:outputText value="#{msg[mnitem.name]}"/>
                                         </p:treeNode>
-
                                     </p:tree>
-
-
                                 </p:tab>
                                 <p:tab id="PANEL_CRON_EXEC" rendered="#{userSessionData.user.adminRole}">
 
                                     <f:facet name="title">
-                                        <h:graphicImage value="#{resource['images:/monitor.svg']}" width="22" height="22" />
-                                        <h:outputText value="#{msg['Monitor']}" />                                 
+                                        <pnl:pnl-image-label title="#{msg['Monitor']}" icon="#{resource['images:/monitor.svg']}" />                               
                                     </f:facet>
                                     <p:menu class="ui-accordion-button" style="width: 100%">
 
@@ -486,11 +473,7 @@
                                             <f:attribute name="panel" value="PANEL_SETT_JMS" />
                                         </p:menuitem>
                                     </p:menu>
-
-
-
                                 </p:tab>
-
                             </p:accordionPanel>
                         </p:scrollPanel>
                     </p:layoutUnit>
@@ -499,7 +482,6 @@
 
             <dlg:dlg-delete id="dlgdelete" />
             <dlg:dlg-execute id="dlgexecute" />
-
             <dlg:dlg-compose id="dlgCompose" />
             <dlg:dlg-compose-payload id="dlgComposePayload" />
             <dlg:dlg-certificate id="dlgcertificate" />

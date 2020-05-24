@@ -2,18 +2,15 @@
 
 .panelGridNoBorder .ui-panelgrid-even, .panelGridNoBorder .ui-panelgrid-odd, .panelGridNoBorder .ui-panelgrid-cell {
     border-style: none;
+    background-color: #E5E4E2
 }
 
 .LoginTitle {
     
     background:  url("first-page.svg")  no-repeat right top ;
-    margin: auto;
     background-position: 0 0;
-    font-family: Arial, sans-serif;
-    color:black;
-    font-size: 35px;
-    line-height: 50px;
-    height:  260px;
+    margin: auto;
+    height:  280px;
     width: 300px;
 }
 
@@ -27,11 +24,8 @@
     line-height: 20px;
     letter-spacing: 1px;
 
-    background: #cdcfcf;
-    background: -webkit-linear-gradient(bottom right,  #cdcfcf, #bdbfcf);
-    background:    -moz-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:      -o-linear-gradient(left top,#cdcfcf, #bdbfcf);
-    background:         linear-gradient(45deg,#cdcfcf, #bdbfcf);
+    background: white;
+
 }
 
 

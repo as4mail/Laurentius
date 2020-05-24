@@ -2,7 +2,7 @@
 
 
 
-WILDFLY_HOME="wildfly-11.0.0.Final"
+WILDFLY_HOME="wildfly-19.1.0.Final"
 BOUNDLE_TEST="Laurentius-test"
 FOLDER_DEPLOY="test-deploy"
 

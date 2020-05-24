@@ -39,7 +39,9 @@ public class SettingsMenuView implements Serializable {
 
   @PostConstruct
   public void init() {
-    root = createMenu();
+      long l= LOG.getTime();
+      root = createMenu();
+      LOG.logEnd(l, "Menu is initialized");
   }
 
   public MainWindow getMainWindow() {
@@ -66,110 +68,69 @@ public class SettingsMenuView implements Serializable {
     if (selectedNode != null) {
       mainWindow.setCurrentPanel(((MenuItem) selectedNode.getData()).getType());
     }
-
+  }
+  
+  private TreeNode createMenuItem(TreeNode parentItem, String code, String title, String iconCssName) {
+      TreeNode item = new DefaultTreeNode(new MenuItem(title,
+              code,
+              iconCssName + " ui-icon-size-22"), parentItem);
+      return item;
   }
 
   public TreeNode createMenu() {
-    TreeNode root = new DefaultTreeNode(
-            new MenuItem("Settings Menu", "ROOT", ""), null);
-
-    TreeNode custom = new DefaultTreeNode(new MenuItem("Custom",
-            AppConstant.S_PANEL_SETT_CUSTOM,
-            "ui-icon-svg-settings ui-icon-size-22"), root);
-    TreeNode sedbox = new DefaultTreeNode(new MenuItem("SED-Boxes",
-            AppConstant.S_PANEL_ADMIN_EBOXES, "ui-icon-svg-box ui-icon-size-22"),
-            root);
-    TreeNode users = new DefaultTreeNode(new MenuItem("Users",
-            AppConstant.S_PANEL_ADMIN_USERS, "ui-icon-svg-users ui-icon-size-22"),
-            root);
+    long l = LOG.logStart();  
+    TreeNode privateRoot = createMenuItem(null, "ROOT", "Settings Menu", "");
+           
+    createMenuItem(privateRoot, AppConstant.S_PANEL_SETT_CUSTOM, "Custom", "ui-icon-svg-settings");
+    createMenuItem(privateRoot, AppConstant.S_PANEL_ADMIN_EBOXES, "SED-Boxes", "ui-icon-svg-box");
+    createMenuItem(privateRoot, AppConstant.S_PANEL_ADMIN_USERS, "Users", "ui-icon-svg-users");
+    createMenuItem(privateRoot, AppConstant.S_PANEL_ADMIN_APPL, "Applications", "ui-icon-svg-cms");
     
-     TreeNode appl = new DefaultTreeNode(new MenuItem("Applications",
-            AppConstant.S_PANEL_ADMIN_APPL, "ui-icon-svg-cms ui-icon-size-22"),
-            root);
-
-    //-certicates
-    TreeNode certs = new DefaultTreeNode(new MenuItem("Certificates",
-            AppConstant.S_PANEL_SETT_CERTS,
-            "ui-icon-svg-certificate ui-icon-size-22"), root);
+    TreeNode certs = createMenuItem(privateRoot, AppConstant.S_PANEL_SETT_CERTS, "Certificates", "ui-icon-svg-certificate");
     certs.setExpanded(true);
-    TreeNode keystore = new DefaultTreeNode(new MenuItem("Keystore",
-            AppConstant.S_PANEL_SETT_CERTS,
-            "ui-icon-svg-key ui-icon-size-22"), certs);
-    TreeNode rootCA = new DefaultTreeNode(new MenuItem("RootCA",
-            AppConstant.S_PANEL_SETT_CERT_ROOT_CA,
-            "ui-icon-svg-certificate ui-icon-size-22"), certs);
-    TreeNode CRL = new DefaultTreeNode(new MenuItem("CRL",
-            AppConstant.S_PANEL_SETT_CERT_CRL,
-            "ui-icon-svg-crl ui-icon-size-22"), certs);
-
+    createMenuItem(certs, AppConstant.S_PANEL_SETT_CERTS, "Keystore", "ui-icon-svg-key");
+    createMenuItem(certs, AppConstant.S_PANEL_SETT_CERT_ROOT_CA, "RootCA", "ui-icon-svg-certificate");
+    createMenuItem(certs, AppConstant.S_PANEL_SETT_CERT_CRL, "CRL", "ui-icon-svg-crl");
+    
     //- PMODES
-    TreeNode pmodeSettings = new DefaultTreeNode(new MenuItem("SettingsPMode",
-            AppConstant.S_PANEL_SETT_PMODE, "ui-icon-svg-pmode ui-icon-size-22"),
-            root);
+    TreeNode pmodeSettings = createMenuItem(privateRoot, AppConstant.S_PANEL_SETT_PMODE, "SettingsPMode", "ui-icon-svg-pmode");
     pmodeSettings.setExpanded(true);
-    TreeNode pmodesrv = new DefaultTreeNode(new MenuItem("PModeServiceDefinitions",
-            AppConstant.S_PANEL_SETT_PMODE_SERVICES,
-            "ui-icon-svg-service ui-icon-size-22"),
-            pmodeSettings);
-    TreeNode pmodeparties = new DefaultTreeNode(new MenuItem("Parties",
-            AppConstant.S_PANEL_SETT_PMODE_PARTIES,
-            "ui-icon-svg-party ui-icon-size-22"),
-            pmodeSettings);
-    TreeNode pmodesec = new DefaultTreeNode(new MenuItem("SecurityPolicies",
-            AppConstant.S_PANEL_SETT_PMODE_SECURITIES,
-            "ui-icon-svg-security ui-icon-size-22"),
-            pmodeSettings);
-    TreeNode spRA = new DefaultTreeNode(new MenuItem(
-            "ReceptionAwarenessPatterns",
-            AppConstant.S_PANEL_SETT_PMODE_AS4_RA,
-            "ui-icon-svg-reliability ui-icon-size-22"),
-            pmodeSettings);
-    TreeNode pmode = new DefaultTreeNode(new MenuItem("PModes",
-            AppConstant.S_PANEL_SETT_PMODE, "ui-icon-svg-pmode ui-icon-size-22"),
-            pmodeSettings);
+    createMenuItem(pmodeSettings, AppConstant.S_PANEL_SETT_PMODE_SERVICES, "PModeServiceDefinitions", "ui-icon-svg-service");   
+    createMenuItem(pmodeSettings, AppConstant.S_PANEL_SETT_PMODE_PARTIES, "Parties", "ui-icon-svg-party");
+    createMenuItem(pmodeSettings, AppConstant.S_PANEL_SETT_PMODE_SECURITIES, "SecurityPolicies", "ui-icon-svg-security");
+    createMenuItem(pmodeSettings, AppConstant.S_PANEL_SETT_PMODE_AS4_RA, "ReceptionAwarenessPatterns", "ui-icon-svg-reliability");
+    createMenuItem(pmodeSettings, AppConstant.S_PANEL_SETT_PMODE, "PModes", "ui-icon-svg-pmode");
 
     //- Plugins
-    TreeNode addons = new DefaultTreeNode(new MenuItem("Plugins",
-            AppConstant.S_PANEL_ADMIN_PLUGIN,
-            "ui-icon-svg-plugin ui-icon-size-22"), root);
+    TreeNode addons = createMenuItem(privateRoot, AppConstant.S_PANEL_ADMIN_PLUGIN, "Plugins", "ui-icon-svg-plugin");
     addons.setExpanded(true);
-    TreeNode interceptors = new DefaultTreeNode(new MenuItem("Interceptors",
-            AppConstant.S_PANEL_INTERCEPTOR,
-            "ui-icon-svg-interceptor ui-icon-size-22"), addons);
+    TreeNode interceptors = createMenuItem(addons, AppConstant.S_PANEL_INTERCEPTOR, "Interceptors", "ui-icon-svg-interceptor");
     interceptors.setExpanded(true);
-    
-    TreeNode inmail = new DefaultTreeNode(new MenuItem("InMailRules",
-            AppConstant.S_PANEL_INMAIL_PROCESS,
-            "ui-icon-svg-process ui-icon-size-22"), addons);
-     inmail.setExpanded(true);
-    TreeNode crontask = new DefaultTreeNode(new MenuItem("Scheduler",
-            AppConstant.S_PANEL_ADMIN_CRON,
-            "ui-icon-svg-cron-exec ui-icon-size-22"), addons);
-
+    TreeNode inmail = createMenuItem(addons, AppConstant.S_PANEL_INMAIL_PROCESS, "InMailRules", "ui-icon-svg-process");
+    inmail.setExpanded(true);
+    TreeNode crontask = createMenuItem(addons, AppConstant.S_PANEL_ADMIN_CRON, "Scheduler", "ui-icon-svg-cron-exec");
+    crontask.setExpanded(true);
+ 
     for (Plugin p : mPluginManager.getRegistredPlugins()) {
       if (!Utils.isEmptyString(p.getWebContext()) && p.getProcessMenu() != null) {
-     
-        for (si.laurentius.plugin.def.MenuItem pmi : p.getProcessMenu().
-                getMenuItems()) {
-          TreeNode plugin = new DefaultTreeNode(
-                  new MenuItem(pmi.getName(), AppConstant.S_SETTINGS_PLUGIN,
-                          "ui-icon-svg-plugin ui-icon-size-16", String.format(
-                                  "%s?page=%s&navigator=false", p.
-                                          getWebContext(), pmi.getPageId())),
-                  inmail);
-        }
-        
-       
+          p.getProcessMenu().
+                  getMenuItems().forEach((pmi) -> {
+                      new DefaultTreeNode(
+                              new MenuItem(pmi.getName(), AppConstant.S_SETTINGS_PLUGIN,
+                                      "ui-icon-svg-plugin ui-icon-size-16", String.format(
+                                              "%s?page=%s&navigator=false", p.
+                                                      getWebContext(), pmi.getPageId())),
+                              inmail);
+          });
       }
     }
-
-    return root;
+    LOG.logEnd(l);
+    return privateRoot;
   }
 
   public String getSelectedWebContext() {
     if (selectedNode != null) {
       return ((MenuItem) selectedNode.getData()).getWebUrl();
-
     }
     return null;
   }

@@ -86,7 +86,6 @@ h3 {
 
 .ui-accordion-button {
     width:  100%;
-    height: 16px;
     padding: 3px 3px !important;
     background-color: darkgray  !important;
     border: 1px solid gray;
@@ -110,7 +109,7 @@ h3 {
 /*Toolbar                                                               */
 /************************************************************************/
 .ui-toolbar, .ui-accordion-header {
-    padding: 0em 0em !important; 
+    padding: 2px 5px !important; 
     border: 0px none !important;
     margin:  0em 0em !important;
     overflow: hidden !important;       
