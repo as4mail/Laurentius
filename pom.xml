@@ -49,10 +49,15 @@
         <module>Laurentius-msh</module>
         <module>Laurentius-plugins</module>
         <module>Laurentius-examples</module>
+        <module>as4mail-ear</module>
         
     </modules>
 
     <properties>
+        
+        <dao.final.name>Laurentius-dao</dao.final.name>
+        <msh-cxf.final.name>Laurentius-msh-cxf</msh-cxf.final.name>
+        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -147,6 +152,11 @@
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>                
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -516,6 +526,32 @@
                 </executions>
             </plugin>
             <!-- jacoco end -->
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <defaultLibBundleDir>lib/</defaultLibBundleDir>
+                    <skinnyWars>true</skinnyWars>
+                    <configuration>
+                        <version>7</version>
+                        <modules>
+                            <webModule>
+                                <groupId>si.vsrs.cif.sed</groupId>
+                                <artifactId>Laurentius-web</artifactId>
+                                <version>2.0</version>
+                                <contextRoot>/ui</contextRoot>
+                            </webModule>
+                            <webModule>
+                                <groupId>si.vsrs.cif.sed</groupId>
+                                <artifactId>Laurentius-ws</artifactId>
+                                <version>2.0</version>
+                                <contextRoot>/api</contextRoot>
+                            </webModule>
+                        </modules>
+                    </configuration>
+                </configuration>
+            </plugin>
+                
         </plugins>
     </build>
 
@@ -618,7 +654,5 @@
                 </plugins>
             </reporting>            
         </profile>
-        
-       
     </profiles>
 </project>

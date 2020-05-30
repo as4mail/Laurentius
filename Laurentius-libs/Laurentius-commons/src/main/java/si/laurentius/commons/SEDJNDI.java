@@ -20,66 +20,68 @@ package si.laurentius.commons;
  * @author Joze Rihtarsic <joze.rihtarsic@sodisce.si>
  */
 public class SEDJNDI {
+    
+     
 
   /**
    *
    */
   public static final String JNDI_DBCERTSTORE =
-      "java:global/Laurentius-dao/SEDCertStoreBean!si.laurentius.commons.interfaces.SEDCertStoreInterface";
+      "java:app/Laurentius-dao/SEDCertStoreBean!si.laurentius.commons.interfaces.SEDCertStoreInterface";
   
   public static final String JNDI_DBCERTUTILS =
-      "java:global/Laurentius-dao/SEDCertUtilsBean!si.laurentius.commons.interfaces.SEDCertUtilsInterface";
+      "java:app/Laurentius-dao/SEDCertUtilsBean!si.laurentius.commons.interfaces.SEDCertUtilsInterface";
 
   /**
    *
    */
   public static final String JNDI_DBSETTINGS =
-      "java:global/Laurentius-dao/DBSettings!si.laurentius.commons.interfaces.DBSettingsInterface";
+      "java:app/Laurentius-dao/DBSettings!si.laurentius.commons.interfaces.DBSettingsInterface";
   
   public static final String JNDI_NETWORK =
-      "java:global/Laurentius-dao/SEDNetworkUtilsBean!si.laurentius.commons.interfaces.SEDNetworkUtilsInterface";
+      "java:app/Laurentius-dao/SEDNetworkUtilsBean!si.laurentius.commons.interfaces.SEDNetworkUtilsInterface";
 
   /**
    *
    */
   public static final String JNDI_JMSMANAGER =
-      "java:global/Laurentius-dao/JMSManager!si.laurentius.commons.interfaces.JMSManagerInterface";
+      "java:app/Laurentius-dao/JMSManager!si.laurentius.commons.interfaces.JMSManagerInterface";
 
   /**
    *
    */
   public static final String JNDI_SEDDAO =
-      "java:global/Laurentius-dao/SEDDaoBean!si.laurentius.commons.interfaces.SEDDaoInterface";
+      "java:app/Laurentius-dao/SEDDaoBean!si.laurentius.commons.interfaces.SEDDaoInterface";
 
   /**
    *
    */
   public static final String JNDI_SEDLOOKUPS =
-      "java:global/Laurentius-dao/SEDLookups!si.laurentius.commons.interfaces.SEDLookupsInterface";
+      "java:app/Laurentius-dao/SEDLookups!si.laurentius.commons.interfaces.SEDLookupsInterface";
 
   public static final String JNDI_PLUGIN =
-      "java:global/Laurentius-dao/SEDPluginManager!si.laurentius.commons.interfaces.SEDPluginManagerInterface";
+      "java:app/Laurentius-dao/SEDPluginManager!si.laurentius.commons.interfaces.SEDPluginManagerInterface";
   
   
   public static final String JNDI_DATA_INIT =
-      "java:global/Laurentius-dao/SEDInitData!si.laurentius.commons.interfaces.SEDInitDataInterface";
+      "java:app/Laurentius-dao/SEDInitData!si.laurentius.commons.interfaces.SEDInitDataInterface";
 
   /**
    *
    */
   public static final String JNDI_SEDREPORTS =
-      "java:global/Laurentius-dao/SEDReportBean!si.laurentius.commons.interfaces.SEDReportInterface";
+      "java:app/Laurentius-dao/SEDReportBean!si.laurentius.commons.interfaces.SEDReportInterface";
 
   /**
    *
    */
   public static final String JNDI_SEDSCHEDLER =
-      "java:global/Laurentius-dao/MSHScheduler!si.laurentius.commons.interfaces.SEDSchedulerInterface";
+      "java:app/Laurentius-dao/MSHScheduler!si.laurentius.commons.interfaces.SEDSchedulerInterface";
 
   /**
    *
    */
   public static final String JNDI_PMODE =
-      "java:global/Laurentius-dao/PModeManagerBean!si.laurentius.commons.interfaces.PModeInterface";
+      "java:app/Laurentius-dao/PModeManagerBean!si.laurentius.commons.interfaces.PModeInterface";
 
 }

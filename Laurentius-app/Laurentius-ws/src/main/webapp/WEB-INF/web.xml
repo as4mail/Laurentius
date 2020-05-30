@@ -22,9 +22,7 @@
     </security-constraint>
     
     <login-config>
-        <auth-method>BASIC</auth-method>  
-        
-                    
+        <auth-method>BASIC</auth-method>                   
     </login-config>
     
     <security-role>

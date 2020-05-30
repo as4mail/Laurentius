@@ -40,9 +40,7 @@
         </developer>
     </developers>
 
-    <properties>
-        <dao.final.name>Laurentius-dao</dao.final.name>
-    </properties>
+  
 
     <dependencies>
         <dependency>
@@ -145,7 +143,7 @@
                         <manifestEntries>                            
                             <!-- implementation-version>${project.version}</implementation-version>             
                             <Implementation-Build>${buildNumber}</Implementation-Build -->
-                            <Dependencies>org.apache.logging.log4j,  si.laurentius, org.apache.activemq.artemis, org.apache.ws.security</Dependencies>
+                            <!-- Dependencies>org.apache.logging.log4j,  si.laurentius, org.apache.activemq.artemis, org.apache.ws.security</Dependencies -->
                         </manifestEntries>
                 
                     </archive>

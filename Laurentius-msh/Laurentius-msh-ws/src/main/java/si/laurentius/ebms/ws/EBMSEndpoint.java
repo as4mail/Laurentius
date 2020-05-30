@@ -3,8 +3,8 @@ package si.laurentius.ebms.ws;
 import java.util.Collection;
 import java.util.Date;
 import javax.annotation.Resource;
-import javax.ejb.EJB;
 import javax.jms.JMSException;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPConstants;
@@ -46,144 +46,170 @@ import si.laurentius.commons.utils.Utils;
 @ServiceMode(value = Service.Mode.MESSAGE)
 @BindingType(SOAPBinding.SOAP12HTTP_BINDING)
 @org.apache.cxf.interceptor.InInterceptors(interceptors = {
-  "si.jrc.msh.interceptor.EBMSLogInInterceptor",
-  "si.jrc.msh.interceptor.EBMSInInterceptor",
-  "si.jrc.msh.interceptor.MSHPluginInInterceptor"})
+    "si.jrc.msh.interceptor.EBMSLogInInterceptor",
+    "si.jrc.msh.interceptor.EBMSInInterceptor",
+    "si.jrc.msh.interceptor.MSHPluginInInterceptor"})
 @org.apache.cxf.interceptor.OutInterceptors(interceptors = {
-  "si.jrc.msh.interceptor.EBMSLogOutInterceptor",
-  "si.jrc.msh.interceptor.EBMSOutInterceptor",
-  "si.jrc.msh.interceptor.MSHPluginOutInterceptor"})
+    "si.jrc.msh.interceptor.EBMSLogOutInterceptor",
+    "si.jrc.msh.interceptor.EBMSOutInterceptor",
+    "si.jrc.msh.interceptor.MSHPluginOutInterceptor"})
 @org.apache.cxf.interceptor.OutFaultInterceptors(interceptors = {
-  "si.jrc.msh.interceptor.EBMSLogOutInterceptor",
-  "si.jrc.msh.interceptor.EBMSOutFaultInterceptor",
-  "si.jrc.msh.interceptor.MSHPluginOutFaultInterceptor"})
+    "si.jrc.msh.interceptor.EBMSLogOutInterceptor",
+    "si.jrc.msh.interceptor.EBMSOutFaultInterceptor",
+    "si.jrc.msh.interceptor.MSHPluginOutFaultInterceptor"})
 @org.apache.cxf.interceptor.InFaultInterceptors(interceptors = {
-  "si.jrc.msh.interceptor.EBMSLogInInterceptor",
-  "si.jrc.msh.interceptor.EBMSInFaultInterceptor",
-  "si.jrc.msh.interceptor.MSHPluginInFaultInterceptor"})
+    "si.jrc.msh.interceptor.EBMSLogInInterceptor",
+    "si.jrc.msh.interceptor.EBMSInFaultInterceptor",
+    "si.jrc.msh.interceptor.MSHPluginInFaultInterceptor"})
 public class EBMSEndpoint implements Provider<SOAPMessage> {
 
-  private static final SEDLogger LOG = new SEDLogger(EBMSEndpoint.class);
+    private static final SEDLogger LOG = new SEDLogger(EBMSEndpoint.class);
 
-  @EJB(mappedName = SEDJNDI.JNDI_SEDDAO)
-  SEDDaoInterface mDB;
-  StringFormater msfFormat = new StringFormater();
-  StorageUtils msuStorageUtils = new StorageUtils();
-  @Resource
-  WebServiceContext wsContext;
+    SEDDaoInterface mSedDao;
 
-  @EJB(mappedName = SEDJNDI.JNDI_JMSMANAGER)
-  JMSManagerInterface mJMS;
+    StringFormater msfFormat = new StringFormater();
+    StorageUtils msuStorageUtils = new StorageUtils();
+    @Resource
+    WebServiceContext wsContext;
 
-  /**
-   *
-   */
-  public EBMSEndpoint() {
+//  @EJB(mappedName = SEDJNDI.JNDI_JMSMANAGER)
+    JMSManagerInterface mJMSManager;
 
-  }
+    /**
+     *
+     */
+    public EBMSEndpoint() {
 
-  @Override
-  public SOAPMessage invoke(SOAPMessage request) {
-    long l = LOG.logStart();
-    SOAPMessage response = null;
-    try {
-      // create empty response
-      MessageFactory mf = MessageFactory.newInstance(
-              SOAPConstants.SOAP_1_2_PROTOCOL);
-      response = mf.createMessage();
-
-      // Using this cxf specific code you can access the CXF Message and Exchange objects
-      WrappedMessageContext wmc = (WrappedMessageContext) wsContext.
-              getMessageContext();
-      Message msg = wmc.getWrappedMessage();
-      MSHInMail inmail = SoapUtils.getMSHInMail(msg);
-      if (inmail == null) {
-        String errmsg = "No inbox message";
-        LOG.logError(l, errmsg, null);
-        throw new EBMSError(EBMSErrorCode.ApplicationError,
-                null,
-                errmsg,
-                SoapFault.FAULT_CODE_SERVER);
-      }
-
-      SEDBox sb = SoapUtils.getMSHInMailReceiverBox(msg);
-      EBMSMessageContext mc = SoapUtils.getEBMSMessageInContext(msg);
-
-      if (sb == null) {
-        String errmsg = String.format(
-                "Inbox message %s but no inbox found  for message: %s",
-                inmail.getId(),
-                inmail.getReceiverEBox());
-        LOG.logError(l, errmsg, null);
-        throw new EBMSError(EBMSErrorCode.ApplicationError,
-                inmail.getMessageId(),
-                errmsg,
-                SoapFault.FAULT_CODE_SERVER);
-      } else if ((mc.getPMode().getIsTest() == null || !mc.getPMode().
-              getIsTest()) && Utils.isEmptyString(inmail.getStatus())) {
-        serializeMail(inmail, msg.getAttachments(), sb);
-      }
-
-    } catch (SOAPException ex) {
-      String errmsg = String.format(
-              "SOAPException: %s", ex.getMessage());
-      LOG.logError(l, errmsg, ex);
-      throw new EBMSError(EBMSErrorCode.ApplicationError,
-              null,
-              errmsg,
-              SoapFault.FAULT_CODE_SERVER);
-    }
-    LOG.logEnd(l);
-    return response;
-  }
-
-  private void serializeMail(MSHInMail mail, Collection<Attachment> lstAttch,
-          SEDBox sb) {
-    long l = LOG.logStart();
-    // prepare mail to persist
-    Date dt = new Date();
-    // set current status
-    mail.setStatus(SEDInboxMailStatus.RECEIVED.getValue());
-    mail.setStatusDate(dt);
-    mail.setReceivedDate(dt);
-
-    try {
-      mDB.serializeInMail(mail, "Laurentius-msh-ws");
-    } catch (StorageException ex) {
-      String errmsg = "Internal error occured while serializing incomming mail.";
-      LOG.logError(l, errmsg, ex);
-      throw new EBMSError(EBMSErrorCode.ExternalPayloadError, mail.
-              getMessageId(), errmsg,
-              SoapFault.FAULT_CODE_CLIENT);
     }
 
-    try {
-      // --------------------
-      // serialize data to db
+    @Override
+    public SOAPMessage invoke(SOAPMessage request) {
+        long l = LOG.logStart();
+        SOAPMessage response = null;
+        try {
+            // create empty response
+            MessageFactory mf = MessageFactory.newInstance(
+                    SOAPConstants.SOAP_1_2_PROTOCOL);
+            response = mf.createMessage();
 
-      mDB.setStatusToInMail(mail, SEDInboxMailStatus.RECEIVED, null);
-    } catch (StorageException ex) {
-       String errmsg = "Error occured while receiving mail:'" + mail.
-              getId() + "'!";
-      LOG.logError(l, errmsg, ex);
-      throw new EBMSError(EBMSErrorCode.ApplicationError, mail.
-              getMessageId(), errmsg,
-              SoapFault.FAULT_CODE_SERVER);
-      
-      
+            // Using this cxf specific code you can access the CXF Message and Exchange objects
+            WrappedMessageContext wmc = (WrappedMessageContext) wsContext.
+                    getMessageContext();
+            Message msg = wmc.getWrappedMessage();
+            MSHInMail inmail = SoapUtils.getMSHInMail(msg);
+            if (inmail == null) {
+                String errmsg = "No inbox message";
+                LOG.logError(l, errmsg, null);
+                throw new EBMSError(EBMSErrorCode.ApplicationError,
+                        null,
+                        errmsg,
+                        SoapFault.FAULT_CODE_SERVER);
+            }
+
+            SEDBox sb = SoapUtils.getMSHInMailReceiverBox(msg);
+            EBMSMessageContext mc = SoapUtils.getEBMSMessageInContext(msg);
+
+            if (sb == null) {
+                String errmsg = String.format(
+                        "Inbox message %s but no inbox found  for message: %s",
+                        inmail.getId(),
+                        inmail.getReceiverEBox());
+                LOG.logError(l, errmsg, null);
+                throw new EBMSError(EBMSErrorCode.ApplicationError,
+                        inmail.getMessageId(),
+                        errmsg,
+                        SoapFault.FAULT_CODE_SERVER);
+            } else if ((mc.getPMode().getIsTest() == null || !mc.getPMode().
+                    getIsTest()) && Utils.isEmptyString(inmail.getStatus())) {
+                serializeMail(inmail, msg.getAttachments(), sb);
+            }
+
+        } catch (SOAPException ex) {
+            String errmsg = String.format(
+                    "SOAPException: %s", ex.getMessage());
+            LOG.logError(l, errmsg, ex);
+            throw new EBMSError(EBMSErrorCode.ApplicationError,
+                    null,
+                    errmsg,
+                    SoapFault.FAULT_CODE_SERVER);
+        }
+        LOG.logEnd(l);
+        return response;
     }
 
-    try {
-      LOG.formatedlog("EXPORT MAIL %d", mail.getId().longValue());
-      mJMS.exportInMail(mail.getId().longValue());
-    } catch (NamingException | JMSException ex) {
-      LOG.logError(l,
-              "Error occured while submitting mail to export queue:'" + mail.
-                      getId() + "'!",
-              ex);
+    private void serializeMail(MSHInMail mail, Collection<Attachment> lstAttch,
+            SEDBox sb) {
+        long l = LOG.logStart();
+        // prepare mail to persist
+        Date dt = new Date();
+        // set current status
+        mail.setStatus(SEDInboxMailStatus.RECEIVED.getValue());
+        mail.setStatusDate(dt);
+        mail.setReceivedDate(dt);
+
+        try {
+            getDAO().serializeInMail(mail, "Laurentius-msh-ws");
+        } catch (StorageException ex) {
+            String errmsg = "Internal error occured while serializing incomming mail.";
+            LOG.logError(l, errmsg, ex);
+            throw new EBMSError(EBMSErrorCode.ExternalPayloadError, mail.
+                    getMessageId(), errmsg,
+                    SoapFault.FAULT_CODE_CLIENT);
+        }
+
+        try {
+            // --------------------
+            // serialize data to db
+
+            getDAO().setStatusToInMail(mail, SEDInboxMailStatus.RECEIVED, null);
+        } catch (StorageException ex) {
+            String errmsg = "Error occured while receiving mail:'" + mail.
+                    getId() + "'!";
+            LOG.logError(l, errmsg, ex);
+            throw new EBMSError(EBMSErrorCode.ApplicationError, mail.
+                    getMessageId(), errmsg,
+                    SoapFault.FAULT_CODE_SERVER);
+
+        }
+
+        try {
+            LOG.formatedlog("EXPORT MAIL %d", mail.getId().longValue());
+            getJMSManager().exportInMail(mail.getId().longValue());
+        } catch (NamingException | JMSException ex) {
+            LOG.logError(l,
+                    "Error occured while submitting mail to export queue:'" + mail.
+                            getId() + "'!",
+                    ex);
+        }
+
+        LOG.logEnd(l);
     }
 
-    LOG.logEnd(l);
-  }
+    public SEDDaoInterface getDAO() {
+
+        if (mSedDao == null) {
+            try {
+                mSedDao = InitialContext.doLookup(SEDJNDI.JNDI_SEDDAO);
+            } catch (NamingException ex) {
+
+                //A_LOG.logError(l, ex);
+            }
+        }
+
+        return mSedDao;
+    }
+
+    public JMSManagerInterface getJMSManager() {
+
+        if (mJMSManager == null) {
+            try {
+                mJMSManager = InitialContext.doLookup(SEDJNDI.JNDI_JMSMANAGER);
+            } catch (NamingException ex) {
+
+                //A_LOG.logError(l, ex);
+            }
+        }
+        return mJMSManager;
+    }
 
 }

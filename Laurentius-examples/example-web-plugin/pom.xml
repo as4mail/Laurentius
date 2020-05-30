@@ -120,7 +120,7 @@
                              <!-- use common module and make deployment thinner
                              org.apache.cxf - for interceptor
                                -->
-                            <Dependencies>org.apache.logging.log4j, si.laurentius, org.apache.cxf, org.apache.cxf.impl, org.primefaces</Dependencies>
+                            <!--Dependencies>org.apache.logging.log4j, si.laurentius, org.apache.cxf, org.apache.cxf.impl, org.primefaces</Dependencies-->
                         </manifestEntries>
                     </archive>                                 
                 </configuration>                 

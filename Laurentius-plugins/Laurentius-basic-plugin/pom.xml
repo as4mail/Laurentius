@@ -115,7 +115,7 @@
                         <manifestEntries>                            
                             <implementation-version>${project.version}</implementation-version>             
                             <Implementation-Build>${buildNumber}</Implementation-Build>                            
-                            <Dependencies>org.apache.logging.log4j, si.laurentius, org.primefaces, org.apache.pdfbox</Dependencies>
+                            <!-- Dependencies>org.apache.logging.log4j, si.laurentius, org.primefaces, org.apache.pdfbox</Dependencies -->
                         </manifestEntries>
                     </archive>                                 
                 </configuration>                 

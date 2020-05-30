@@ -46,6 +46,7 @@
         <developerConnection>scm:svn:http://none</developerConnection>
         <url>scm:svn:http://none</url>
     </scm>
+  
 
     <dependencies>
         <dependency>
@@ -124,6 +125,7 @@
     </dependencies>
 
     <build>
+        <finalName>${msh-cxf.final.name}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ejb-plugin</artifactId>                  

@@ -1,8 +1,14 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<web-app xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-         xmlns='http://java.sun.com/xml/ns/javaee' xmlns:web='http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd'
-         xsi:schemaLocation='http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd'
-         id='sedgui' version='3.0'>
-    <display-name>SED MSH</display-name>
-    
+<web-app id="as4mail-ws" version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemalocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <servlet>
+        <display-name>MSHService</display-name>
+        <servlet-name>MSHService</servlet-name>
+        <servlet-class>si.laurentius.ebms.ws.MSHServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MSHService</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 </web-app>

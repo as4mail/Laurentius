@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>si.vsrs.cif.sed</groupId>
+        <artifactId>Laurentius</artifactId>
+        <version>2.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>as4mail-ear</artifactId>
+    <packaging>ear</packaging>
+
+    <name>as4mail-ear</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-msh-xsd</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-wsdl</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-plugin-interfaces</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-commons</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-lce</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-viz</artifactId>
+            <version>${project.version}</version>		
+            <type>jar</type>
+        </dependency>
+        
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-msh-ws</artifactId>
+            <version>${project.version}</version>		
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-web</artifactId>
+            <version>${project.version}</version>		
+            <type>war</type>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-ws</artifactId>
+            <version>${project.version}</version>		
+            <type>war</type>
+        </dependency>
+        <!-- dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-basic-plugin</artifactId>
+            <version>${project.version}</version>		
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-test-case-plugin</artifactId>
+            <version>${project.version}</version>		
+            <type>war</type>
+        </dependency-->
+            
+        <dependency>             
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-msh-cxf</artifactId>
+            <version>${project.version}</version>	
+            <type>ejb</type>	
+        </dependency>
+
+        <dependency>             
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Laurentius-dao</artifactId>
+            <version>${project.version}</version>	
+            <type>ejb</type>	
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>${javax.javaee-api.version}</version>
+            <type>jar</type>
+        </dependency>       
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${javax.annotation.version}</version>     
+            <type>jar</type>           
+        </dependency>     
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>     
+            <type>jar</type>           
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+     
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf-rt.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf-rt.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+            <version>${cxf-rt.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-policy</artifactId>
+            <version>${cxf-rt.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+            <version>${org.apache.santuario.xmlsec.version}</version> 
+            <type>jar</type>           
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>1.5.1</version>
+            <type>jar</type>
+        </dependency>
+            
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${org.apache.pdfbox.version}</version>
+            <type>jar</type>                            
+        </dependency>
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>preflight</artifactId>
+            <version>${org.apache.pdfbox.version}</version>
+            <type>jar</type>        
+        </dependency>
+        
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>${org.bouncycastle.version}</version> 
+            <type>jar</type>       
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpkix-jdk15on</artifactId>
+            <version>${org.bouncycastle.version}</version>
+            <type>jar</type>        
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.saxon</groupId>
+            <artifactId>Saxon-HE</artifactId>
+            <version>${net.sf.saxon.version}</version> 
+            <type>jar</type>
+        </dependency>
+        <!--  GUI -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${org.primefaces.version}</version>    
+            <type>jar</type>        		
+        </dependency>	
+        
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <finalName>as4mail</finalName>
+                    <archive>
+                        <manifest>
+                            <addClasspath>false</addClasspath>
+                        </manifest>
+                    </archive>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <skinnyWars>true</skinnyWars>
+                    <modules>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-msh-cxf</artifactId>  
+                            <bundleFileName>${msh-cxf.final.name}</bundleFileName>                          
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-dao</artifactId>
+                            <bundleFileName>${dao.final.name}</bundleFileName>             
+                        </ejbModule>
+                        
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-msh-ws</artifactId>
+                            <contextRoot>/laurentius</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-ws</artifactId>
+                            <contextRoot>/laurentius-ws</contextRoot>
+                        </webModule>
+                       
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-web</artifactId>
+                            <contextRoot>/laurentius-web</contextRoot>
+                        </webModule>
+                        <!-- webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-basic-plugin</artifactId>
+                            <contextRoot>/ui/basic</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>Laurentius-test-case-plugin</artifactId>
+                            <contextRoot>/ui/test-case</contextRoot>
+                        </webModule -->
+                    </modules>                    
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+    <deployment>
+        <exclude-subsystems>
+            <subsystem name="webservices" />
+            <subsystem name="logging"/> 
+            <subsystem name="jaxrs" />
+        </exclude-subsystems>
+
+        <dependencies>
+            <module name="javax.jws.api" export="true"/>
+            <module name="javax.xml.ws.api" export="true"/>
+            <module name="javax.jms.api" export="true"/>      
+        </dependencies>
+
+    </deployment>
+</jboss-deployment-structure>
