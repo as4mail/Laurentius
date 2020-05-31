@@ -25,6 +25,7 @@ import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.cxf.ws.security.wss4j.WSS4JStaxInInterceptor;
 import org.apache.cxf.ws.security.wss4j.WSS4JStaxOutInterceptor;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import si.laurentius.msh.pmode.PartyIdentitySetType;
@@ -369,14 +370,14 @@ public abstract class AbstractEBMSInterceptor extends AbstractSoapInterceptor {
         return sec;
     }
 
-    public WSS4JInInterceptor configureInSecurityInterceptors(Security sc,
-            PartyIdentitySetType.LocalPartySecurity lps,
-            PartyIdentitySetType.ExchangePartySecurity eps,
-            String msgId, QName sv)
+    public WSS4JStaxInInterceptor configureInStaxSecurityInterceptors(Security sc,
+                                                                    PartyIdentitySetType.LocalPartySecurity lps,
+                                                                    PartyIdentitySetType.ExchangePartySecurity eps,
+                                                                    String msgId, QName sv)
             throws EBMSError {
 
         long l = A_LOG.logStart();
-        WSS4JInInterceptor sec = null;
+        WSS4JStaxInInterceptor sec = null;
         Map<String, Object> inProps = null;
 
         if (sc.getX509() == null) {
@@ -443,7 +444,7 @@ public abstract class AbstractEBMSInterceptor extends AbstractSoapInterceptor {
 
         if (inProps != null) {
             A_LOG.formatedlog("Message %s security properties: %s", msgId, getLogSecurityProperitesStringForMail(inProps));
-            sec = new WSS4JInInterceptor(inProps);
+            sec = new WSS4JStaxInInterceptor(inProps);
         } else {
             A_LOG.logWarn(l,
                     "Sending not message with not security policy. Bad/incomplete security configuration (pmode) for message:"
@@ -454,6 +455,90 @@ public abstract class AbstractEBMSInterceptor extends AbstractSoapInterceptor {
         return sec;
     }
 
+    public WSS4JInInterceptor configureInSecurityInterceptors(Security sc,
+                                                              PartyIdentitySetType.LocalPartySecurity lps,
+                                                              PartyIdentitySetType.ExchangePartySecurity eps,
+                                                              String msgId, QName sv)
+            throws EBMSError {
+
+        long l = A_LOG.logStart();
+        WSS4JInInterceptor sec = null;
+        Map<String, Object> inProps = null;
+
+        if (sc.getX509() == null) {
+            A_LOG.logWarn(l,
+                    "Sending not message with not security policy. No security configuration (pmode) for message:"
+                            + msgId, null);
+            return null;
+        }
+        if (sc.getX509().getSignature() != null && sc.getX509().getSignature().
+                getReference() != null) {
+            X509.Signature sig = sc.getX509().getSignature();
+            String sigAliasProp = eps.getSignatureCertAlias();
+
+            try {
+                inProps = getCertUtilsStore().createCXFSignatureValidationConfiguration(sig, sigAliasProp);
+            } catch (SEDSecurityException ex) {
+                throw new EBMSError(EBMSErrorCode.PolicyNoncompliance, msgId, ex.getMessage(),
+                        sv);
+            }
+            if (inProps == null) {
+                A_LOG.logWarn(l,
+                        "Sending not signed message. Incomplete configuration: X509/Signature for message:  "
+                                + msgId, null);
+            }
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not signed message. No configuration: X509/Signature/Sign for message:  " + msgId,
+                    null);
+        }
+
+        if (sc.getX509().getEncryption() != null && sc.getX509().getEncryption().
+                getReference() != null) {
+            X509.Encryption enc = sc.getX509().getEncryption();
+            String decAlias = lps.getDecryptionKeyAlias();
+
+            Map<String, Object> penc = null;
+            try {
+                penc = getCertUtilsStore().createCXFDecryptionConfiguration(enc, decAlias);
+            } catch (SEDSecurityException ex) {
+                String msg = "Error occured while creating CXFDecryptionConfiguration alias '" + decAlias
+                        + "' do not exist in keystore. Error:" + ex.getMessage();
+                A_LOG.logError(l, msg, ex);
+                throw new EBMSError(EBMSErrorCode.PModeConfigurationError, msgId, msg,
+                        sv);
+            }
+
+            if (enc == null) {
+                A_LOG.logWarn(l,
+                        "Sending not encrypted message. Incomplete configuration: X509/Encryption/Encryp for message:  "
+                                + msgId, null);
+            } else if (inProps == null) {
+                inProps = penc;
+            } else {
+                String action = (String) inProps.get(WSHandlerConstants.ACTION);
+                action += " " + (String) penc.get(WSHandlerConstants.ACTION);
+                inProps.putAll(penc);
+                inProps.put(WSHandlerConstants.ACTION, action);
+            }
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not encypted message. No configuration: X509/Encryption/Encrypt for message:  "
+                            + msgId, null);
+        }
+
+        if (inProps != null) {
+            A_LOG.formatedlog("Message %s security properties: %s", msgId, getLogSecurityProperitesStringForMail(inProps));
+            sec = new WSS4JInInterceptor(inProps);
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not message with not security policy. Bad/incomplete security configuration (pmode) for message:"
+                            + msgId, null);
+        }
+
+        A_LOG.logEnd(l);
+        return sec;
+    }
     private String getLogSecurityProperitesStringForMail(Map<String, Object> prop) {
         StringWriter sw = new StringWriter();
         sw.append('[');

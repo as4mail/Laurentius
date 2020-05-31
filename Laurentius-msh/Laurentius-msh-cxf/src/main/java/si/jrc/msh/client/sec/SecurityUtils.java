@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.cxf.ws.security.wss4j.CryptoCoverageChecker;
 import org.apache.cxf.ws.security.wss4j.CryptoCoverageUtil;
+import org.apache.cxf.ws.security.wss4j.StaxCryptoCoverageChecker;
 import si.laurentius.msh.pmode.Security;
 import si.laurentius.msh.pmode.X509;
 import si.jrc.msh.interceptor.EBMSOutInterceptor;
@@ -81,8 +82,4 @@ public class SecurityUtils {
     
     return cc;
   }
-  
-  
-
-
 }

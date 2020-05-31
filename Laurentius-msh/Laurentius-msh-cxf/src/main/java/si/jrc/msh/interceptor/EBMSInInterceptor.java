@@ -58,6 +58,7 @@ import org.apache.cxf.phase.Phase;
 import org.apache.cxf.transport.http.AbstractHTTPDestination;
 import org.apache.cxf.ws.security.wss4j.CryptoCoverageChecker;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
+import org.apache.cxf.ws.security.wss4j.WSS4JStaxInInterceptor;
 import si.laurentius.msh.inbox.mail.MSHInMail;
 import si.laurentius.msh.inbox.payload.MSHInPart;
 import si.laurentius.msh.pmode.PartyIdentitySet;
@@ -632,12 +633,13 @@ public class EBMSInInterceptor extends AbstractEBMSInterceptor {
         PartyIdentitySet sPID = ectx.getSenderPartyIdentitySet();
         long l = LOG.logStart();
         try {
-            WSS4JInInterceptor sc
-                    = configureInSecurityInterceptors(ectx.getSecurity(), rPID.
+            WSS4JStaxInInterceptor sc
+                    = configureInStaxSecurityInterceptors(ectx.getSecurity(), rPID.
                             getLocalPartySecurity(),
                             sPID.getExchangePartySecurity(), messageId,
                             SoapFault.FAULT_CODE_CLIENT);
-            sc.handleMessage(msg);
+
+            msg.getInterceptorChain().add(sc);
 
         } catch (Throwable tg) {
             LOG.logError(l, "Error validating security: '"
@@ -647,7 +649,7 @@ public class EBMSInInterceptor extends AbstractEBMSInterceptor {
                     "Error occured validating security: " + tg.getMessage(), tg,
                     SoapFault.FAULT_CODE_CLIENT);
         }
-
+/*
         try {
             CryptoCoverageChecker cc = SecurityUtils.
                     configureCryptoCoverageCheckerInterceptors(
@@ -661,7 +663,7 @@ public class EBMSInInterceptor extends AbstractEBMSInterceptor {
                     messageId,
                     "Security coverage mishatch! Error: " + tg.getMessage(), tg,
                     SoapFault.FAULT_CODE_CLIENT);
-        }
+        } */
         LOG.logEnd(l);
     }
 

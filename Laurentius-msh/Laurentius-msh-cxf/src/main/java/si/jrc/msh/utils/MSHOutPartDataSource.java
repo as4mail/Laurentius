@@ -131,7 +131,7 @@ public class MSHOutPartDataSource implements DataSource {
     if (fullPath == null) {
       init();
     }
-    return new FileInputStream(fullPath);
+    return new MSHPartFileInputStream(new FileInputStream(fullPath));
   }
 
   @Override
