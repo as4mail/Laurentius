@@ -156,13 +156,13 @@ public class MshClient {
     // --------------------------------------------------------------------
     // configure interceptors (log, ebms and plugin interceptors)
     Client cxfClient = dimpl.getClient();
-    cxfClient.getInInterceptors().add(new EBMSLogInInterceptor());
+    //cxfClient.getInInterceptors().add(new EBMSLogInInterceptor());
     cxfClient.getInInterceptors().add(new EBMSInInterceptor());
     cxfClient.getInInterceptors().add(new MSHPluginInInterceptor());
 
     cxfClient.getOutInterceptors().add(new MSHPluginOutInterceptor());
     cxfClient.getOutInterceptors().add(new EBMSOutInterceptor());
-    cxfClient.getOutInterceptors().add(new EBMSLogOutInterceptor());
+   // cxfClient.getOutInterceptors().add(new EBMSLogOutInterceptor());
 
     cxfClient.getInFaultInterceptors().add(new EBMSLogInInterceptor());
     cxfClient.getInFaultInterceptors().add(new EBMSInFaultInterceptor());

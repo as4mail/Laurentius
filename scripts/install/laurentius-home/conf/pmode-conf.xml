@@ -94,8 +94,7 @@
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:name" valueSource="name"/>
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:sed-box" valueSource="address"/>
             <TransportProtocol id="defalut" isTwoWayProtocol="true">
-                <Address connectionTimeout="120000" receiveTimeout="180000" chunked="false">https://127.0.0.1:8443/laurentius/msh</Address>
-                <TLS serverTrustCertAlias="test-tls" disableCNAndHostnameCheck="true"/>
+                <Address connectionTimeout="120000" receiveTimeout="180000" chunked="false">http://127.0.0.1:8081/laurentius/msh</Address>
                 <SOAPVersion>1.2</SOAPVersion>
             </TransportProtocol>
             <LocalPartySecurity signatureKeyAlias="test-as4mail" decryptionKeyAlias="test-as4mail"/>
@@ -114,14 +113,28 @@
         </PartyIdentitySet>
     </Parties>
     <SecurityPolicies>
-        <Security id="sign_sha256" WSSVersion="1.1">
+        <Security id="sign_sha256-attachment" WSSVersion="1.1">
             <X509>
                 <Signature hashFunction="http://www.w3.org/2001/04/xmlenc#sha256" algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256">
                     <Reference allAttachments="true">
                         <Elements>
-                            <XPath xpath="env:Header/eb3:Messaging">
+                            <XPath xpath="/soap:Envelope/soap:Header/eb3:Messaging">
                                 <Namespace prefix="eb3" namespace="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"/>
-                                <Namespace prefix="env" namespace="http://www.w3.org/2003/05/soap-envelope"/>
+                                <Namespace prefix="soap" namespace="http://www.w3.org/2003/05/soap-envelope"/>
+                            </XPath>
+                        </Elements>
+                    </Reference>
+                </Signature>
+            </X509>
+        </Security>
+        <Security id="sign_sha256" WSSVersion="1.1">
+            <X509>
+                <Signature hashFunction="http://www.w3.org/2001/04/xmlenc#sha256" algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256">
+                    <Reference allAttachments="false">
+                        <Elements>
+                            <XPath xpath="/soap:Envelope/soap:Header/eb3:Messaging">
+                                <Namespace prefix="eb3" namespace="http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/"/>
+                                <Namespace prefix="soap" namespace="http://www.w3.org/2003/05/soap-envelope"/>
                             </XPath>
                         </Elements>
                     </Reference>
@@ -158,7 +171,7 @@
             <Leg>
                 <MPC>http://docs.oasis-open.org/ebxml-msg/ebms/v3.0/ns/core/200704/defaultMPC</MPC>
                 <Transport>
-                    <ForeChannel action="Delivery" securityIdRef="sign_sha256">
+                    <ForeChannel action="Delivery" securityIdRef="sign_sha256-attachment">
                         <ReceptionAwareness raPatternIdRef="AS4ReceiptResponse"/>
                     </ForeChannel>
                     <BackChannel securityIdRef="sign_sha256"/>

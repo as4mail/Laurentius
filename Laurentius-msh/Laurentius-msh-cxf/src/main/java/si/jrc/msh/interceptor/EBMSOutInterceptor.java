@@ -25,6 +25,7 @@ import javax.activation.DataSource;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlSchema;
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
@@ -33,10 +34,13 @@ import org.apache.cxf.attachment.AttachmentImpl;
 import org.apache.cxf.binding.soap.SoapFault;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.SoapVersion;
+import org.apache.cxf.headers.Header;
+import org.apache.cxf.jaxb.JAXBDataBinding;
 import org.apache.cxf.message.Exchange;
 import org.apache.cxf.message.MessageUtils;
 import org.apache.cxf.phase.Phase;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.cxf.ws.security.wss4j.WSS4JStaxOutInterceptor;
 import si.laurentius.msh.outbox.mail.MSHOutMail;
 import si.laurentius.msh.outbox.payload.MSHOutPart;
 import si.laurentius.msh.pmode.PMode;
@@ -84,7 +88,8 @@ public class EBMSOutInterceptor extends AbstractEBMSInterceptor {
      * Phase.PRE_PROTOCOL
      */
     public EBMSOutInterceptor() {
-        super(Phase.PRE_PROTOCOL);
+        super(Phase.USER_LOGICAL);
+        addAfter(MSHPluginOutInterceptor.class.getName());
     }
 
     /**
@@ -100,12 +105,6 @@ public class EBMSOutInterceptor extends AbstractEBMSInterceptor {
         // is out mail request or response
         boolean isRequest = MessageUtils.isRequestor(msg);
         QName qnFault = (isRequest ? SoapFault.FAULT_CODE_CLIENT : SoapFault.FAULT_CODE_SERVER);
-
-        if (msg.getContent(SOAPMessage.class) == null) {
-            String errmsg = "Internal error missing SOAPMessage!";
-            LOG.logError(l, errmsg, null);
-            throw new EBMSError(EBMSErrorCode.ApplicationError, null, errmsg, qnFault);
-        }
 
         // get context variables
         EBMSMessageContext ectx = SoapUtils.getEBMSMessageOutContext(msg);
@@ -130,7 +129,8 @@ public class EBMSOutInterceptor extends AbstractEBMSInterceptor {
 
         // create message 
         Messaging msgHeader = EBMSBuilder.createMessaging(version);
-        // create usermessageunit for out mail 
+        // create usermessageunit for out mail
+        msgHeader.setId(null);
         if (outMail != null) {
             // remove all ebms payloads. 
             if (outMail.getMSHOutPayload() != null && !outMail.getMSHOutPayload().getMSHOutParts().isEmpty()) {
@@ -195,28 +195,31 @@ public class EBMSOutInterceptor extends AbstractEBMSInterceptor {
 
             msgHeader.getSignalMessages().add(sm);
         }
-        SOAPMessage request = msg.getContent(SOAPMessage.class);
+      //  SOAPMessage request = msg.getContent(SOAPMessage.class);
         try {
-
-            SOAPHeader sh = request.getSOAPHeader();
-            Marshaller marshaller = JAXBContext.newInstance(Messaging.class).createMarshaller();
-            marshaller.marshal(msgHeader, sh);
-            request.saveChanges();
-        } catch (JAXBException | SOAPException ex) {
+            List<Header> headers = msg.getHeaders();
+            Header header = new Header(getQName(msgHeader.getClass()), msgHeader,
+                    new JAXBDataBinding(Messaging.class));
+            headers.add(header);
+            msg.put(Header.HEADER_LIST, headers);
+        } catch (JAXBException  ex) {
             String errMsg = "Error adding ebms header to soap: " + ex.getMessage();
             LOG.logError(l, errMsg, ex);
             throw new EBMSError(EBMSErrorCode.ApplicationError, msgId, errMsg, ex,
                     SoapFault.FAULT_CODE_CLIENT);
         }
+
         // if out mail add security
         if (ectx.getSecurity() != null) {
             LOG.log("Set security: " + msgId);
-            WSS4JOutInterceptor sc
-                    = configureOutSecurityInterceptors(ectx.getSecurity(), sPID.getLocalPartySecurity(),
+            WSS4JStaxOutInterceptor sc
+                    = configureOutStaxSecurityInterceptors(ectx.getSecurity(), sPID.getLocalPartySecurity(),
                             rPID.getExchangePartySecurity(), msgId,
                             SoapFault.FAULT_CODE_CLIENT);
 
-            sc.handleMessage(msg);
+            msg.getInterceptorChain().add(sc);
+
+            //sc.handleMessage(msg);
 
         } else {
             LOG.logWarn("No Security policy for message: '" + msgId
@@ -224,6 +227,18 @@ public class EBMSOutInterceptor extends AbstractEBMSInterceptor {
         }
 
         LOG.logEnd(l);
+    }
+
+    private <T> QName getQName(final Class<T> clazz) {
+        // No other way since it is not @RootXmlElement
+        final String xmlns;
+        final Package aPackage = clazz.getPackage();
+        if (aPackage.isAnnotationPresent(XmlSchema.class)) {
+            xmlns = aPackage.getDeclaredAnnotation(XmlSchema.class).namespace();
+        } else {
+            xmlns = ""; // May throw illegal
+        }
+        return new QName(xmlns, clazz.getSimpleName());
     }
 
     /**

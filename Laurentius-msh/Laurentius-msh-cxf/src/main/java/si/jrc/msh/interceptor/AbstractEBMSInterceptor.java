@@ -25,6 +25,7 @@ import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.cxf.ws.security.wss4j.WSS4JStaxOutInterceptor;
 import org.apache.wss4j.dom.handler.WSHandlerConstants;
 import si.laurentius.msh.pmode.PartyIdentitySetType;
 import si.laurentius.msh.pmode.Security;
@@ -184,13 +185,13 @@ public abstract class AbstractEBMSInterceptor extends AbstractSoapInterceptor {
             throws Fault;
 
  
-    public WSS4JOutInterceptor configureOutSecurityInterceptors(Security sc,
+    public WSS4JStaxOutInterceptor configureOutStaxSecurityInterceptors(Security sc,
             PartyIdentitySetType.LocalPartySecurity lps,
             PartyIdentitySetType.ExchangePartySecurity epx,
             String msgId, QName sv)
             throws EBMSError {
         long l = A_LOG.logStart();
-        WSS4JOutInterceptor sec = null;
+        WSS4JStaxOutInterceptor sec = null;
         Map<String, Object> outProps = null;
 
         if (sc.getX509() == null) {
@@ -264,12 +265,105 @@ public abstract class AbstractEBMSInterceptor extends AbstractSoapInterceptor {
         if (outProps != null) {
 
             A_LOG.formatedlog("Message %s security properties: %s", msgId, getLogSecurityProperitesStringForMail(outProps));
-            sec = new WSS4JOutInterceptor(outProps);
+            sec = new WSS4JStaxOutInterceptor(outProps);
+            sec.setAllowMTOM(true);
 
         } else {
             A_LOG.logWarn(l,
                     "Sending not message with not security policy. Bad/incomplete security configuration (pmode) for message:"
                     + msgId, null);
+        }
+        A_LOG.logEnd(l);
+        return sec;
+    }
+
+    public WSS4JOutInterceptor configureOutSecurityInterceptors(Security sc,
+                                                                    PartyIdentitySetType.LocalPartySecurity lps,
+                                                                    PartyIdentitySetType.ExchangePartySecurity epx,
+                                                                    String msgId, QName sv)
+            throws EBMSError {
+        long l = A_LOG.logStart();
+        WSS4JOutInterceptor sec = null;
+        Map<String, Object> outProps = null;
+
+        if (sc.getX509() == null) {
+            A_LOG.logWarn(l,
+                    "Sending not message with not security policy. No security configuration (pmode) for message:"
+                            + msgId, null);
+            return null;
+        }
+
+        if (sc.getX509().getSignature() != null && sc.getX509().getSignature().
+                getReference() != null) {
+            X509.Signature sig = sc.getX509().getSignature();
+
+            String sigAlias = lps.getSignatureKeyAlias();
+
+            try {
+                A_LOG.formatedlog("Validate message: '%s' signed width: %s", msgId, sigAlias);
+                outProps = getCertUtilsStore().createCXFSignatureConfiguration(sig,
+                        sigAlias);
+            } catch (SEDSecurityException ex) {
+                String msg = "Error occurred while creating signature configuration for message: " + msgId + " and cert alias '" + sigAlias + "'! Error: " + ex.
+                        getMessage();
+                A_LOG.logError(l, msg, ex);
+                throw new EBMSError(EBMSErrorCode.PModeConfigurationError, msgId, msg,
+                        sv);
+            }
+            if (outProps == null) {
+                A_LOG.logWarn(l,
+                        "Sending not signed message. Incomplete configuration: X509/Signature for message:  "
+                                + msgId, null);
+            }
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not signed message. No configuration: X509/Signature/Sign for message:  " + msgId,
+                    null);
+        }
+
+        if (sc.getX509().getEncryption() != null && sc.getX509().getEncryption().
+                getReference() != null) {
+            X509.Encryption enc = sc.getX509().getEncryption();
+
+            String encAlias = epx.getEncryptionCertAlias();
+
+            Map<String, Object> penc;
+            try {
+                penc = getCertUtilsStore().
+                        createCXFEncryptionConfiguration(enc, encAlias);
+            } catch (SEDSecurityException ex) {
+                throw new EBMSError(EBMSErrorCode.PolicyNoncompliance, msgId, ex.getMessage(),
+                        sv);
+            }
+
+            if (enc == null) {
+                A_LOG.logWarn(l,
+                        "Sending not encrypted message. Incomplete configuration: X509/Encryption/Encryp for message:  "
+                                + msgId, null);
+            } else if (outProps == null) {
+                outProps = penc;
+            } else {
+                String action = (String) outProps.get(WSHandlerConstants.ACTION);
+                action += " " + (String) penc.get(WSHandlerConstants.ACTION);
+                outProps.putAll(penc);
+                outProps.put(WSHandlerConstants.ACTION, action);
+            }
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not encrypted message. No configuration: X509/Encryption/Encrypt for message:  "
+                            + msgId, null);
+        }
+
+        if (outProps != null) {
+
+            A_LOG.formatedlog("Message %s security properties: %s", msgId, getLogSecurityProperitesStringForMail(outProps));
+            sec = new WSS4JOutInterceptor(outProps);
+
+
+        } else {
+            A_LOG.logWarn(l,
+                    "Sending not message with not security policy. Bad/incomplete security configuration (pmode) for message:"
+                            + msgId, null);
         }
         A_LOG.logEnd(l);
         return sec;

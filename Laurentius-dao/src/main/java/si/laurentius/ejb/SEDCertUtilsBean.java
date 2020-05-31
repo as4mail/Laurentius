@@ -399,7 +399,7 @@ public class SEDCertUtilsBean implements SEDCertUtilsInterface {
       }
     }
     if (ref.getAllAttachments() != null && ref.getAllAttachments()) {
-      elmWr.write("{}cid:Attachments;");
+      elmWr.write("{Content}cid:Attachments;");
     }
     return elmWr.toString();
   }

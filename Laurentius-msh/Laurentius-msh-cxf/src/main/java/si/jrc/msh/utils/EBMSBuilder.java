@@ -169,7 +169,7 @@ public class EBMSBuilder {
         Messaging msg = new Messaging();
         // ID must be an NCName. This means that it must start with a letter or underscore,
         // and can only contain letters, digits, underscores, hyphens, and periods.
-        msg.setId(ID_PREFIX + UUID.randomUUID().toString()); // generate unique id
+        //msg.setId(ID_PREFIX + UUID.randomUUID().toString()); // generate unique id
         if (version.getVersion() != 1.1) {
             msg.setMustUnderstand(Boolean.TRUE);
         } else {
