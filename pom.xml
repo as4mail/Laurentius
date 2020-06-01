@@ -113,7 +113,7 @@
         -->      
         <org.apache.derby.version>10.14.1.0</org.apache.derby.version>
         <!--org.hibernate.version>4.2.6.Final</org.hibernate.version -->
-        <org.hibernate.version>5.4.16.Final</org.hibernate.version>
+        <org.hibernate.version>5.4.17.Final</org.hibernate.version>
         <junit.version>4.13</junit.version>
         <org.apache.activemq.junit.version>5.15.12</org.apache.activemq.junit.version>      
         <org.apache.activemq.core.version>5.7.0</org.apache.activemq.core.version> 
