@@ -270,8 +270,12 @@ public class DialogImportCert implements Serializable {
         } catch (InvalidNameException ex) {
             LOG.formatedWarning("Invalid cn %s. error: %s", dn, ex.getMessage());
         }
-        return res == null ? (dn.length() > 0 ? dn.substring(0, 10) : dn) : res;
-    }
+        // if dn was not parsed ok - Cn could be in mulivalue  - just get first 10 chars from dn
+        res = res == null ? (dn.length() > 0 ? dn.substring(0, 10) : dn) : res;
+        //remove spaces
+        res = res.trim();
+        return res;
+      }
 
     public void importStoreRowSelectionChanged() {
         selectedX509Cert = null;
@@ -314,27 +318,29 @@ public class DialogImportCert implements Serializable {
 
     }
 
-    public void importCertificate() {
-
-        try {
-            if (Objects.equals(importDialogType, DLG_TYPE_CERTSTORE)) {
-                mCertStore.addCertToCertStore(selectedX509Cert, selectedCertificate.
-                        getAlias());
-                setCBParamSaved(true);
-            } else if (Objects.equals(importDialogType, DLG_TYPE_ROOT_CA_STORE)) {
-                mCertStore.addCertToRootCA(selectedX509Cert, selectedCertificate.
-                        getAlias());
-                setCBParamSaved(true);
-            } else {
-                String strMsg = String.format("Invalid dialog type %s",
-                        importDialogType);
-                LOG.logWarn(strMsg, null);
-                setCBParamSaved(false);
-            }
-        } catch (SEDSecurityException ex) {
-            String strMsg = String.format(
-                    "Error occured while adding cert %s, err: %s.",
-                    selectedCertificate.getAlias(), ex.getMessage());
+  public void importCertificate() {
+      String alias =selectedCertificate.getAlias();
+      if (alias == null) {
+          alias = "cert_alias";
+      }
+      alias = alias.trim();
+    try {
+      if (Objects.equals(importDialogType, DLG_TYPE_CERTSTORE)) {
+        mCertStore.addCertToCertStore(selectedX509Cert, alias);
+        setCBParamSaved(true);
+      } else if (Objects.equals(importDialogType, DLG_TYPE_ROOT_CA_STORE)) {
+        mCertStore.addCertToRootCA(selectedX509Cert,alias);
+        setCBParamSaved(true);
+      } else {
+        String strMsg = String.format("Invalid dialog type %s",
+                importDialogType);
+        LOG.logWarn(strMsg, null);
+        setCBParamSaved(false);
+      }
+    } catch (SEDSecurityException ex) {
+      String strMsg = String.format(
+              "Error occured while adding cert %s, err: %s.",
+               alias, ex.getMessage());
 
             LOG.logWarn(strMsg, ex);
             addError(strMsg);
@@ -430,37 +436,40 @@ public class DialogImportCert implements Serializable {
             return;
         }
 
-        // import certificates and keys
-        for (SEDCertificate sc : getCertificates()) {
-            if (!sc.isImport()) {
-                continue;
-            }
-            try {
-                if (sc.isKeyEntry()) {
-                    Key k = importKeyStore.getKey(sc.getAlias(), sc.getPassword().
-                            toCharArray());
-                    Certificate[] crts = importKeyStore.getCertificateChain(sc.getAlias());
-                    mCertStore.addKeyToToCertStore(sc.getAlias(), k, crts, sc.
-                            getPassword());
+    // import certificates and keys
+    for (SEDCertificate sc : getCertificates()) {
+      if (!sc.isImport()) {
+        continue;
+      }
+      String alias = sc.getAlias();
+      if (alias==null ){
+          alias ="cert_alias";
+      }
+        alias = alias.trim();
+      try {
+        if (sc.isKeyEntry()) {
+          Key k = importKeyStore.getKey(alias, sc.getPassword().
+                  toCharArray());
+          Certificate[] crts = importKeyStore.getCertificateChain(alias);
+          mCertStore.addKeyToToCertStore(alias, k, crts, sc.
+                  getPassword());
 
-                } else {
-                    X509Certificate c = mku.getTrustedCertForAlias(importKeyStore, sc.
-                            getAlias());
-                    mCertStore.addCertToCertStore(c, sc.getAlias());
-                }
-            } catch (SEDSecurityException | KeyStoreException | NoSuchAlgorithmException
-                    | UnrecoverableKeyException ex) {
-                String msg = String.format("Error importing  %s. Err: %s", sc.
-                        getAlias(),
-                        ex.getMessage());
-                addError(msg);
-                LOG.logWarn(msg, ex);
-                setCBParamSaved(false);
-                return;
-            }
+        } else {
+          X509Certificate c = mku.getTrustedCertForAlias(importKeyStore, alias);
+          mCertStore.addCertToCertStore(c, alias);
         }
-        LOG.formatedDebug("Successfully added new  %d certifikactes ", iImpCout);
-        setCBParamSaved(true);
+      } catch (SEDSecurityException | KeyStoreException | NoSuchAlgorithmException
+              | UnrecoverableKeyException ex) {
+        String msg = String.format("Error importing  %s. Err: %s", alias,
+                ex.getMessage());
+        addError(msg);
+        LOG.logWarn(msg, ex);
+        setCBParamSaved(false);
+        return;
+      }
+    }
+    LOG.formatedDebug("Successfully added new  %d certifikactes ", iImpCout);
+    setCBParamSaved(true);
 
     }
 
