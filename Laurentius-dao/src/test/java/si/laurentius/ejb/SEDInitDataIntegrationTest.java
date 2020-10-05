@@ -37,8 +37,6 @@ public class SEDInitDataIntegrationTest extends TestUtils {
     public static void setUpClass() throws IOException, NamingException, JMSException {
 
         // ---------------------------------
-        // set logger
-        setLogger(SEDInitDataIntegrationTest.class.getSimpleName());
 
         // create initial context factory
         System.setProperty(Context.INITIAL_CONTEXT_FACTORY, InitialContextFactoryForTest.class.getName());

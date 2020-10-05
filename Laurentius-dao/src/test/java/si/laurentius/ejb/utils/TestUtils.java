@@ -5,7 +5,6 @@
 package si.laurentius.ejb.utils;
 
 import org.apache.activemq.junit.EmbeddedActiveMQBroker;
-import org.apache.log4j.*;
 import si.laurentius.commons.SEDSystemProperties;
 import si.laurentius.commons.utils.StorageUtils;
 import si.laurentius.ejb.SEDDaoBeanTest;
