@@ -105,7 +105,7 @@
             - org.apache.activemq.artemis.jms.client: 1.5.5  / latest 2.3.0
         -->
         <org.apache.santuario.xmlsec.version>2.0.6</org.apache.santuario.xmlsec.version>        
-        <org.bouncycastle.version>1.56</org.bouncycastle.version>
+        <org.bouncycastle.version>1.67</org.bouncycastle.version>
         <cxf-rt.version>3.1.6</cxf-rt.version>
         <org.apache.activemq.artemis-jms-client.version>1.5.5</org.apache.activemq.artemis-jms-client.version>
          
