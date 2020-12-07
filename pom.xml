@@ -111,7 +111,7 @@
          
         
         <!-- GUI latest primeface 6.1 -> dialog problem  -->
-        <org.primefaces.version>6.1</org.primefaces.version>
+        <org.primefaces.version>8.0</org.primefaces.version>
         <org.primefaces.extensions.version>6.1.1</org.primefaces.extensions.version>        
         <!-- unit testing
         -->      
