@@ -10,9 +10,6 @@
                             xmlns:xs="http://www.w3.org/2001/XMLSchema"
                             enableFailFastCheck="true"
         >
-                           
-                                
-             
             <jxb:javaType name="java.util.Date" xmlType="xs:date"
                           parseMethod="com.jrc.xml.DateAdapter.parseDate"
                           printMethod="com.jrc.xml.DateAdapter.printDate"/>
@@ -20,7 +17,7 @@
             <jxb:javaType name="java.util.Date" xmlType="xs:dateTime"
                           parseMethod="com.jrc.xml.DateAdapter.parseDateTime"
                           printMethod="com.jrc.xml.DateAdapter.printDateTime"/>
-            
+
             
             <jxb:javaType name="java.lang.Integer" xmlType="xs:int" />
 
@@ -28,7 +25,7 @@
             <!-- xjc:serializable / --> <!-- EJB 3.0. serializable -->
         </jxb:globalBindings>
         
-        <jxb:bindings schemaLocation="ebms-header-3_0-200704.xsd">
+        <jxb:bindings schemaLocation="../schemas/ebms-header-3_0-200704.xsd">
             <jxb:bindings node="//xs:attributeGroup[@name='headerExtension']/xs:attribute[@ref='S11:mustUnderstand']">
                 <jxb:property name="S11MustUnderstand"/>
             </jxb:bindings>

@@ -60,7 +60,13 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>                
         </dependency>
-        
+
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
           <!-- PDF signature-->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
