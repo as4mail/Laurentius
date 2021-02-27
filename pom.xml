@@ -63,11 +63,11 @@
         <codehaus.jaxws.plugin.version>2.6</codehaus.jaxws.plugin.version>
         <codehaus.jdepend.plugin.version>2.0</codehaus.jdepend.plugin.version>
         <codehaus.findbugs.plugin.version>3.0.5</codehaus.findbugs.plugin.version>        
-        <maven.checkstyle.plugin.version>3.1.1</maven.checkstyle.plugin.version>        
+        <maven.checkstyle.plugin.version>3.1.2</maven.checkstyle.plugin.version>        
         <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>                       
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>        
         <maven.dependency.plugin.version>3.1.2</maven.dependency.plugin.version>
-        <maven.ear.plugin.version>3.1.0</maven.ear.plugin.version>
+        <maven.ear.plugin.version>3.2.0</maven.ear.plugin.version>
         <maven.ejb.plugin.version>3.1.0</maven.ejb.plugin.version>
         <maven.war.plugin.version>3.3.1</maven.war.plugin.version>     
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
@@ -86,7 +86,7 @@
         <javax.javaee-api.version>8.0.1</javax.javaee-api.version>
         <javax.annotation.version>1.3.2 </javax.annotation.version>
         <log4j.version>2.13.3</log4j.version>
-        <org.apache.xmlgraphics.fop.version>2.5</org.apache.xmlgraphics.fop.version>
+        <org.apache.xmlgraphics.fop.version>2.6</org.apache.xmlgraphics.fop.version>
         <org.apache.pdfbox.version>2.0.22</org.apache.pdfbox.version>
        
         <!-- wildfly 10.1 dependecies / latest  21.10.2017
@@ -115,9 +115,9 @@
         -->      
         <org.apache.derby.version>10.14.1.0</org.apache.derby.version>
         <!--org.hibernate.version>4.2.6.Final</org.hibernate.version -->
-        <org.hibernate.version>5.4.27.Final</org.hibernate.version>
+        <org.hibernate.version>5.4.28.Final</org.hibernate.version>
         <junit.version>4.13.1</junit.version>
-        <org.apache.activemq.junit.version>5.16.0</org.apache.activemq.junit.version>      
+        <org.apache.activemq.junit.version>5.16.1</org.apache.activemq.junit.version>      
         <org.apache.activemq.core.version>5.7.0</org.apache.activemq.core.version> 
         <org.hamcrest.version>2.2</org.hamcrest.version>
         
@@ -529,7 +529,7 @@
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
-                        <version>6.0.2</version>
+                        <version>6.1.1</version>
                         <inherited>false</inherited>
                         <configuration>
                             <skipProvidedScope>true</skipProvidedScope>
