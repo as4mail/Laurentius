@@ -117,7 +117,7 @@
         <!--org.hibernate.version>4.2.6.Final</org.hibernate.version -->
         <org.hibernate.version>5.4.28.Final</org.hibernate.version>
         <junit.version>4.13.1</junit.version>
-        <org.apache.activemq.junit.version>5.16.0</org.apache.activemq.junit.version>      
+        <org.apache.activemq.junit.version>5.16.1</org.apache.activemq.junit.version>      
         <org.apache.activemq.core.version>5.7.0</org.apache.activemq.core.version> 
         <org.hamcrest.version>2.2</org.hamcrest.version>
         
