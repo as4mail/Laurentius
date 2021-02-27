@@ -95,7 +95,7 @@
             <PartyId type="urn:oasis:names:tc:ebcore:partyid-type:unregistered:si-svev:sed-box" valueSource="address"/>
             <TransportProtocol id="defalut" isTwoWayProtocol="true">
                 <Address connectionTimeout="120000" receiveTimeout="180000" chunked="false">https://127.0.0.1:8443/laurentius/msh</Address>
-                <TLS serverTrustCertAlias="test-tls" disableCNAndHostnameCheck="true"/>
+                <TLS serverTrustCertAlias="localhost" disableCNAndHostnameCheck="true"/>
                 <SOAPVersion>1.2</SOAPVersion>
             </TransportProtocol>
             <LocalPartySecurity signatureKeyAlias="test-as4mail" decryptionKeyAlias="test-as4mail"/>

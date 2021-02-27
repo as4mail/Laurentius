@@ -69,8 +69,15 @@
             <version>${project.version}</version>
             <scope>provided</scope>            
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <scope>provided</scope>
+            <type>pom</type>
+        </dependency>
         
-        <!-- GUI uses prifeaces componens --> 
+        <!-- GUI uses primefaces components -->
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
