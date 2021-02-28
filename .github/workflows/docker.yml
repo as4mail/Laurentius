@@ -19,11 +19,14 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build artefacts
         run: mvn -B clean verify
+
       - name: Build docker image
         # do not use docker/build-push-action@v2 because it cleans the repo
         # and did not find the property to disable that
-        run: docker build -f ./docker/Dockerfile -t warpsource/as4mail-dev:latest .
+        run: |
+            export AS4MAIL_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive  exec:exec)
+            docker build -f ./docker/Dockerfile -t warpsource/as4mail-dev:${AS4MAIL_VERSION:-latest} .
       - name: Push docker image
-        run: docker push warpsource/as4mail-dev:latest
+        run: docker push warpsource/as4mail-dev:${AS4MAIL_VERSION:-latest}
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
