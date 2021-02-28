@@ -74,6 +74,8 @@ import si.laurentius.outbox.property.OutProperty;
 public class WSClientExample {
 
   public static final String APPL_ID = "appl_1";
+  // This is just example. Secure password in production use
+  //NOSONAR
   public static final String APPL_PASSWORD = "appl1234";
 
   public static final String MAILBOX_ADDRESS

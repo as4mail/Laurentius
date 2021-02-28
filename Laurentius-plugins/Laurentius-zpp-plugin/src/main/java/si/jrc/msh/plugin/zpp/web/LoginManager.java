@@ -46,8 +46,8 @@ public class LoginManager implements Serializable {
 
   private static final SEDLogger mLog = new SEDLogger(LoginManager.class);
   private String mstrForwardUrl;
-  private String mstrPassword = "sed1234";
-  private String mstrUsername = "sed";
+  private String mstrPassword = null;
+  private String mstrUsername = null;
 
   private ExternalContext externalContext() {
     return facesContext().getExternalContext();

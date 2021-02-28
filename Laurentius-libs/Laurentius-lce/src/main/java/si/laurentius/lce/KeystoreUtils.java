@@ -20,12 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
-import java.security.Key;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableEntryException;
-import java.security.UnrecoverableKeyException;
+import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -700,7 +695,7 @@ public class KeystoreUtils {
   }
   
   public static String generateSecret(){
-      Random r = new Random(Calendar.getInstance().getTimeInMillis());
+      Random r = new SecureRandom();
       String secret = "";      
       while(secret.length() <  8) {
         secret+=strChars.charAt(r.nextInt(strChars.length()));
