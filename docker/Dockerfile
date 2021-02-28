@@ -1,9 +1,10 @@
-FROM jboss/wildfly
+FROM jboss/wildfly:19.1.0.Final
 
 ENV VERSION 2.0
-ENV SERVER_VERSION wildfly-11.0
+ENV SERVER_VERSION wildfly-19.1
 ENV LAU_PROJECT .
 ENV WILDFLY_HOME /opt/jboss/wildfly
+
 
 
 # si.laurentius module libralies
@@ -22,7 +23,7 @@ COPY $LAU_PROJECT/scripts/install/modules/org/  $WILDFLY_HOME/modules/org/
 ADD $LAU_PROJECT/scripts/install/$SERVER_VERSION/config/laurentius-roles.properties $WILDFLY_HOME/standalone/configuration/
 ADD $LAU_PROJECT/scripts/install/$SERVER_VERSION/config/laurentius-users.properties $WILDFLY_HOME/standalone/configuration/
 ADD $LAU_PROJECT/scripts/install/$SERVER_VERSION/config/standalone-laurentius.xml $WILDFLY_HOME/standalone/configuration/
-ADD $LAU_PROJECT/scripts/install/$SERVER_VERSION/config/test-tls-keystore.jks $WILDFLY_HOME/standalone/configuration/
+ADD $LAU_PROJECT/scripts/install/$SERVER_VERSION/config/test-tls-keystore.p12 $WILDFLY_HOME/standalone/configuration/
 
 
 
@@ -40,6 +41,7 @@ ADD $LAU_PROJECT/Laurentius-examples/example-web-plugin/target/example-web-plugi
 COPY $LAU_PROJECT/scripts/install/laurentius-home/  $WILDFLY_HOME/standalone/data/laurentius-home/
 
 ADD  $LAU_PROJECT/scripts/install/$SERVER_VERSION/laurentius-demo.sh  $WILDFLY_HOME/bin/
+ADD  $LAU_PROJECT/scripts/install/$SERVER_VERSION/laurentius-init.sh  $WILDFLY_HOME/bin/
 
 
 user root
@@ -47,7 +49,7 @@ RUN  cd $WILDFLY_HOME/modules/si/laurentius/main/ \
     && sed -i -- "s/VERSION/$VERSION/g" "module.xml"   \
     && chown -R jboss:jboss $WILDFLY_HOME/standalone/data    
 user jboss
-
+    
 
 # Set the default command to run on boot
-CMD ["/opt/jboss/wildfly/bin/laurentius-demo.sh", "--init", "-d", "test-laurentius.si"]
+CMD ["/opt/jboss/wildfly/bin/laurentius-init.sh", "--init", "-d", "test-laurentius.si", "-f"]

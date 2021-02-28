@@ -23,6 +23,8 @@ DB_INI_ACTION='create'
 
 # inet mask for access 0.0.0.0 - all access
 LISTEN_MASK=0.0.0.0
+FORCE_INIT=FALSE
+INIT=FALSE
 
 quit () {
 	echo "\nUsage:\n"
@@ -49,6 +51,9 @@ key="$1"
     ;;
     --init)
       INIT="TRUE"      
+    ;;
+    -f|--force)
+      FORCE_INIT="TRUE"
     ;;
    -d|--domain)
       LAU_DOMAIN="$2"
@@ -99,16 +104,16 @@ fi
 
 LAU_OPTS=" -c standalone-laurentius.xml -Dlaurentius.home=$LAU_HOME/ -Dlog4j2.configurationFile=$WILDFLY_HOME/standalone/configuration/log4j2.xml";
 
-if [ "$INIT" = "TRUE" ]; then
-	read -r -p "Init will recreate database tables if exists. All data in tables will be lost. Do you want to continue? (Enter Y to continue) " answer
-	case "$answer" in
-    	[yY][eE][sS]|[yY]) 
-    	    break;;
-    	*)
-    	    exit;;
-	esac
-
-
+if [ "$INIT" = "TRUE"  ]; then
+  if [ "$FORCE_INIT" = "FALSE"  ]; then
+    read -r -p "Init will recreate database tables if exists. All data in tables will be lost. Do you want to continue? (Enter Y to continue) " answer
+    case "$answer" in
+        [yY][eE][sS]|[yY])
+            echo "Recreate the database";;
+        *)
+            exit;;
+    esac
+	fi
 
 	if [ "x$LAU_DOMAIN" = "x" ]; then
 		echo "Missing domain for initialization! Put domain after --init parameter. Ex.: laurentios-demo.sh --init -d test-company.org"
