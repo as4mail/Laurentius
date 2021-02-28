@@ -1468,13 +1468,13 @@ public class SEDMailBox implements SEDMailBoxWS {
     SEDApplication cms = mdbLookups.getSEDApplicationById(authenticatedId);
     if (cms == null) {
       throw SEDRequestUtils.createSEDException(String.format(
-              "Application %s is not registred!", authenticatedId),
+              "Application [%s] is not registred!", authenticatedId),
               SEDExceptionCode.MISSING_DATA);
 
     }
     if (SEDRequestUtils.isNotValidMailAddress(box)) {
       throw SEDRequestUtils.createSEDException(String.format(
-              "box %s is not valid address!", box),
+              "box [%s] is not valid address!", box),
               SEDExceptionCode.MISSING_DATA);
     }
 
@@ -1487,7 +1487,7 @@ public class SEDMailBox implements SEDMailBoxWS {
     }
 
     throw SEDRequestUtils.createSEDException(String.format(
-            "Box %s is not assigned to application %s", box, authenticatedId),
+            "Box [%s] is not assigned to application [%s]", box, authenticatedId),
             SEDExceptionCode.MISSING_DATA);
 
   }

@@ -29,13 +29,9 @@ import si.laurentius.msh.outbox.mail.MSHOutMail;
  */
 public class Utils {
 
-  /**
-   * Thanks to:
-   * https://www.mkyong.com/regular-expressions/how-to-validate-email-address-with-regular-expression/
-   */
-  private static final Pattern EMAIL_PATTEREN = Pattern.compile(
-          "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-          + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+  // OWASP recommended email validation regex:
+  private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+
 
   /**
    *
@@ -132,7 +128,7 @@ public class Utils {
       return false;
     } else {
 
-      Matcher m = EMAIL_PATTEREN.matcher(strVal);
+      Matcher m = EMAIL_PATTERN.matcher(strVal);
       return m.matches();
     }
   }

@@ -54,6 +54,7 @@ public class TestLookupUtils {
   
   public static final StorageUtils S_STORAGE_UTIL  = new StorageUtils();
 
+  //NOSONAR
   public static Random RANDOM_VALUE = new Random(Calendar.getInstance().
           getTimeInMillis());
 
