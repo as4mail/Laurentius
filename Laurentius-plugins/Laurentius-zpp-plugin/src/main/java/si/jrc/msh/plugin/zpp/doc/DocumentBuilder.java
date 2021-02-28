@@ -118,10 +118,8 @@ public abstract class DocumentBuilder {
       throws SEDSecurityException {
     Document xDoc = null;
     try {
-        
-      javax.xml.parsers.DocumentBuilderFactory dbf =
-          XMLUtils.getSafeDocumentBuilderFactory();
-      javax.xml.parsers.DocumentBuilder db = dbf.newDocumentBuilder();
+
+      javax.xml.parsers.DocumentBuilder db = XMLUtils.getSafeDocumentBuilder();
       xDoc = db.newDocument();
 
       JAXBContext jc = JAXBContext.newInstance(cls);

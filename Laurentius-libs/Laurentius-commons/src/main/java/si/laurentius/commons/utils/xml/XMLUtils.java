@@ -125,33 +125,61 @@ public class XMLUtils {
     private static final ThreadLocal<SchemaFactory> DOC_SCHEMA_FACTORY = ThreadLocal.withInitial(() -> {
 
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        /*try {
+        try {
             schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
         } catch (SAXNotRecognizedException | SAXNotSupportedException | IllegalArgumentException ex) {
-            LOG.logError("Error occurred while initializing SchemaFactory. Cause message:", ex);
+            LOG.logError("Error occurred while initializing SchemaFactory. Cause message:" + ex.getMessage(), null);
         }
+        /*
         try {
             schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
         } catch (SAXNotRecognizedException | SAXNotSupportedException | IllegalArgumentException ex) {
             LOG.logError("Error occurred while initializing SchemaFactory. Cause message:", ex);
-        }*/
+        }
+
+         */
         return schemaFactory;
     });
 
     public static DocumentBuilderFactory getSafeDocumentBuilderFactory() throws ParserConfigurationException {
         DocumentBuilderFactory factory = DOC_BUILDER_FACTORY.get();
-        // XML parsers should not be vulnerable to XXE attacks
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
-        factory.setNamespaceAware(true);
-        factory.setFeature(PARSER_DISALLOW_DTD_PARSING_FEATURE, true);
+        try {
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_DTD + " property not supported by " + factory.getClass().getCanonicalName(), null);
+        }
+        try {
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_SCHEMA + " property not supported by " + factory.getClass().getCanonicalName(), null);
+        }
+        try {
+            factory.setNamespaceAware(true);
+            factory.setFeature(PARSER_DISALLOW_DTD_PARSING_FEATURE, true);
+            return factory;
+        } catch (ParserConfigurationException ex) {
+            LOG.logError("Error occurred while initializing DocumentBuilderFactory. Cause message:", ex);
+        }
         return factory;
+    }
+
+    public static DocumentBuilder getSafeDocumentBuilder() throws ParserConfigurationException {
+        return getSafeDocumentBuilderFactory().newDocumentBuilder();
     }
 
     public static TransformerFactory getSafeTransformerFactory() {
         TransformerFactory transformerFactory =  DOC_TRANSFORMER_FACTORY.get();
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        try {
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_DTD + " property not supported by " + transformerFactory.getClass().getCanonicalName(), null);
+        }
+
+        try {
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        } catch (IllegalArgumentException e) {
+            LOG.logWarn(XMLConstants.ACCESS_EXTERNAL_STYLESHEET + " property not supported by " + transformerFactory.getClass().getCanonicalName(), null);
+        }
         return transformerFactory;
     }
 
