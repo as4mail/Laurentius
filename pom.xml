@@ -5,7 +5,7 @@
     <groupId>si.vsrs.cif.sed</groupId>
     <artifactId>Laurentius</artifactId>
     <name>AS4Mail</name>
-    <version>2.0</version>
+    <version>2.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <organization>
@@ -117,7 +117,7 @@
         <org.primefaces.extensions.version>8.0.2</org.primefaces.extensions.version>        
         <!-- unit testing
         -->      
-        <org.apache.derby.version>10.14.1.0</org.apache.derby.version>
+        <org.apache.derby.version>10.15.2.0</org.apache.derby.version>
         <!--org.hibernate.version>4.2.6.Final</org.hibernate.version -->
         <org.hibernate.version>5.4.28.Final</org.hibernate.version>
         <junit.version>4.13.1</junit.version>
@@ -287,7 +287,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.derby</groupId>
-                <artifactId>derbyclient</artifactId>
+                <artifactId>derbytools</artifactId>
                 <version>${org.apache.derby.version}</version>
             </dependency>          
               

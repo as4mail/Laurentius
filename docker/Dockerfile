@@ -1,6 +1,6 @@
 FROM jboss/wildfly:19.1.0.Final
 
-ENV VERSION 2.0
+ENV VERSION 2.1.0-SNAPSHOT
 ENV SERVER_VERSION wildfly-19.1
 ENV LAU_PROJECT .
 ENV WILDFLY_HOME /opt/jboss/wildfly
@@ -46,7 +46,11 @@ ADD  $LAU_PROJECT/scripts/install/$SERVER_VERSION/laurentius-init.sh  $WILDFLY_H
 user root
 RUN  cd $WILDFLY_HOME/modules/si/laurentius/main/ \
     && sed -i -- "s/VERSION/$VERSION/g" "module.xml"   \
-    && chown -R jboss:jboss $WILDFLY_HOME/standalone/data    
+    && chown -R jboss:jboss $WILDFLY_HOME/standalone/data
+
+VOLUME /opt/jboss/wildfly/standalone/data/laurentius-home
+EXPOSE 8080 9990
+
 user jboss
     
 
