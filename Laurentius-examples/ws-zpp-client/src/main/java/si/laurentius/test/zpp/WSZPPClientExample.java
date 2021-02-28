@@ -75,10 +75,16 @@ public class WSZPPClientExample {
   public static final String S_KEY_NOT_REGISTRED_ALIAS = "test-zpp-sign-not-registred";
 
   public static final String S_KEYSTORE = "/keystore.p12";
+  // This is just example. Secure password in production use
+  //NOSONAR
   public static final String S_KEYSTORE_PASSWD = "passwd1234";
+  // This is just example. Secure password in production use
+  //NOSONAR
   public static final String S_KEY_PASSWD = "key1234";
 
   public static final String APPL_ID = "appl_1";
+  // This is just example. Secure password in production use
+  //NOSONAR
   public static final String APPL_PASSWORD = "appl1234";
 
   public static final String MAILBOX_ADDRESS
@@ -104,6 +110,8 @@ public class WSZPPClientExample {
         Authenticator.setDefault(new Authenticator() {
           @Override
           protected PasswordAuthentication getPasswordAuthentication() {
+            // This is just example. Secure password in production use
+            //NOSONAR
             return new PasswordAuthentication(APPL_ID, APPL_PASSWORD.
                     toCharArray());
           }
@@ -218,6 +226,8 @@ public class WSZPPClientExample {
     }
     
     ZPPUtils zpp = new ZPPUtils();
+    // This is just example. Secure password in production use
+    //NOSONAR
     OutMail omDA = zpp.createZppAdviceOfDelivery(im, S_KEYSTORE,
             S_KEYSTORE_PASSWD, singatureKey, S_KEY_PASSWD);
 

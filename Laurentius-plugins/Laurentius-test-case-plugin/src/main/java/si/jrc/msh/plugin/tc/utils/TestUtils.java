@@ -66,6 +66,7 @@ public class TestUtils {
           String recBox,
           String service, String action) {
 
+    //NOSONAR
     Random rnd = new Random(Calendar.getInstance().getTimeInMillis());
 
     return createOutMail(recBox, recName, senderBox,
@@ -82,6 +83,7 @@ public class TestUtils {
           String recBox,
           String service, String action, List<File> lstfiles) {
 
+    //NOSONAR
     Random rnd = new Random(Calendar.getInstance().getTimeInMillis());
 
     return createOutMail(recBox, recName, senderBox,
@@ -97,6 +99,7 @@ public class TestUtils {
           String recBox,
           String service, String action, File fName) {
 
+    //NOSONAR
     Random rnd = new Random(Calendar.getInstance().getTimeInMillis());
 
     return createOutMail(senderBox,

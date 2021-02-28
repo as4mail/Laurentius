@@ -22,7 +22,6 @@ import si.laurentius.SEDException;
 import si.laurentius.SEDExceptionCode;
 import si.laurentius.SEDException_Exception;
 import si.laurentius.commons.SEDSystemProperties;
-import si.laurentius.control.Control;
 import si.laurentius.outbox.mail.OutMail;
 import si.laurentius.outbox.payload.OutPart;
 import si.laurentius.commons.utils.Utils;
@@ -32,8 +31,10 @@ import si.laurentius.commons.utils.Utils;
  * @author Jože Rihtaršič
  */
 public class SEDRequestUtils {
+  // OWASP recommended email validation regex:
+  //https://owasp.org/www-community/OWASP_Validation_Regex_Repository
+  private static final Pattern EMAIL_PATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
 
-  private static final Pattern EMAIL_PATTEREN = Pattern.compile("^.+@.+(\\\\.[^\\\\.]+)+$");
 
   /**
    * Methods validate OutMail for missing data
@@ -126,7 +127,7 @@ public class SEDRequestUtils {
    * @return
    */
   public static boolean isNotValidMailAddress(String address) {
-    return address != null && EMAIL_PATTEREN.matcher(address).matches();
+    return address != null && !EMAIL_PATTERN.matcher(address).matches();
 
   }
 

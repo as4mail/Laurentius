@@ -99,7 +99,6 @@ public class XMLUtils {
             df.setNamespaceAware(true);
             df.setFeature(PARSER_DISALLOW_DTD_PARSING_FEATURE, true);
             return df;
-
         } catch (ParserConfigurationException ex) {
             LOG.logError("Error occurred while initializing DocumentBuilderFactory. Cause message:", ex);
         }
@@ -139,12 +138,21 @@ public class XMLUtils {
         return schemaFactory;
     });
 
-    public static DocumentBuilderFactory getSafeDocumentBuilderFactory() {
-        return DOC_BUILDER_FACTORY.get();
+    public static DocumentBuilderFactory getSafeDocumentBuilderFactory() throws ParserConfigurationException {
+        DocumentBuilderFactory factory = DOC_BUILDER_FACTORY.get();
+        // XML parsers should not be vulnerable to XXE attacks
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+        factory.setNamespaceAware(true);
+        factory.setFeature(PARSER_DISALLOW_DTD_PARSING_FEATURE, true);
+        return factory;
     }
 
     public static TransformerFactory getSafeTransformerFactory() {
-        return DOC_TRANSFORMER_FACTORY.get();
+        TransformerFactory transformerFactory =  DOC_TRANSFORMER_FACTORY.get();
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+        transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        return transformerFactory;
     }
 
     public static void clean() {
@@ -164,7 +172,7 @@ public class XMLUtils {
     public static Document bytesToDom(byte[] xml)
             throws SAXException, ParserConfigurationException,
             IOException {
-        DocumentBuilder builder = DOC_BUILDER_FACTORY.get().newDocumentBuilder();
+        DocumentBuilder builder = getSafeDocumentBuilderFactory().newDocumentBuilder();
         return builder.parse(new ByteArrayInputStream(xml));
 
     }
@@ -239,7 +247,7 @@ public class XMLUtils {
         JAXBContext jc = JAXBContext.newInstance(cls);
 
         if (xsltSource != null) {
-            Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(new StreamSource(xsltSource));
+            Transformer transformer = getSafeTransformerFactory().newTransformer(new StreamSource(xsltSource));
 
             JAXBResult result = new JAXBResult(jc);
             transformer.transform(new DOMSource(elmnt), result);
@@ -268,7 +276,7 @@ public class XMLUtils {
         JAXBContext jc = JAXBContext.newInstance(cls);
 
         if (xsltSource != null) {
-            Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(new StreamSource(xsltSource));
+            Transformer transformer = getSafeTransformerFactory().newTransformer(new StreamSource(xsltSource));
 
             JAXBResult result = new JAXBResult(jc);
             transformer.transform(new StreamSource(source), result);
@@ -291,7 +299,7 @@ public class XMLUtils {
             throws IOException,
             ParserConfigurationException, SAXException {
 
-        DocumentBuilder builder = DOC_BUILDER_FACTORY.get().newDocumentBuilder();
+        DocumentBuilder builder = getSafeDocumentBuilderFactory().newDocumentBuilder();
         return builder.parse(xmlIS);
     }
 
@@ -345,9 +353,9 @@ public class XMLUtils {
             ParserConfigurationException, SAXException, IOException {
         Document obj;
 
-        DocumentBuilder builder = DOC_BUILDER_FACTORY.get().newDocumentBuilder();
+        DocumentBuilder builder = getSafeDocumentBuilderFactory().newDocumentBuilder();
         if (xsltSource != null) {
-            Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(new StreamSource(xsltSource));
+            Transformer transformer = getSafeTransformerFactory().newTransformer(new StreamSource(xsltSource));
             obj = builder.newDocument();
             Result result = new DOMResult(obj);
             transformer.transform(new StreamSource(source), result);
@@ -366,7 +374,7 @@ public class XMLUtils {
     public static String format(String unformattedXml) {
         String xmlString = null;
         try {
-            Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer();
+            Transformer transformer = getSafeTransformerFactory().newTransformer();
             transformer.setOutputProperty(INDENT, "yes");
             // initialize StreamResult with File object to save to file
             StreamResult result = new StreamResult(new StringWriter());
@@ -392,7 +400,7 @@ public class XMLUtils {
     public static synchronized String getElementValue(InputStream source,
             InputStream xsltSource)
             throws TransformerConfigurationException, JAXBException, TransformerException {
-        Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(new StreamSource(xsltSource));
+        Transformer transformer = getSafeTransformerFactory().newTransformer(new StreamSource(xsltSource));
         StringWriter sw = new StringWriter();
         StreamResult result = new StreamResult(sw);
         transformer.transform(new StreamSource(source), result);
@@ -409,7 +417,7 @@ public class XMLUtils {
     public static Document jaxbToDocument(Object obj)
             throws JAXBException,
             ParserConfigurationException {
-        DocumentBuilder db = DOC_BUILDER_FACTORY.get().newDocumentBuilder();
+        DocumentBuilder db = getSafeDocumentBuilderFactory().newDocumentBuilder();
         Document doc = db.newDocument();
         // Marshal the Object to a Document
         final Marshaller m = JAXBContext.newInstance(obj.getClass()).
@@ -559,7 +567,7 @@ public class XMLUtils {
             throws StorageException {
 
         try {
-            DOC_TRANSFORMER_FACTORY.get().newTransformer().transform(
+            getSafeTransformerFactory().newTransformer().transform(
                     doc,
                     new StreamResult(f));
         } catch (TransformerException e) {
@@ -599,8 +607,8 @@ public class XMLUtils {
             ParserConfigurationException, SAXException, IOException {
         Document obj = null;
         if (xsltSource != null) {
-            Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(new StreamSource(xsltSource));
-            obj = DOC_BUILDER_FACTORY.get().newDocumentBuilder().newDocument();
+            Transformer transformer = getSafeTransformerFactory().newTransformer(new StreamSource(xsltSource));
+            obj = getSafeDocumentBuilderFactory().newDocumentBuilder().newDocument();
             Result result = new DOMResult(obj);
             transformer.transform(new DOMSource(source), result);
         }
@@ -612,7 +620,7 @@ public class XMLUtils {
             throws TransformerConfigurationException, JAXBException, TransformerException,
             ParserConfigurationException, SAXException, IOException {
 
-        Transformer transformer = DOC_TRANSFORMER_FACTORY.get().newTransformer(
+        Transformer transformer = getSafeTransformerFactory().newTransformer(
                 new StreamSource(xsltSource));
         transformer.transform(new DOMSource(source), new StreamResult(fileResult));
 

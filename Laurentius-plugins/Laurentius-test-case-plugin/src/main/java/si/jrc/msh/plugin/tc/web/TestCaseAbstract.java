@@ -139,6 +139,7 @@ public class TestCaseAbstract {
   }
   
   public List<File> getTestFiles(){
+    //NOSONAR
     Random rnd = new Random(Calendar.getInstance().getTimeInMillis());
     return mtUtils.getRandomFiles(2, 5, rnd);
   }
