@@ -30,6 +30,6 @@ jobs:
             export AS4MAIL_VERSION=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive  exec:exec)
             docker build -f ./docker/Dockerfile -t warpsource/as4mail-dev:latest -t warpsource/as4mail-dev:${AS4MAIL_VERSION:-noversion} .
             docker push warpsource/as4mail-dev:${AS4MAIL_VERSION:-noversion}
-          docker push warpsource/as4mail-dev:latest
+            docker push warpsource/as4mail-dev:latest
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
