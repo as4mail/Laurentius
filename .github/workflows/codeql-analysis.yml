@@ -12,11 +12,11 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: [ develop-as4mail, develop-* ]
-  pull_request:
+#  push:
+  #    branches: [ develop-as4mail, develop-* ]
+  #  pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ develop-as4mail ]
+  #  branches: [ develop-as4mail ]
   schedule:
     - cron: '21 9 * * 4'
 
