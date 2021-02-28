@@ -36,7 +36,6 @@ ADD $LAU_PROJECT/Laurentius-app/Laurentius-web/target/laurentius-web.war $WILDFL
 ADD $LAU_PROJECT/Laurentius-plugins/Laurentius-zpp-plugin/target/plugin-zpp.war $WILDFLY_HOME/standalone/deployments/
 ADD $LAU_PROJECT/Laurentius-plugins/Laurentius-basic-plugin/target/plugin-basic.war $WILDFLY_HOME/standalone/deployments/
 ADD $LAU_PROJECT/Laurentius-plugins/Laurentius-test-case-plugin/target/plugin-testcase.war $WILDFLY_HOME/standalone/deployments/
-ADD $LAU_PROJECT/Laurentius-examples/example-web-plugin/target/example-web-plugin.war $WILDFLY_HOME/standalone/deployments/
 # copy laurentius home
 COPY $LAU_PROJECT/scripts/install/laurentius-home/  $WILDFLY_HOME/standalone/data/laurentius-home/
 
