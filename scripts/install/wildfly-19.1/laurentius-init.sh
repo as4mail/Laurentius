@@ -98,7 +98,12 @@ if [ ! -d "$WILDFLY_HOME" ]; then
 	quit;
 fi
 
-if [ "x$LAU_HOME" = "x" ]; then
+if [ ! -f "$WILDFLY_HOME/standalone/data/laurentius-db.mv.db" ]; then
+	echo "Database does not exists - set to INIT=TRUE"
+	INIT="TRUE"
+fi
+
+if [  ! -f "$WILDFLY_HOME"  ]; then
 	LAU_HOME="$WILDFLY_HOME/standalone/data/laurentius-home";
 fi
 
