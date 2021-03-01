@@ -55,4 +55,4 @@ user jboss
     
 
 # Set the default command to run on boot
-CMD ["/opt/jboss/wildfly/bin/laurentius-init.sh", "--init", "-d", "test-laurentius.si", "-f"]
+CMD ["/opt/jboss/wildfly/bin/laurentius-init.sh", "-d", "test.as4mail.com", "-f"]
