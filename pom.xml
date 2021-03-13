@@ -113,7 +113,7 @@
         <cxf-rt.version>3.4.2</cxf-rt.version>
         <org.apache.activemq.artemis-jms-client.version>2.17.0</org.apache.activemq.artemis-jms-client.version>
         
-        <org.primefaces.version>8.0</org.primefaces.version>
+        <org.primefaces.version>10.0.0</org.primefaces.version>
         <org.primefaces.extensions.version>8.0.2</org.primefaces.extensions.version>        
         <!-- unit testing
         -->      
