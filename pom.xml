@@ -90,7 +90,7 @@
         <org.apache.pdfbox.version>2.0.22</org.apache.pdfbox.version>
 
         <javax.xml.ws.jaxws-api.version>2.3.1</javax.xml.ws.jaxws-api.version>
-        <com.sun.xml.ws.jaxws-rt.version>2.3.1</com.sun.xml.ws.jaxws-rt.version>
+        <com.sun.xml.ws.jaxws-rt.version>3.0.0</com.sun.xml.ws.jaxws-rt.version>
         <javax.xml.bind.jaxb-api.version>2.4.0-b180830.0359</javax.xml.bind.jaxb-api.version>
         <javax.xml.soap-api.version>1.4.0</javax.xml.soap-api.version>
        
